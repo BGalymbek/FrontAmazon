@@ -11,22 +11,22 @@ sudo mkdir -p /var/www/html/myapp
 
 echo "cloning the latest version of the code"
 # Убедитесь, что у вас есть доступ к вашему репозиторию
-git clone https://github.com/BGalymbek/FrontAmazon.git /var/www/html/myapp
+sudo git clone https://github.com/BGalymbek/FrontAmazon.git /var/www/html/myapp
 
-cd /var/www/html/myapp
+sudo cd /var/www/html/myapp
 
 echo "installing node and npm"
 # Установка Node.js и npm, если они еще не установлены
 if ! command -v node > /dev/null; then
-    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    sudo curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
     sudo apt-get install -y nodejs
 fi
 
 echo "installing project dependencies"
-npm install
+sudo npm install
 
 echo "building the project"
-npm run build
+sudo npm run build
 
 echo "moving build to root directory"
 sudo mv build/* /var/www/html/
@@ -56,6 +56,8 @@ server {
 EOF'
 
     sudo systemctl restart nginx
+    sudo systemctl status nginx
+
 else
     echo "Nginx configuration already exists."
 fi
