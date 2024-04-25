@@ -16,6 +16,10 @@ sudo mv env .env
 # Remove old Nginx configuration if it exists
 sudo rm -f /etc/nginx/sites-available/myapp
 
+sudo apt-get remove libnode-dev -y
+sudo apt-get install -f
+
+
 # Install Node.js from NodeSource
 echo "Configuring NodeSource repository..."
 curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
@@ -58,19 +62,17 @@ fi
 echo "Starting Node.js app with PM2..."
 sudo pm2 start app.js --name "myapp"
 
-# Start serving the React app with PM2
+# Start the React app with PM2 to serve static files
 echo "Starting React app with PM2..."
-sudo pm2 start serve --name "react-app" -- -s build -l 3000
+sudo pm2 start serve --name "react-app" -- -s /var/www/frontamazon/build -l 3000
 
 # Setup PM2 to restart on system boot
 echo "Setting up PM2 to restart on system boot..."
 sudo pm2 save
 sudo pm2 startup
 
-echo "Starting pm2..."
-sudo pm2 start npm -- start
-
-echo "started pm2 containers"
+# Display pm2 managed processes
+echo "PM2 managed processes:"
 sudo pm2 ps
 
 echo "Deployment is completed 🚀"
