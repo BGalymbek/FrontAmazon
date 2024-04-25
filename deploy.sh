@@ -13,13 +13,14 @@ echo "cloning the latest version of the code"
 # Убедитесь, что у вас есть доступ к вашему репозиторию
 sudo git clone https://github.com/BGalymbek/FrontAmazon.git /var/www/html/myapp
 
-sudo cd /var/www/html/myapp
+cd /var/www/html/myapp
 
 echo "installing node and npm"
 # Установка Node.js и npm, если они еще не установлены
 if ! command -v node > /dev/null; then
-    sudo curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
     sudo apt-get install -y nodejs
+
 fi
 
 echo "installing project dependencies"
