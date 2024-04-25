@@ -58,11 +58,15 @@ server {
 EOF'
 
     sudo systemctl restart nginx
-    sudo systemctl status nginx
+    
 
 else
     echo "Nginx configuration already exists."
 fi
+
+sudo systemctl status nginx
+cd /var/www/html/myapp
+sudo npm start
 
 echo "Deployment is completed 🚀"
 
