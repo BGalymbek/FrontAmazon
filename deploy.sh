@@ -21,14 +21,23 @@ sudo apt-get install -f
 
 
 # Install Node.js from NodeSource
-echo "Configuring NodeSource repository..."
+# echo "Configuring NodeSource repository..."
+# curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+# echo "Installing Node.js..."
+# sudo apt-get install -y nodejs
+
+sudo apt-get remove nodejs npm libnode-dev -y
+sudo apt-get install -f
 curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-echo "Installing Node.js..."
 sudo apt-get install -y nodejs
+sudo apt-get install -y npm
+
 
 # Install PM2
 echo "Installing PM2..."
 sudo npm install -g pm2
+sudo npm install -g serve
+
 
 echo "Installing application dependencies..."
 sudo npm install
@@ -58,6 +67,8 @@ else
     echo "Nginx reverse proxy configuration already exists."
 fi
 
+sudo npm run build
+
 sudo apt install npm
 echo "Stopping and deleting existings serves"
 sudo pm2 stop react-app
@@ -78,11 +89,11 @@ sudo pm2 startup
 echo "PM2 managed processes:"
 sudo pm2 ps
 
-sudo npm install serve -g 
-# Starting with nohup
-echo "Starting with nohup"
-sudo serve -s build -l 4000
-sudo nohup bash -c 'npm start'
+# sudo npm install serve -g 
+# # Starting with nohup
+# echo "Starting with nohup"
+# sudo serve -s build -l 4000
+# sudo nohup bash -c 'npm start'
 
 echo "Deployment is completed 🚀"
 
