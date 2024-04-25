@@ -13,10 +13,11 @@ sudo mv * /var/www/frontamazon
 cd /var/www/frontamazon/
 sudo mv env .env
 
-# Remove old Nginx and Node configurations
-sudo rm -f /etc/nginx/sites-available/myapp
-sudo apt-get remove --purge nodejs npm libnode-dev -y
+# Remove existing Node.js and NPM installations, cleanup
+sudo apt-get remove --purge nodejs npm -y
 sudo apt-get autoremove -y
+sudo apt-get clean
+sudo apt-get autoclean
 
 # Clean APT cache and fix broken dependencies
 sudo apt-get clean
@@ -46,6 +47,8 @@ sudo apt-get update
 echo "Installing Nginx..."
 sudo apt-get install -y nginx
 
+sudo rm /etc/nginx/sites-available/myapp
+
 # Configure Nginx to act as a reverse proxy
 if [ ! -f /etc/nginx/sites-available/myapp ]; then
     sudo rm -f /etc/nginx/sites-enabled/default
@@ -54,8 +57,12 @@ server {
     listen 80;
     server_name _;
     location / {
-        include proxy_params;
-        proxy_pass http://unix:/var/www/frontamazon/myapp.sock;
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
     }
 }
 EOF'
