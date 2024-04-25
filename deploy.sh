@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "deleting old app"
+echo "Deleting old app..."
 sudo rm -rf /var/www/
 
 echo "Creating app folder..."
@@ -13,31 +13,29 @@ sudo mv * /var/www/frontamazon
 cd /var/www/frontamazon/
 sudo mv env .env
 
-# Remove old Nginx configuration if it exists
+# Remove old Nginx and Node configurations
 sudo rm -f /etc/nginx/sites-available/myapp
+sudo apt-get remove --purge nodejs npm libnode-dev -y
+sudo apt-get autoremove -y
 
-sudo apt-get remove libnode-dev -y
-sudo apt-get install -f
-
+# Clean APT cache and fix broken dependencies
+sudo apt-get clean
+sudo apt-get autoclean
+sudo apt-get -f install
 
 # Install Node.js from NodeSource
-# echo "Configuring NodeSource repository..."
-# curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-# echo "Installing Node.js..."
-# sudo apt-get install -y nodejs
-
-sudo apt-get remove nodejs npm libnode-dev -y
-sudo apt-get install -f
+echo "Configuring NodeSource repository..."
 curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+echo "Installing Node.js..."
 sudo apt-get install -y nodejs
+
+# Ensure npm is installed
+echo "Installing npm..."
 sudo apt-get install -y npm
 
-
-# Install PM2
-echo "Installing PM2..."
-sudo npm install -g pm2
-sudo npm install -g serve
-
+# Install PM2 and Serve
+echo "Installing PM2 and Serve..."
+sudo npm install -g pm2 serve
 
 echo "Installing application dependencies..."
 sudo npm install
@@ -67,33 +65,24 @@ else
     echo "Nginx reverse proxy configuration already exists."
 fi
 
+echo "Building React application..."
 sudo npm run build
 
-sudo apt install npm
-echo "Stopping and deleting existings serves"
+echo "Stopping and deleting existing serves..."
 sudo pm2 stop react-app
 sudo pm2 delete react-app
 
-
 # Start serving the React app with PM2
 echo "Starting React app with PM2..."
-sudo pm2 start serve --name "react-app" -- -s /var/www/frontamazon -l 3000
+sudo pm2 start serve --name "react-app" -- -s /var/www/frontamazon/build -l 3000
 
 # Setup PM2 to restart on system boot
 echo "Setting up PM2 to restart on system boot..."
 sudo pm2 save
 sudo pm2 startup
 
-
 # Display pm2 managed processes
 echo "PM2 managed processes:"
 sudo pm2 ps
 
-# sudo npm install serve -g 
-# # Starting with nohup
-# echo "Starting with nohup"
-# sudo serve -s build -l 4000
-# sudo nohup bash -c 'npm start'
-
 echo "Deployment is completed 🚀"
-
