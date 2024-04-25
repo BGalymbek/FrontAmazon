@@ -8,6 +8,8 @@ sudo rm -rf /var/www/html/*
 
 echo "creating app folder"
 sudo mkdir -p /var/www/html/myapp
+sudo chown -R $EC2_USERNAME:$EC2_USERNAME /var/www/html/myapp
+
 
 
 echo "cloning the latest version of the code"
