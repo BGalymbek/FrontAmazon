@@ -58,9 +58,12 @@ else
     echo "Nginx reverse proxy configuration already exists."
 fi
 
-sudo pm2 stop 0
-sudo pm2 stop 1
-sudo pm2 stop 2
+sudo apt install npm
+echo "Stopping and deleting existings serves"
+sudo pm2 stop react-app
+sudo pm2 delete react-app
+
+
 # Start serving the React app with PM2
 echo "Starting React app with PM2..."
 sudo pm2 start serve --name "react-app" -- -s /var/www/frontamazon -l 3000
@@ -74,6 +77,12 @@ sudo pm2 startup
 # Display pm2 managed processes
 echo "PM2 managed processes:"
 sudo pm2 ps
+
+sudo npm install serve -g 
+# Starting with nohup
+echo "Starting with nohup"
+sudo serve -s build -l 4000
+sudo nohup bash -c 'npm start'
 
 echo "Deployment is completed 🚀"
 
