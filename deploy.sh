@@ -17,16 +17,17 @@ sudo mv env .env
 sudo rm -f /etc/nginx/sites-available/myapp
 
 # Check if Node.js is installed, install if not
-if ! command -v node > /dev/null; then
-    echo "Installing Node.js..."
-    sudo apt-get install -y nodejs
-fi
+
+echo "Installing Node.js..."
+sudo apt-get install -y nodejs
+
 
 # Check if NPM is installed, install if not
-if ! command -v npm > /dev/null; then
-    echo "Installing npm..."
-    sudo apt-get install -y npm
-fi
+
+echo "Installing npm..."
+sudo apt-get install -y npm
+sudo apt install npm
+
 
 
 echo "Installing server dependencies..."
@@ -40,11 +41,11 @@ sudo npm install
 
 
 # Update and install Nginx if not already installed
-if ! command -v nginx > /dev/null; then
-    echo "Installing Nginx..."
-    sudo apt-get update
-    sudo apt-get install -y nginx
-fi
+
+echo "Installing Nginx..."
+sudo apt-get update
+sudo apt-get install -y nginx
+
 
 # Configure Nginx to serve the React application
 # if [ ! -f /etc/nginx/sites-available/myapp ]; then
