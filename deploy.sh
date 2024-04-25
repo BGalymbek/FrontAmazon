@@ -89,7 +89,6 @@ echo "Setting up PM2 to restart on system boot..."
 sudo pm2 save
 sudo pm2 startup
 
-
 # Display pm2 managed processes
 echo "PM2 managed processes:"
 sudo pm2 ps
