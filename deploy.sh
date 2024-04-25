@@ -25,7 +25,7 @@ sudo apt-get -f install
 
 # Install Node.js from NodeSource
 echo "Configuring NodeSource repository..."
-curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 echo "Installing Node.js..."
 sudo apt-get install -y nodejs
 
@@ -67,6 +67,7 @@ fi
 
 echo "Building React application..."
 sudo npm run build
+sudo npm install
 
 echo "Stopping and deleting existing serves..."
 sudo pm2 stop react-app
