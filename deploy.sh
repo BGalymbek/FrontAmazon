@@ -24,11 +24,19 @@ if ! command -v node > /dev/null; then
 
 fi
 
+npm install react-scripts@latest
+
 echo "installing project dependencies"
+sudo rm -rf node_modules
+sudo rm package-lock.json
 sudo npm install
+sudo npm install pm2@latest -g
+
 
 echo "building the project"
 sudo npm run build
+sudo pm2 serve build/ 80 --spa
+
 
 echo "moving build to root directory"
 sudo mv build/* /var/www/html/
@@ -66,7 +74,7 @@ fi
 
 sudo systemctl status nginx
 cd /var/www/html/myapp
-sudo npm start
+sudo pm2 save
+sudo pm2 startup
 
 echo "Deployment is completed 🚀"
-
