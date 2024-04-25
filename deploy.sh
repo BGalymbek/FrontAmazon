@@ -58,18 +58,18 @@ else
     echo "Nginx reverse proxy configuration already exists."
 fi
 
-# Start the Node.js app with PM2
-echo "Starting Node.js app with PM2..."
-sudo pm2 start app.js --name "myapp"
-
-# Start the React app with PM2 to serve static files
+sudo pm2 stop 0
+sudo pm2 stop 1
+sudo pm2 stop 2
+# Start serving the React app with PM2
 echo "Starting React app with PM2..."
-sudo pm2 start serve --name "react-app" -- -s /var/www/frontamazon/build -l 3000
+sudo pm2 start serve --name "react-app" -- -s /var/www/frontamazon -l 3000
 
 # Setup PM2 to restart on system boot
 echo "Setting up PM2 to restart on system boot..."
 sudo pm2 save
 sudo pm2 startup
+
 
 # Display pm2 managed processes
 echo "PM2 managed processes:"
