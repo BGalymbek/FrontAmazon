@@ -5,7 +5,8 @@ FROM node:16-alpine
 WORKDIR .
 
 # Копируйте файлы, связанные с зависимостями, и установите зависимости
-COPY package.json yarn.lock ./
+COPY package.json package-lock.json ./
+
 RUN yarn install --frozen-lockfile
 
 # Копируйте остальные файлы проекта в контейнер
