@@ -97,7 +97,7 @@ jobs:
           EC2_HOST: ${{ secrets.EC2_HOST }}
           EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
         run: |
-          ssh $EC2_USERNAME@$EC2_HOST "docker pull krasav4ik01/frontamazon:latest && docker stop myapp || true && docker rm myapp || true && docker run -d --name myapp -p 3000:3000 krasav4ik01/frontamazon:latest"
+          ssh $EC2_USERNAME@$EC2_HOST "docker pull krasav4ik01/frontamazon:latest && docker stop myapp || true && docker rm myapp || true && docker run -d --name myapp -p 80:3000 krasav4ik01/frontamazon:latest"
 
       - name: Clean up SSH key 🚀
         if: always()
