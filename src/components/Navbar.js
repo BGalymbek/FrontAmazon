@@ -3,15 +3,19 @@ import AuthContext from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
-export default function Navbar({selectedBlock}) {
+export default function Navbar() {
   const { authTokens, logoutUser } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [isStaff, setStaff] = useState("");
-  const [bookingIsHas, setBookingIsHas] = useState("");
   const navigate = useNavigate();
 
-  const isDisabled = selectedBlock !== null;
+//   const isDisabled = selectedBlock !== null;
   let menu = document.getElementById('burger-menu')
+  let userBookedEarlier = JSON.parse(localStorage.getItem('userBookedEarlier'))
+  let userProfile = JSON.parse(localStorage.getItem('userProfile'))
+
+//   console.log("UserProfie:", userProfile);
+//   console.log("UserBookerEarlier:", userBookedEarlier);
 
   useEffect(() => {
     if (authTokens) {
@@ -27,17 +31,34 @@ export default function Navbar({selectedBlock}) {
     
   const handleClickBookNow = async ()=> {
       // Выполняем GET запрос
-      const getResponse = await axios.get('get-bookings/', {
+      const getResponse = await axios.get('documents/get/', {
         headers: {
             'Authorization': `Bearer ${authTokens.access}`,
         }
     });
 
-      setBookingIsHas(getResponse.data)
-      console.log(getResponse.data);
+      const res = getResponse.data[0]
+      console.log("Documents get: ", res);
 
-      if(getResponse.data == ''){
-          navigate('/booking')    
+      if(userBookedEarlier == ''){
+            if(userProfile.is_doc_submitted == false){
+                let messageDocSubmissionTxt = 'you must first submit the documents to the Dorm administration!';
+                localStorage.setItem('messageDocSubm', messageDocSubmissionTxt)
+                navigate('/oops');
+            }else{
+                    if(res && res.hasOwnProperty('is_verified')){
+                        const userDocVerified = res.is_verified
+                        if(userDocVerified == true){
+                            navigate('/booking') 
+                        }else{
+                            let messageDocSubmissionTxt = 'the Dorm administration must verify your documents';
+                            localStorage.setItem('messageDocSubm', messageDocSubmissionTxt)
+                            navigate('/oops');
+                        }
+                    }else{
+                        console.log('Ключ is_verified отсутствует или массив пуст.');
+                    }
+            }
       }else{
           navigate('/my-booking');
       }
@@ -47,11 +68,11 @@ export default function Navbar({selectedBlock}) {
     <nav className="nav">
         <div className="wrapper navbar-content">
           <div className="logo-nav">
-              <a href='/main-page'><img src={require('../img/logo-nav.png')} alt="logo" disabled={isDisabled}/></a>
+              <a href='/main-page'><img src={require('../img/logo-nav.png')} alt="logo"/></a>
           </div>
           <div className="navbar">
               <ul className="navbar-items">
-                  <li><a href="/main-page" disabled={isDisabled}>Home Page</a></li>
+                  <li><a href="/main-page">Home Page</a></li>
                   <li><a href="">Rooms</a></li>
                   <li><a onClick={()=>handleClickBookNow()}>Booking</a></li>
                   <li><a href="">News</a></li>

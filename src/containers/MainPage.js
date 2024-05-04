@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState }  from 'react'
 import Navbar from '../components/Navbar'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import axios from 'axios'
 
 export default function MainPage() {
     const { authTokens } = useContext(AuthContext)
-    const navigate = useNavigate();
-    const [messageDocSubmission, setMessageDocSubmission] =useState('')
+
     const [userBookedEarlier, setUserBookedEarlier] = useState('')
     const [userProfile, setUserProfile] = useState('')
+
+    const navigate = useNavigate();
 
     const handleClickBookNow = async ()=> {
         const response = await axios.get('documents/get/', {
@@ -22,21 +23,16 @@ export default function MainPage() {
         console.log("Doc is submitted: ", userProfile.is_doc_submitted);
 
         if(userProfile.is_doc_submitted == false){
-            let messageDocSubmissionTxt = ''; // Инициализация переменной
-            setMessageDocSubmission('you must first submit the documents to the Dorm administration!')
-            messageDocSubmissionTxt = 'you must first submit the documents to the Dorm administration!'
+            let messageDocSubmissionTxt = 'you must first submit the documents to the Dorm administration!';
             localStorage.setItem('messageDocSubm', messageDocSubmissionTxt)
             navigate('/oops');
         }else{
             if(res && res.hasOwnProperty('is_verified')){
-                const userDocVerified = res.is_verified
-                console.log("Is verified: ", userDocVerified);
+                const userDocVerified = res.is_verified;
                 if(userDocVerified == true){
                     navigate('/booking') 
                 }else{
-                    let messageDocSubmissionTxt = ''; // Инициализация переменной
-                    setMessageDocSubmission('the Dorm administration must verify your documents')
-                    messageDocSubmissionTxt = 'the Dorm administration must verify your documents'
+                    let messageDocSubmissionTxt = 'the Dorm administration must verify your documents';
                     localStorage.setItem('messageDocSubm', messageDocSubmissionTxt)
                     navigate('/oops');
                 }
@@ -68,6 +64,7 @@ export default function MainPage() {
 
         fetchData(); // Вызов функции для выполнения запроса при загрузке компонента
     }, []);
+    localStorage.setItem('userBookedEarlier', JSON.stringify(userBookedEarlier))
 
     useEffect(() => {
         const fetchProfile = async ()=> {
@@ -89,8 +86,9 @@ export default function MainPage() {
         }
         fetchProfile();
     }, []);
+    localStorage.setItem('userProfile', JSON.stringify(userProfile))
 
-    console.log(userProfile.is_doc_submitted);
+    // console.log(userProfile.is_doc_submitted);
 
   return (
     <div className='main-page'>
