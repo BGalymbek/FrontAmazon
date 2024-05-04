@@ -19,11 +19,6 @@ main{
   flex-direction: row;
 }
 
-.nav{
-  /* position: fixed; */
-  /* width: 100%; */
-}
-
 .main-page{
   background-color: #fff;
 }
@@ -346,8 +341,7 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
   flex-direction: row;
   justify-content: space-between;
   gap: 24px;
-  /* padding: 57px 144px; */
-  padding-top: 57px;
+  padding-top: 140px;
   padding-right: 144px;
   padding-left: 144px;
   padding-bottom: 76px;
@@ -358,6 +352,7 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 .submission-item{
   text-align: left;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .submission-item:nth-child(4){
@@ -375,10 +370,13 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 
 .custom-file-input {
   position: relative;
-  /* overflow: hidden; */
-  padding: 12px 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
   border: 2px solid #212153;
-  width: 120px;
+  width: fit-content;
+  max-width: 100%;
   margin-top: 12px;
   border-radius:8px;
   display: flex;
@@ -386,6 +384,11 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
   gap: 15px;
   color: #212153;
 }
+
+.custom-file-input p{
+  max-width: 100%;
+}
+
 
 .custom-file-input img{
   width: 24px;
@@ -445,7 +448,7 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 }
 
 .submission-material>div{
-  padding-bottom: 50px;
+  padding-bottom: 50px !important;
   box-sizing: border-box;
 }
 
@@ -504,7 +507,10 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
+  width: 85%;
+  margin: 0 auto;
 }
 
 .submission-material>div h2{
@@ -570,7 +576,10 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 .booking-content{
   display: flex;
   flex-direction: row;
-  padding: 57px 144px 76px; 
+  padding-left: 144px;
+  padding-right: 144px;
+  padding-bottom: 76px;
+  padding-top: 140px; 
 }
 
 .booking-system>div{
@@ -588,6 +597,7 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
   font-size: 14px;
   text-align: center;
   color: #212153B2;
+  box-shadow: 0px 16px 74px -30px #00000066;
 }
 
 .booking-system{
@@ -946,7 +956,7 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 .background-of-confirmation{
   width: 68%;
   margin: 0 auto;
-  margin-top: 57px;
+  margin-top: 140px;
   margin-bottom: 76px;
   background-color: #fff;
   padding: 69px 74px 100px 80px;
@@ -1140,6 +1150,7 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
   display: block;
   background-color: #EAFAFF;
   padding-bottom: 76px;
+  padding-top: 140px;
 }
 
 .background-payment{
@@ -1149,7 +1160,6 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
   padding: 69px 74px 130px 74px;
   width: 35%;
   margin: 0 auto;
-  margin-top: 57px;
   box-sizing: border-box;
 }
 
@@ -1250,7 +1260,7 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 .verify-document{
   background-color: #EAFAFF;
   height: 100%;
-  padding-top: 52px;
+  padding-top: 140px;
   padding-bottom: 130px;
 }
 
@@ -1350,7 +1360,7 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 .view-doc-details{
   padding-left: 10%;
   padding-right: 10%;
-  padding-top: 52px;
+  padding-top: 140px;
   padding-bottom: 100px;
   background-color: #EAFAFF;
   /* min-height: 100vh; */
@@ -1433,8 +1443,8 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 .oops-container{
   width: 35%;
   height: 100%;
+  padding-top: 140px;
   margin: 0 auto;
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1493,7 +1503,7 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 
 .doc-submitted-container{
   width: 35%;
-  margin-top: 90px;
+  padding-top: 140px;
 }
 
 .doc-submitted-img{
@@ -1506,6 +1516,18 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 
 .doc-submitted-title{
   color: #173F8F;
+}
+
+
+/* Congrats */
+
+.congrats-content h1{
+  color: #00A35D;
+}
+
+.congrats-img img{
+  /* width: 426px; */
+  height: 284px;
 }
 
 /* Update-Submission */
@@ -1524,7 +1546,7 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
   width: 80%;
   min-height: 100%;
   margin: 0 auto;
-  padding-top: 60px;
+  padding-top: 140px;
 }
 
 .status-container{
@@ -1639,7 +1661,7 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 .my-booking-container{
   width: 80%;
   margin: 0 auto;
-  margin-top: 30px;
+  padding-top: 140px;
 }
 
 table{

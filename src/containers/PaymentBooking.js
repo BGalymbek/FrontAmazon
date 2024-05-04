@@ -37,7 +37,7 @@ export default function PaymentBooking() {
 
                 const res =  response.data;
                 console.log(res);
-                navigate('/main-page')
+                navigate('/congrats-booking')
             }catch(err){
                 console.error(err);
             }

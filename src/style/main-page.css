@@ -1,5 +1,10 @@
 .nav{
     background-color: #212153;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
 }
 
 .navbar-content{
@@ -66,11 +71,7 @@
 header{
     display: flex;
     justify-content: space-between;
-    padding: 96px 0;
-}
-
-.header{
-    padding-top: 41px;
+    padding: 195px 0;
 }
 
 .title-main{
