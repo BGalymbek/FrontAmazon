@@ -3,10 +3,12 @@ import Navbar from '../components/Navbar'
 import AuthContext from '../context/AuthContext';
 import { json, useNavigate } from 'react-router';
 import axios from 'axios';
+import Modal from 'react-modal';
 
 export default function ProfilePage() {
   const { authTokens } = useContext(AuthContext)
   const userProfile = JSON.parse(localStorage.getItem('userProfile'))
+  const navigate = useNavigate();
 
   const [numTurn, setNumTurn] = useState(1);
   const [userDocuments, setDocumentsOfUser] = useState([])
@@ -14,13 +16,84 @@ export default function ProfilePage() {
   const [photo_3x4, setPhoto] = useState('')
   const [form_075, setForm] = useState('')
   const [identity_card_copy, setIdentityCart] = useState('')
+  const [new_password, setNewPassword] = useState('')
+  const [confirm_new_password, setNewConfirmPassword] = useState('')
+  const [old_password, setOldPassword] = useState('')
+  const [successfullyChanged,setSuccessfullyChanged] = useState('')
+  const [errorRegister,setErrorRegister] = useState('')
+  const [isModalOpen, setModalOpen] = useState(false)
+  const [isModalOpenEProfile, setModalOpenEProfile] = useState(false)
+
+  const [gender, setSelectedGender] = useState('')
+  const [first_name, setFirstName] = useState('')
+  const [id_number, setStudentId] = useState('')
+  const [email, setEmail] = useState('')
+  const [faculty_name, setFaculty] = useState('')
 
   function setNumTurnClick(index){
      setNumTurn(index);
   }
 
-  // let profileNav = document.querySelector('#profile-nav').querySelectorAll('button')
+  const handleOpenModal = ()=> {
+    setModalOpen(true)
+  }
 
+  const handleOpenModalEditProfile = () =>{
+    setModalOpenEProfile(true)
+  }
+
+  const handleCloseModal = () =>{
+      setModalOpen(false)
+  }
+
+  const handleCloseModalEditProfile = () =>{
+    setModalOpenEProfile(false)
+}
+
+const handleChangeGender= (event) => {
+  setSelectedGender(event.target.value);
+};
+
+const handleFacultyChange= (event) => {
+  setFaculty(event.target.value);
+};
+
+  const submit = async (e) =>{
+    e.preventDefault();
+    
+     try{
+      const response = await axios.post('change-password/', 
+                {
+                  old_password, new_password, confirm_new_password   
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${authTokens.access}`,
+                    }
+                } )
+
+      console.log(response);
+
+      if(response.status == 200){
+        setErrorRegister('')
+        setSuccessfullyChanged('You changed password successfully! You will redirected to Login Page')
+        setTimeout(()=> navigate('/'), 6000);
+      }else{
+        let errorMessage = '';
+        if(response.response && response.response.data && response.response.data.non_field_errors && response.response.data.non_field_errors[0]){
+          errorMessage = response.response.data.non_field_errors[0];
+        }else if(response.response && response.response.data && response.response.data.old_password && response.response.data.old_password[0]){
+          errorMessage = response.response.data.old_password[0];
+        }else{
+          errorMessage = response.response.data.confirm_new_password[0];
+        }
+        setErrorRegister(errorMessage);
+        setSuccessfullyChanged('')
+      }
+     }catch(err){
+        console.error("Ошибка: ", err);
+     }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -116,8 +189,73 @@ const fetchData = async () => {
                               </div>
                           </div>
                           <div className='profile-btns'>
-                              <button>Change Password</button>
-                              <button>Edit Profile</button>
+                              <button onClick={()=>{handleOpenModal()}}>Change Password</button>
+                              <Modal className='modal modal-changePswd' isOpen={isModalOpen} onRequestClose={()=> handleCloseModal()}>
+                                        <h3>Change Password</h3>
+                                        <form className='modal-form' onSubmit={submit}>
+                                          <input 
+                                            type="password" placeholder="Currents Password" id="old_pswd"
+                                            onChange={e => setOldPassword(e.target.value)}
+                                            required
+                                          />
+                                          <input 
+                                            type="password" placeholder="New Password" id="new_pswd"
+                                            onChange={e => setNewPassword(e.target.value)}
+                                            required
+                                          />
+                                          <input 
+                                            type="password" placeholder="Confirm New Password" id="confirm_pswd"
+                                            onChange={e => setNewConfirmPassword(e.target.value)}
+                                            required
+                                          />  
+                                          <p className='error-register' style={{ color: successfullyChanged? '#00A35D':''}}>{successfullyChanged ? successfullyChanged : errorRegister}</p>
+                                          <div className='btns-changePswd'>
+                                              <button>Change</button>
+                                              <button onClick={()=>{handleCloseModal()}}>Cancel</button>
+                                          </div>
+                                        </form>
+                                </Modal>
+                              <button onClick={()=>{handleOpenModalEditProfile()}}>Edit Profile</button>
+                              <Modal className='modal modal-changePswd modal-editProfile' isOpen={isModalOpenEProfile} onRequestClose={()=> handleCloseModalEditProfile()}>
+                                        <h3>Edit Profile</h3>
+                                        <form className='modal-form'>
+                                          <input 
+                                            type="txt" placeholder="First Name" id="full_name"
+                                            value= {first_name ? first_name : userData.first_name}
+                                            onChange={e => setFirstName(e.target.value)}
+                                            required
+                                          />
+                                          <input 
+                                            type="txt" placeholder="Student ID" id="student_id"
+                                            value= {id_number ? id_number : userData.id_number}
+                                            onChange={e => setStudentId(e.target.value)}
+                                            required
+                                          />
+                                          <input 
+                                            type="email" placeholder="Email" id="email"
+                                            value= {email ? email : userData.email}
+                                            onChange={e => setEmail(e.target.value)}
+                                            required
+                                          />
+                                          <select id="faculty-select" className='faculty-select-profileEdit' value={faculty_name ? faculty_name : userData.faculty_name} onChange={handleFacultyChange}>
+                                              <option value="">Select the faculty</option> {/* Опция по умолчанию */}
+                                              <option value="Faculty of Engineering and Natural sciences">Faculty of Engineering and Natural sciences</option> {/* Значения для этажей */}
+                                              <option value="Faculty of Education and Humanities">Faculty of Education and Humanities</option>
+                                              <option value="Business School">Business School</option>
+                                              <option value="Faculty of Law and Social sciences">Faculty of Law and Social sciences</option>
+                                          </select>
+                                          <select id="gender-select" value={gender ? gender : userProfile.gender} onChange={handleChangeGender}>
+                                            <option value="">Select the gender</option> {/* Опция по умолчанию */}
+                                            <option value="Male">Male</option> {/* Значения для этажей */}
+                                            <option value="Female">Female</option>
+                                          </select>
+                                          <p className='error-register' style={{ color: successfullyChanged? '#00A35D':''}}>{successfullyChanged ? successfullyChanged : errorRegister}</p>
+                                          <div className='btns-changePswd'>
+                                              <button>Save</button>
+                                              <button onClick={()=>{handleCloseModalEditProfile()}}>Cancel</button>
+                                          </div>
+                                        </form>
+                                </Modal>
                           </div>
                         </div>
                     </>
