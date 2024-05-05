@@ -14,6 +14,7 @@ export default function Navbar() {
   let userBookedEarlier = JSON.parse(localStorage.getItem('userBookedEarlier'))
   let userProfile = JSON.parse(localStorage.getItem('userProfile'))
 
+
 //   console.log("UserProfie:", userProfile);
 //   console.log("UserBookerEarlier:", userBookedEarlier);
 
@@ -99,7 +100,7 @@ export default function Navbar() {
                             </div>
                         )}
                         <div className="menu-item">
-                            <p>My Profile</p>
+                            <a href='/profile'>My Profile</a>
                         </div>
                         <div className="menu-item">
                             <p>Booking History</p>
