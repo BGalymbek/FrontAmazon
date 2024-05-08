@@ -174,6 +174,38 @@ export default function MainPage() {
                 </div>
             </div>
         </section>
+        <footer className='footer'>
+             <div className='footer-header'>
+                <div className='footer-logo'>
+                    <img src={require('../img/logo-nav.png')}  alt="footer-logo"/>
+                </div>
+                <div className='footer-team-name'>
+                    <p>© 2024 Vision Team</p>
+                </div>
+                <div className='footer-icons'>
+                    <img src={require('../img/icons/icon-x.png')}  alt="footer-icon1"/>
+                    <img src={require('../img/icons/icon-insta.png')}  alt="footer-icon2"/>
+                    <img src={require('../img/icons/icon-facebook.png')}  alt="footer-icon3"/>
+                </div>
+             </div>
+             <div className='footer-content'>
+                <div className='footer-item'>
+                    <h5>The head of the SDU Dormitory:</h5>
+                    <p>dormserviceboys@sdu.edu.kz</p>
+                    <p>(mob.) +7 702 958 7910</p>
+                </div>
+                <div className='footer-item'>
+                    <h5>Reception/ plumbing services</h5>
+                    <p>(mob.) +7 778 727 9567</p>
+                    <p>(tel.) +7 727 307 9560 (int. 704)</p>
+                </div>
+                <div className='footer-item'>
+                    <h5>Security and Medical care:</h5>
+                    <p>(tel.) +7 727 307 9560 (int. 199 /197) | Security</p>
+                    <p>(mob.) +7 778 997 5839 | Medical care</p>
+                </div>
+             </div>             
+        </footer>
   </div>
 
   )

@@ -299,3 +299,73 @@ header{
 .docSubmissin-instructional{
     margin-bottom: 90px;
 }
+
+/* Footer */
+
+.footer{
+    padding: 96px 10%;
+    background-color: #212153;
+}
+
+.footer-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #FFFFFF66;
+}
+
+.footer-icons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-icons img{
+    width: 32px;
+    height: 32px;
+}
+
+.footer-logo, .footer-team-name, .footer-icons{
+    width: 12%;
+}
+
+.footer-logo img{
+    width: 100%;
+}
+
+.footer-team-name p{
+    font-family: 'SF Pro Display medium';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19.09px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: #fff;
+}
+
+.footer-content{
+    font-family: 'SF Pro Display medium';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19.09px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    display: flex;
+    justify-content: left;
+    gap: 100px;
+}
+
+.footer-item{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.footer-item:not(h5){
+    color: #FFFFFF80;
+}
+
+.footer-content h5{
+    color: #F3A367;
+}
