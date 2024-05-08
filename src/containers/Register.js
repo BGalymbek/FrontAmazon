@@ -303,11 +303,6 @@ console.log("Gender: " + gender);
                       />
                     </div>
                     <div className="field-component field-signup">
-                      {/* <input 
-                      type="text" placeholder="Gender" id="gender"
-                      onChange={e => setGender(e.target.value)}
-                      required
-                      /> */}
                       <select id="gender-select" value={gender} onChange={handleGenderChange}>
                           <option value="">Select the gender</option> {/* Опция по умолчанию */}
                           <option value="Male">Male</option> {/* Значения для этажей */}

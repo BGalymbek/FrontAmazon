@@ -74,7 +74,7 @@ export default function Navbar() {
           <div className="navbar">
               <ul className="navbar-items">
                   <li><a href="/main-page">Home Page</a></li>
-                  <li><a href="">Rooms</a></li>
+                  <li><a href="/rooms">Rooms</a></li>
                   <li><a onClick={()=>handleClickBookNow()}>Booking</a></li>
                   <li><a href="">News</a></li>
                   <li><a href="">About Us</a></li>

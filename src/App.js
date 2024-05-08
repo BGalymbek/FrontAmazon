@@ -21,6 +21,7 @@ import DocSumbitted from "./containers/ResponsePages/DocSumbitted";
 import UpdateSubmission from "./containers/UpdateSubmission";
 import CongratsBooking from "./containers/ResponsePages/CongratsBooking";
 import ProfilePage from "./containers/ProfilePage";
+import Rooms from "./containers/Rooms";
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
                 <Route exact path="/update-submission" element={<UpdateSubmission/>}/>
                 <Route exact path="/congrats-booking" element={<CongratsBooking/>}/>
                 <Route exact path="/profile" element={<ProfilePage/>}/>
+                <Route exact path="/rooms" element={<Rooms/>}/>
                 <Route
                   path="/main-page"
                   element={

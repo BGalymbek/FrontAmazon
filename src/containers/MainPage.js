@@ -93,8 +93,8 @@ export default function MainPage() {
   return (
     <div className='main-page'>
         <Navbar/>
-        <section className="wrapper header">
-            <header>
+        <section className="wrapper">
+            <header className='header'>
                 <div className="title-main">
                     <h1>Booking platform —Dorm Hub</h1>
                     <p>This website is intended for booking places in the "SDU University" dormitories. It’s a user friendly platform that will allow all students, especially first-year students who want to live in dormitories, to book places while at home. Because this platform allows students to adapt easily and book with peace of mind. </p>

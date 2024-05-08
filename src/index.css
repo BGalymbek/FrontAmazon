@@ -1,5 +1,6 @@
 @import url('./style/reset.css');
 @import url('./style/main-page.css');
+@import url('./style/rooms.css');
 
 @font-face {
 	font-family: "SF Pro Display";
