@@ -117,13 +117,42 @@ export default function MainPage() {
                 </div>
             </header>
         </section>
-        {/* <section className="main-points">
-            <h2></h2>
-            <div class="vision">
-                
+        <section className="main-points">
+            <h2>Main Points</h2>
+            <div className='main-points-container'>
+                <div class="vision">
+                    <div className='vision-circle'></div>
+                    <h3>Vision</h3>
+                    <p>Transforming dormitory booking with services into a convenient system for SDU students.</p>
+                </div>
+                <div class="mission">
+                    <div className='mission-circle'></div>
+                    <h3>Mission</h3>
+                    <p>Facilitating a smooth process, improving interaction and communication with students.</p>
+                </div>
+                <div class="goal">
+                    <div className='goal-circle'></div>
+                    <h3>Goal</h3>
+                    <p>Streamlining accommodation booking for first-year students through a user-friendly platform.</p>
+                </div>
             </div>
-            <button className="learn-more"></button>
-        </section> */}
+        </section>
+        <section className='instructional-videos'>
+            <h2>Instructional video of using the platform</h2>
+            <div className='docSubmissin-instructional instruction-videos-item'>
+                <div className='docSubmissin-instructional-content'>
+                    <h2>Document Submission</h2>
+                    <p>This is instructional video of submission of the document. By watching this video, you will learn how to submit documents correctly and in full on our platform.Watch the video carefully and repeat with us. Good luck!</p>
+                    <a href=''>
+                        <img alt="dorm"/>
+                        Watch the video
+                    </a>
+                </div>
+                <div className='docSubmissin-instructional-img'>
+                    <img src={require('../img/docSubmissionImg.png')}  alt="doc-submission"/>
+                </div>
+            </div>
+        </section>
   </div>
 
   )

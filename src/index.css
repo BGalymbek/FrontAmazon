@@ -1944,3 +1944,11 @@ tbody{
 .modal-form #faculty-select{
   padding-right: 36px;
 }
+
+.oops-profile-container{
+  padding-top: 0;
+}
+
+.oops-profile-content h1{
+  color: #E94949;
+}

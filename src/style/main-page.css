@@ -78,7 +78,8 @@
 header{
     display: flex;
     justify-content: space-between;
-    padding: 195px 0;
+    padding-top: 195px;
+    margin-bottom: 95px;
 }
 
 .title-main{
@@ -130,7 +131,7 @@ header{
 
 .btn-submission{
     font-family: "SF Pro Display medium";
-    font-size: 14px;
+    font-size: 13px;
     color: #212153;
     padding: 16px 20px;
     border:1px solid #212153;
@@ -138,4 +139,127 @@ header{
     border-radius: 8px;
     margin-right: 24px;
     cursor: pointer;
+}
+
+/* Main Points */
+.main-points{
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 190px;
+}
+
+.main-points h2{
+    font-family: 'SF Pro Display';
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 40.57px;
+    text-align: center;
+    margin-bottom: 45px;
+    color: #173F8F;
+}
+
+.main-points-container{
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.vision, .mission, .goal{
+    padding: 64px 20px 59px;
+    background-color: #EEEEEE;
+    width: calc(30% - 20px);
+    border-radius: 16px;
+    position: relative;
+}
+
+.vision h3, .mission h3, .goal h3{
+    font-size: 19px;
+    line-height: 28.64px;
+    text-align: left;
+    color: #212153;
+    margin-bottom: 10px;
+}
+
+.vision p, .mission p, .goal p{
+    font-family: 'SF Pro Display medium';
+    font-size: 14px;
+    line-height: 19.09px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: #21215380;
+}
+
+.vision-circle, .mission-circle, .goal-circle{
+    position: absolute;
+    border-radius: 100%;
+    width: 64px;
+    height: 64px;
+    background-color: #F3A367;
+    top: -25px;
+    left: 20px;
+}
+
+.mission-circle{
+    background-color: #E94949;
+}
+
+.goal-circle{
+    background-color: #673F8F;
+}
+
+/* Instructional videos */
+.instructional-videos{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.instructional-videos>h2{
+    font-size: 25px;
+    line-height: 40.57px;
+    text-align: center;
+    color: #173F8F;
+    margin-bottom: 50px;
+}
+
+.docSubmissin-instructional-content{
+    padding-top: 67px;
+    padding-bottom: 67px;
+    padding-right: 110px;
+    width: 50%;
+}
+
+.docSubmissin-instructional-content h2{
+    font-family: 'SF Pro Display';
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 40.57px;
+    text-align: left;
+    color: #212153;
+    margin-bottom: 25px;
+}
+.docSubmissin-instructional-content p{
+    font-family: 'SF Pro Display medium';
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.09px;
+    letter-spacing: -0.02em;
+    text-align: left;
+}
+
+.docSubmissin-instructional-content img{
+    width: 100%;
+
+}
+
+.docSubmissin-instructional-img{
+    width: 50%;
+}
+
+.docSubmissin-instructional-img img{
+    border: 2px solid #000000;
+    border-radius: 24px;
+}
+
+.instruction-videos-item{
+    display: flex;
 }

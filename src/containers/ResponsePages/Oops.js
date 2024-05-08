@@ -36,7 +36,7 @@ export default function Oops() {
         <Navbar/>
         <div className='oops-container'>
             <div className='oops-img'>
-            <img src={require('../../img/oops.png')} alt="oops"/>
+                <img src={require('../../img/oops.png')} alt="oops"/>
             </div>
             <div className='oops-content'>
                 <h1 className='oops-title'>Oops! You did wrong!</h1>

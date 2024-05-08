@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 export default function ProfilePage() {
   const { authTokens } = useContext(AuthContext)
   const userProfile = JSON.parse(localStorage.getItem('userProfile'))
+  const oopsMessage = localStorage.getItem('messageDocSubm')
   const navigate = useNavigate();
 
   const [numTurn, setNumTurn] = useState(1);
@@ -167,7 +168,7 @@ const fetchData = async () => {
                 </div>
                 {numTurn === 1 && (
                     <>
-                        <h1>{userData.first_name} {userData.last_name}</h1>
+                        <h1>{userProfile.first_name} {userProfile.last_name}</h1>
                         <div className='profile-data'>
                           <div className='user-info-box'>
                               <h3>User information</h3>
@@ -180,10 +181,10 @@ const fetchData = async () => {
                                       <li>Gender</li>
                                   </ul>
                                   <ul className='user-info'>
-                                      <li>{userData.first_name} {userData.last_name}</li>
-                                      <li>{userData.id_number}</li>
-                                      <li>{userData.email}</li>
-                                      <li>{userData.faculty_name}</li>
+                                      <li>{userProfile.first_name} {userProfile.last_name}</li>
+                                      <li>{userProfile.id_number}</li>
+                                      <li>{userProfile.email}</li>
+                                      <li>{userProfile.faculty_name}</li>
                                       <li>{userProfile.gender}</li>
                                   </ul>
                               </div>
@@ -262,106 +263,127 @@ const fetchData = async () => {
                 )}
                 {numTurn === 2 &&(
                   <>
-                  <div className='status-container'>
-                      <p className='status-txt'>Current Status of Document Submission: </p>
-                      <div className='status'>
-                        {userDocuments && userDocuments.length > 0 &&(
-                          userDocuments[0].is_verified == false ? (
-                            <div className='status-doc-submission' style= {{backgroundColor: '#F3A367' }}></div>
-                          ):(
-                            <div className='status-doc-submission' style= {{backgroundColor: '#00A35D' }}></div>
-                          )
-                        )}
-                        {userDocuments && userDocuments.length > 0 &&
-                          (
+                    {userDocuments == '' ? (
+                      <div className='oops-container oops-profile-container'>
+                      <div className='oops-img'>
+                          <img src={require('../img/oops.png')} alt="oops"/>
+                      </div>
+                      {userProfile.is_doc_submitted == false &&(
+                          <div className='oops-content oops-profile-content'>
+                            <h1 className='oops-title'>Oops! You did wrong!</h1>
+                            <p className='oops-message'>Sorry, you were wrong! To get access to the booking service, you must first submit the documents to the Dorm administration!</p>
+                          </div>
+                      )}
+                      {/* {!userProfile.is_doc_submitted ? (
+                          <a className='oops-link' to = '/document-submission' onClick={()=>navigate('/document-submission')}>Go to Document Submission page</a>
+                      ):(
+                          <a className='oops-link' onClick={()=>navigate('/main-page')}>Go to Main Page</a>
+                      )} */}
+                  </div>
+                    ):
+                    (
+                        <div className='user-docs'>
+                      <div className='status-container'>
+                        <p className='status-txt'>Current Status of Document Submission: </p>
+                        <div className='status'>
+                          {userDocuments && userDocuments.length > 0 &&(
                             userDocuments[0].is_verified == false ? (
-                              <p>Waiting verification of admin</p>
+                              <div className='status-doc-submission' style= {{backgroundColor: '#F3A367' }}></div>
                             ):(
-                              <p>Verified by Admin</p>
+                              <div className='status-doc-submission' style= {{backgroundColor: '#00A35D' }}></div>
                             )
                           )}
-                      </div>
-                    </div>
-                    <div className='submitted-doc-list'>
-                      <div className='submitted-item'>
-                              <div>
-                                  <div className='submitted-img'>
-                                    <img src={userDocuments[0].statement} alt="submited-item"/>
-                                  </div>
-                                  <p>statement</p>
-                              </div>
-                              <div className='custom-file-input update-file'>
-                                <input 
-                                  type="file" id="state" name="state"
-                                  onChange={e => setStatement(e.target.files[0])}
-                                  required
-                                  placeholder='Updated File'
-                                />
-                                <img src={require('../img/update.png')} alt="logo"/>
-                                <p>{statement ? statement.name : userDocuments[0].statement.substring(userDocuments[0].statement.lastIndexOf("/") + 1)}</p>
-                              </div>
-                      </div>
-                      <div className='submitted-item'>
-                        <div>
-                          <div className='submitted-img'>
-                            <img src={userDocuments[0].photo_3x4} alt="submited-item"/>
-                          </div>
-                          <p>3x4-photo</p>
-                        </div>
-                        <div className='custom-file-input update-file'>
-                          <input 
-                            type="file" id="photo" name="photo"
-                            onChange={e => setPhoto(e.target.files[0])}
-                            required
-                            placeholder='Updated File'
-                          />
-                          <img src={require('../img/update.png')} alt="logo"/>
-                          <p>{photo_3x4 ? photo_3x4.name : userDocuments[0].photo_3x4.substring(userDocuments[0].photo_3x4.lastIndexOf("/") + 1)}</p>
+                          {userDocuments && userDocuments.length > 0 &&
+                            (
+                              userDocuments[0].is_verified == false ? (
+                                <p>Waiting verification of admin</p>
+                              ):(
+                                <p>Verified by Admin</p>
+                              )
+                            )}
                         </div>
                       </div>
-                      <div className='submitted-item'>
-                        <div>
-                          <div className='submitted-img'>
-                             <img src={userDocuments[0].form_075} alt="submited-item"/>
-                          </div>
-                          <p>075-form</p>
+                      <div className='submitted-doc-list'>
+                        <div className='submitted-item'>
+                                <div>
+                                    <div className='submitted-img'>
+                                      <img src={userDocuments[0].statement} alt="submited-item"/>
+                                    </div>
+                                    <p>statement</p>
+                                </div>
+                                <div className='custom-file-input update-file'>
+                                  <input 
+                                    type="file" id="state" name="state"
+                                    onChange={e => setStatement(e.target.files[0])}
+                                    required
+                                    placeholder='Updated File'
+                                  />
+                                  <img src={require('../img/update.png')} alt="logo"/>
+                                  <p>{statement ? statement.name : userDocuments[0].statement.substring(userDocuments[0].statement.lastIndexOf("/") + 1)}</p>
+                                </div>
                         </div>
-                        <div className='custom-file-input update-file'>
-                          <input 
-                           type="file" id="form" name="form"
-                           onChange={e => setForm(e.target.files[0])}
-                           required
-                           placeholder='Updated File'
-                          />
-                          <img src={require('../img/update.png')} alt="logo"/>
-                          <p>{form_075 ? form_075.name : userDocuments[0].form_075.substring(userDocuments[0].form_075.lastIndexOf("/") + 1)}</p>
-                        </div>
-                      </div>
-                      <div className='submitted-item'>
-                        <div>
+                        <div className='submitted-item'>
+                          <div>
                             <div className='submitted-img'>
-                              <img src={userDocuments[0].identity_card_copy} alt="submited-item"/>
+                              <img src={userDocuments[0].photo_3x4} alt="submited-item"/>
                             </div>
-                            <p>identity-card</p>
+                            <p>3x4-photo</p>
+                          </div>
+                          <div className='custom-file-input update-file'>
+                            <input 
+                              type="file" id="photo" name="photo"
+                              onChange={e => setPhoto(e.target.files[0])}
+                              required
+                              placeholder='Updated File'
+                            />
+                            <img src={require('../img/update.png')} alt="logo"/>
+                            <p>{photo_3x4 ? photo_3x4.name : userDocuments[0].photo_3x4.substring(userDocuments[0].photo_3x4.lastIndexOf("/") + 1)}</p>
+                          </div>
                         </div>
-                        <div className='custom-file-input update-file'>
-                          <input 
-                            type="file" id="identity" name="identity"
-                            onChange={e => setIdentityCart(e.target.files[0])}
+                        <div className='submitted-item'>
+                          <div>
+                            <div className='submitted-img'>
+                              <img src={userDocuments[0].form_075} alt="submited-item"/>
+                            </div>
+                            <p>075-form</p>
+                          </div>
+                          <div className='custom-file-input update-file'>
+                            <input 
+                            type="file" id="form" name="form"
+                            onChange={e => setForm(e.target.files[0])}
                             required
                             placeholder='Updated File'
-                          />
-                          <img src={require('../img/update.png')} alt="logo"/>
-                          <p>{identity_card_copy ? identity_card_copy.name : userDocuments[0].identity_card_copy.substring(userDocuments[0].identity_card_copy.lastIndexOf("/") + 1)}</p>
-                        </div> 
-                      </div>
-                    </div>
-                    
-                    {statement || photo_3x4 || identity_card_copy || form_075 ? (
-                          <div className='update-btn'>
-                            <button onClick={()=>fetchData()}>Submit</button>
+                            />
+                            <img src={require('../img/update.png')} alt="logo"/>
+                            <p>{form_075 ? form_075.name : userDocuments[0].form_075.substring(userDocuments[0].form_075.lastIndexOf("/") + 1)}</p>
                           </div>
-                      ): null}
+                        </div>
+                        <div className='submitted-item'>
+                          <div>
+                              <div className='submitted-img'>
+                                <img src={userDocuments[0].identity_card_copy} alt="submited-item"/>
+                              </div>
+                              <p>identity-card</p>
+                          </div>
+                          <div className='custom-file-input update-file'>
+                            <input 
+                              type="file" id="identity" name="identity"
+                              onChange={e => setIdentityCart(e.target.files[0])}
+                              required
+                              placeholder='Updated File'
+                            />
+                            <img src={require('../img/update.png')} alt="logo"/>
+                            <p>{identity_card_copy ? identity_card_copy.name : userDocuments[0].identity_card_copy.substring(userDocuments[0].identity_card_copy.lastIndexOf("/") + 1)}</p>
+                          </div> 
+                        </div>
+                      </div>
+                      {statement || photo_3x4 || identity_card_copy || form_075 ? (
+                            <div className='update-btn'>
+                              <button onClick={()=>fetchData()}>Submit</button>
+                            </div>
+                        ): null}
+                        </div>
+                    )}
                   </>
                 )}
             </div>
