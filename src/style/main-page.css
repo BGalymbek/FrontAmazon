@@ -209,7 +209,7 @@ header{
 
 /* Instructional videos */
 .instructional-videos{
-    width: 80%;
+    width: 70%;
     margin: 0 auto;
 }
 
@@ -224,8 +224,7 @@ header{
 .docSubmissin-instructional-content{
     padding-top: 67px;
     padding-bottom: 67px;
-    padding-right: 110px;
-    width: 50%;
+    width: 55%;
 }
 
 .docSubmissin-instructional-content h2{
@@ -244,22 +243,59 @@ header{
     line-height: 19.09px;
     letter-spacing: -0.02em;
     text-align: left;
+    color: #212153B2;
+    margin-bottom: 24px;
 }
 
-.docSubmissin-instructional-content img{
-    width: 100%;
+.docSubmissin-instructional-content a{
+    text-decoration: none;
+    color: #fff;
+    background-color: #212153;
+    padding: 16px 15px;
+    font-family: 'SF Pro Display medium';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19.09px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    display: flex;
+    width: fit-content;
+    border-radius: 8px;
+    align-items: center;
+    gap: 10px;    
+}
 
+.docSubmissin-instructional-content div{
+    width: 65%;
 }
 
 .docSubmissin-instructional-img{
-    width: 50%;
+    width: 45%;
 }
 
 .docSubmissin-instructional-img img{
+    width: 100%;
     border: 2px solid #000000;
     border-radius: 24px;
 }
 
 .instruction-videos-item{
     display: flex;
+    justify-content: space-between;
+}
+
+.content-right{
+    float: right;
+}
+
+.instructional-img-left{
+    width: 45%;
+}
+
+.docSubmissin-instructional-content-right{
+    width: 55%;
+}
+
+.docSubmissin-instructional{
+    margin-bottom: 90px;
 }
