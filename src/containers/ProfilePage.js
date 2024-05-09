@@ -153,6 +153,12 @@ const fetchData = async () => {
   const userData = userDocuments.length > 0 ? userDocuments[0].user_data : '';
   console.log(userDocuments[0]);
 
+  const getFileName = (filePath, docName) =>{
+    const fileName = filePath.substring(filePath.lastIndexOf("/") + 1); // Получаем имя файла из пути
+    const formatName = fileName.split('.').pop().toLowerCase(); // Получаем расширение файла
+    return `${docName}.${formatName}`;   
+  }
+
   return (
     <div className='profile'>
         <Navbar/>
@@ -274,11 +280,6 @@ const fetchData = async () => {
                             <p className='oops-message'>Sorry, you were wrong! To get access to the booking service, you must first submit the documents to the Dorm administration!</p>
                           </div>
                       )}
-                      {/* {!userProfile.is_doc_submitted ? (
-                          <a className='oops-link' to = '/document-submission' onClick={()=>navigate('/document-submission')}>Go to Document Submission page</a>
-                      ):(
-                          <a className='oops-link' onClick={()=>navigate('/main-page')}>Go to Main Page</a>
-                      )} */}
                   </div>
                     ):
                     (
@@ -307,7 +308,9 @@ const fetchData = async () => {
                         <div className='submitted-item'>
                                 <div>
                                     <div className='submitted-img'>
-                                      <img src={userDocuments[0].statement} alt="submited-item"/>
+                                      <img src={userDocuments[0].statement.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
+                                        userDocuments[0].statement.endsWith('.docx') || userDocuments[0].statement.endsWith('.doc') ? 
+                                        require('../img/icons/icon-docx.png') : userDocuments[0].statement} alt="submited-item"/>
                                     </div>
                                     <p>statement</p>
                                 </div>
@@ -319,13 +322,15 @@ const fetchData = async () => {
                                     placeholder='Updated File'
                                   />
                                   <img src={require('../img/update.png')} alt="logo"/>
-                                  <p>{statement ? statement.name : userDocuments[0].statement.substring(userDocuments[0].statement.lastIndexOf("/") + 1)}</p>
+                                  <p>{statement ? statement.name : getFileName(userDocuments[0].statement, "statement")}</p>
                                 </div>
                         </div>
                         <div className='submitted-item'>
                           <div>
                             <div className='submitted-img'>
-                              <img src={userDocuments[0].photo_3x4} alt="submited-item"/>
+                              <img src={userDocuments[0].photo_3x4.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
+                          userDocuments[0].photo_3x4.endsWith('.docx') || userDocuments[0].photo_3x4.endsWith('.doc') ? 
+                          require('../img/icons/icon-docx.png') : userDocuments[0].photo_3x4} alt="submited-item"/>
                             </div>
                             <p>3x4-photo</p>
                           </div>
@@ -337,13 +342,15 @@ const fetchData = async () => {
                               placeholder='Updated File'
                             />
                             <img src={require('../img/update.png')} alt="logo"/>
-                            <p>{photo_3x4 ? photo_3x4.name : userDocuments[0].photo_3x4.substring(userDocuments[0].photo_3x4.lastIndexOf("/") + 1)}</p>
+                            <p>{photo_3x4 ? photo_3x4.name : getFileName(userDocuments[0].photo_3x4, "photo_3x4")}</p>
                           </div>
                         </div>
                         <div className='submitted-item'>
                           <div>
                             <div className='submitted-img'>
-                              <img src={userDocuments[0].form_075} alt="submited-item"/>
+                              <img src={userDocuments[0].form_075.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
+                          userDocuments[0].form_075.endsWith('.docx') || userDocuments[0].form_075.endsWith('.doc') ? 
+                          require('../img/icons/icon-docx.png') : userDocuments[0].form_075} alt="submited-item"/>
                             </div>
                             <p>075-form</p>
                           </div>
@@ -355,13 +362,15 @@ const fetchData = async () => {
                             placeholder='Updated File'
                             />
                             <img src={require('../img/update.png')} alt="logo"/>
-                            <p>{form_075 ? form_075.name : userDocuments[0].form_075.substring(userDocuments[0].form_075.lastIndexOf("/") + 1)}</p>
+                            <p>{form_075 ? form_075.name : getFileName(userDocuments[0].form_075, "form_075")}</p>
                           </div>
                         </div>
                         <div className='submitted-item'>
                           <div>
                               <div className='submitted-img'>
-                                <img src={userDocuments[0].identity_card_copy} alt="submited-item"/>
+                                <img src={userDocuments[0].identity_card_copy.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
+                          userDocuments[0].identity_card_copy.endsWith('.docx') || userDocuments[0].identity_card_copy.endsWith('.doc') ? 
+                          require('../img/icons/icon-docx.png') : userDocuments[0].identity_card_copy} alt="submited-item"/>
                               </div>
                               <p>identity-card</p>
                           </div>
@@ -373,7 +382,7 @@ const fetchData = async () => {
                               placeholder='Updated File'
                             />
                             <img src={require('../img/update.png')} alt="logo"/>
-                            <p>{identity_card_copy ? identity_card_copy.name : userDocuments[0].identity_card_copy.substring(userDocuments[0].identity_card_copy.lastIndexOf("/") + 1)}</p>
+                            <p>{identity_card_copy ? identity_card_copy.name : getFileName(userDocuments[0].identity_card_copy, "identity_card")}</p>
                           </div> 
                         </div>
                       </div>
