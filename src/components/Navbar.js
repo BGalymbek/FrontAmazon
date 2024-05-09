@@ -75,7 +75,10 @@ export default function Navbar() {
               <ul className="navbar-items">
                   <li><a href="/main-page">Home Page</a></li>
                   <li><a href="/rooms">Rooms</a></li>
-                  <li><a onClick={()=>handleClickBookNow()}>Booking</a></li>
+                  {isStaff ? null:
+                  (
+                    <li><a onClick={()=>handleClickBookNow()}>Booking</a></li>
+                  )}
                   {isStaff ? (
                      <li><a href="/news-admin">News</a></li>
                   ):(
@@ -103,20 +106,30 @@ export default function Navbar() {
                                 <p>{name}</p>
                             </div>
                         )}
-                        <div className="menu-item">
-                            <a href='/profile'>My Profile</a>
-                        </div>
-                        <div className="menu-item">
-                            <p>Booking History</p>
-                        </div>
+                        {isStaff ? (
+                            <div className="menu-item">
+                                <a href='#'>System Settings</a>
+                            </div>
+                        ):(
+                            <div className="menu-item">
+                                <a href='/profile'>My Profile</a>
+                            </div>
+                        )}
+                        {isStaff ? null:(
+                            <div className="menu-item">
+                                <p>Booking History</p>
+                            </div>
+                        )}
                         {isStaff && (
                             <div className="menu-item">
                                 <Link to="/verify-documents"><p>Verify Documents</p></Link>
                             </div>
                         )}
-                        <div className="menu-item">
-                            <p>Support Chat</p>
-                        </div>
+                        {isStaff ? null:(
+                            <div className="menu-item">
+                                 <p>Support Chat</p>
+                            </div>
+                        )}
                         <div className="menu-item" onClick={logoutUser}>
                             <p>Sign Out</p>
                         </div>
