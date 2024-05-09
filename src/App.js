@@ -22,6 +22,10 @@ import UpdateSubmission from "./containers/UpdateSubmission";
 import CongratsBooking from "./containers/ResponsePages/CongratsBooking";
 import ProfilePage from "./containers/ProfilePage";
 import Rooms from "./containers/Rooms";
+import News from "./containers/News";
+import NewsPublish from "./containers/AdminPages/NewsPublish";
+import AddNews from "./containers/AdminPages/AddNews";
+
 
 const App = () => {
   return (
@@ -43,6 +47,9 @@ const App = () => {
                 <Route exact path="/congrats-booking" element={<CongratsBooking/>}/>
                 <Route exact path="/profile" element={<ProfilePage/>}/>
                 <Route exact path="/rooms" element={<Rooms/>}/>
+                <Route exact path="/news" element={<News/>}/>
+                <Route exact path="/news-admin" element={<NewsPublish/>}/>
+                <Route exact path="/add-news" element={<AddNews/>}/>
                 <Route
                   path="/main-page"
                   element={

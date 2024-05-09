@@ -76,7 +76,11 @@ export default function Navbar() {
                   <li><a href="/main-page">Home Page</a></li>
                   <li><a href="/rooms">Rooms</a></li>
                   <li><a onClick={()=>handleClickBookNow()}>Booking</a></li>
-                  <li><a href="">News</a></li>
+                  {isStaff ? (
+                     <li><a href="/news-admin">News</a></li>
+                  ):(
+                    <li><a href="/news">News</a></li>
+                  )}
                   <li><a href="">About Us</a></li>
                   <li className="nav-icons">
                       <button className="nav-btn">

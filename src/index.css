@@ -1,6 +1,9 @@
 @import url('./style/reset.css');
 @import url('./style/main-page.css');
 @import url('./style/rooms.css');
+@import url('./style/news.css');
+@import url('./style/news-publish.css');
+@import url('./style/add-news.css');
 
 @font-face {
 	font-family: "SF Pro Display";

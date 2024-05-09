@@ -1,0 +1,46 @@
+.add-news-container{
+    background-color: #EAFAFF;
+    min-height: 100vh;
+    padding-top: 140px;
+    padding-bottom: 50px;
+}
+
+.add-news-content{
+    width: 80%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 69px 98px;
+    box-sizing: border-box;
+    box-shadow: 0px 16px 74px -30px #00000066;
+    border-radius: 24px;
+}
+
+.add-news-form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;    
+}
+
+.add-news-form input{
+    width: 305px;
+    padding: 16px;
+    padding-left: 16px;
+    padding-right: 39px;
+    display: flex;
+    margin-bottom: 12px;
+    border-color: #0000004D;
+    color: #00000066;
+    border-radius: 8px;
+    appearance: none;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    outline: none;
+    color: #000;
+}
+
+.add-news-form select{
+    outline: none;
+}
+.add-news-select{
+    color: #000;
+}
