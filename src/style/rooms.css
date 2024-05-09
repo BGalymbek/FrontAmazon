@@ -21,6 +21,7 @@
     width: calc(20% - 30px);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     background-color: #212153;
     color: #FFFFFF;
     padding: 24px 35px;

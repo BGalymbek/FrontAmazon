@@ -74,7 +74,7 @@ export default function News() {
                         {newsList.map(newsItem => (
                             <div className='news-list-item' key={newsItem.id}>
                                 <div className='list-item-img'>
-                                    <img src={require('../img/sdu-heroes.jpg')} alt='news-list-img'/>
+                                    <img src={newsItem.file} alt='news-list-img'/>
                                 </div>
                                 <div className='list-item-content'>
                                     <p style={{ backgroundColor: newsItem.title === "AC Catering News" ? '#E94949' : '' }}>{newsItem.title}</p>
@@ -93,7 +93,7 @@ export default function News() {
                         .map(newsItem => (
                             <div className='news-list-item' key={newsItem.id}>
                                 <div className='list-item-img'>
-                                    <img src={require('../img/sdu-heroes.jpg')} alt='news-list-img'/>
+                                    <img src={newsItem.file} alt='news-list-img'/>
                                 </div>
                                 <div className='list-item-content'>
                                     <p style={{ backgroundColor: newsItem.title === "AC Catering News" ? '#E94949' : '' }}>{newsItem.title}</p>
@@ -112,7 +112,7 @@ export default function News() {
                         .map(newsItem => (
                             <div className='news-list-item' key={newsItem.id}>
                                 <div className='list-item-img'>
-                                    <img src={require('../img/sdu-heroes.jpg')} alt='news-list-img'/>
+                                    <img src={newsItem.file} alt='news-list-img'/>
                                 </div>
                                 <div className='list-item-content'>
                                     <p style={{ backgroundColor: newsItem.title === "AC Catering News" ? '#E94949' : '' }}>{newsItem.title}</p>

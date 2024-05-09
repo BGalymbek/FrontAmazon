@@ -9,6 +9,7 @@ export default function MainPage() {
 
     const [userBookedEarlier, setUserBookedEarlier] = useState('')
     const [userProfile, setUserProfile] = useState('')
+    const [isStaff, setStaff] = useState('')
 
     const navigate = useNavigate();
 
@@ -63,7 +64,7 @@ export default function MainPage() {
         };
 
         fetchData(); // Вызов функции для выполнения запроса при загрузке компонента
-    }, []);
+    }, [authTokens]);
     localStorage.setItem('userBookedEarlier', JSON.stringify(userBookedEarlier))
 
     useEffect(() => {
@@ -85,8 +86,15 @@ export default function MainPage() {
             }
         }
         fetchProfile();
-    }, []);
+    }, [authTokens]);
     localStorage.setItem('userProfile', JSON.stringify(userProfile))
+
+    useEffect(() => {
+        if (authTokens) {
+          const userInfo = authTokens.user
+          setStaff(userInfo.is_staff) // Предполагая, что email содержится в токене
+        }
+      }, [authTokens]);
 
     // console.log(userProfile.is_doc_submitted);
 
@@ -99,16 +107,21 @@ export default function MainPage() {
                     <h1>Booking platform —Dorm Hub</h1>
                     <p>This website is intended for booking places in the "SDU University" dormitories. It’s a user friendly platform that will allow all students, especially first-year students who want to live in dormitories, to book places while at home. Because this platform allows students to adapt easily and book with peace of mind. </p>
                     <div className="btn-group">
-                        {userBookedEarlier == '' ? (
-                           <button className="btn-book" onClick={()=>handleClickBookNow()}>Book Now</button>
-                        ):(
-                           <button className="btn-book" onClick={()=>navigate('/my-booking')}>My Bookings</button>
-                        )}
-
-                        {userProfile.is_doc_submitted == true ? (
-                           <button className="btn-submission" onClick={()=>navigate('/update-submission')}>Update Submission</button>
-                        ):(
-                           <button className="btn-submission" onClick={()=>navigate('/document-submission')}>Document Submission</button>
+                        {isStaff ? null
+                        :(
+                            <>
+                                {userBookedEarlier == '' ? (
+                                    <button className="btn-book" onClick={()=>handleClickBookNow()}>Book Now</button>
+                                ):(
+                                    <button className="btn-book" onClick={()=>navigate('/my-booking')}>My Bookings</button>
+                                )}
+        
+                                {userProfile.is_doc_submitted == true ? (
+                                    <button className="btn-submission" onClick={()=>navigate('/update-submission')}>Update Submission</button>
+                                ):(
+                                    <button className="btn-submission" onClick={()=>navigate('/document-submission')}>Document Submission</button>
+                                )}
+                            </>
                         )}
                     </div>
                 </div>

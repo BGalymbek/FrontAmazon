@@ -25,6 +25,7 @@ import Rooms from "./containers/Rooms";
 import News from "./containers/News";
 import NewsPublish from "./containers/AdminPages/NewsPublish";
 import AddNews from "./containers/AdminPages/AddNews";
+import CongratsPublished from "./containers/ResponsePages/CongratsPublished";
 
 
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
                 <Route exact path="/news" element={<News/>}/>
                 <Route exact path="/news-admin" element={<NewsPublish/>}/>
                 <Route exact path="/add-news" element={<AddNews/>}/>
+                <Route exact path="/congrats-published" element={<CongratsPublished/>}/>
                 <Route
                   path="/main-page"
                   element={

@@ -37,7 +37,7 @@ export default function AddNews() {
           console.log(await response.json());
     
           if(response.ok){
-            navigate('/main-page');
+            navigate('/congrats-published');
             setSuccessfullyPublished('You registered succesfully! Please check your email')
           }else{
             setSuccessfullyPublished('')
@@ -53,14 +53,15 @@ export default function AddNews() {
         <div className='add-news-container'>
             <div className='add-news-content'>
                 <div className='add-news-logo'>
-                    <img/>
+                    <img src={require('../../img/logoDorm.png')} alt='add-news-logo'/>
                 </div>
                 <div className='add-news-title'>
                     <div className='add-title'>
-
+                        <h2>Publish News</h2>
+                        <p>Here you, as a site administrator, can publish news to the attention of students!</p>
                     </div>
                     <div className='add-news-img'>
-                        <img/>
+                        <img src={require('../../img/add-news.png')} alt='add-news-img'/>
                     </div>
                 </div>
                 <form className='add-news-form' onSubmit={submit}>
@@ -69,18 +70,25 @@ export default function AddNews() {
                         <option value="SDU Dorm News">SDU Dorm News</option>
                         <option value="AC Catering News">AC Catering News</option>
                     </select>
-                    <input 
-                      type="txt" placeholder="Current Title" id="title"
-                      onChange={e => setTitle(e.target.value)}
-                      required
-                      />
-                    <input 
-                        type="file" id="file" name="file"
-                        onChange={e => setFile(e.target.files[0])}
+                    <div className='add-news-withLabel'>
+                        <label className='add-news-label'>Enter a news title</label>
+                        <input 
+                        type="txt" placeholder="Current Title" id="title"
+                        onChange={e => setTitle(e.target.value)}
                         required
-                        placeholder='Upload File'
-                    />
-                    <button>Save</button>
+                        />
+                    </div>
+                    <div className='custom-file-input add-news-file'>
+                        <input 
+                            type="file" id="file" name="file"
+                            onChange={e => setFile(e.target.files[0])}
+                            required
+                            placeholder='Upload File'
+                        />
+                        <img src={require('../../img/round-upload.png')} alt="logo"/>
+                        <p>{file? file.name : "Upload File"}</p>  
+                    </div>
+                    <button className='add-news-btn'>Publish</button>
                 </form>
             </div>
         </div>
