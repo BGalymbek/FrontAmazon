@@ -22,6 +22,43 @@
   box-sizing: border-box;
 }
 
+.field-component{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .field-component:last-child{
+    margin-bottom: 20px;
+  }
+  
+  .field-login #password{
+    margin-bottom: 10px;
+  }
+  
+  .errorLogin{
+    color:#E94949;
+  }
+  
+  .field-component label{
+    font-size: 12px;
+    color: #000;
+    opacity: .6;
+    margin-bottom: 8px;
+  }
+  
+  .field-component:first-child{
+    margin-bottom: 15px;
+  }
+  
+  .field-component input, #speciality-select, #faculty-select, #gender-select{
+    font-family: "SF Pro Display medium";
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    border-color: rgba(0, 0, 0, .3);
+  }
+
 .logo{
   margin-bottom: 55px;
   display: flex;
@@ -137,6 +174,20 @@
     margin-right: 10px;
   }
 
+  .btn{
+    width: 100%;
+    background-color: #2B2B67;
+    color: #fff;
+    border-radius: 8px;
+    border-color: transparent;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 20px;
+    font-family: "SF Pro Display";
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
 @media (max-width:1270px){
     .welcome-title{
         font-size: 28px;
@@ -162,5 +213,62 @@
     .container h4{
         font-size: 14px;
         text-wrap: nowrap;
+    }
+}
+
+@media (max-width:997px){
+    .welcome{
+        width: 50%;
+    }
+    .signing{
+        width: 50%;
+    }
+    .welcome-title {
+        font-size: 22px;
+        text-wrap: wrap;
+    }
+    .welcome-desc{
+        font-size: 12px;
+    }
+    .welcome-content{
+        width: fit-content;
+    }
+    .logo{
+        margin-bottom: 30px;
+    }
+    .logo img{
+        width: 70%;
+    }
+    .title-content h2{
+        font-size: 26px;
+    }
+    .title-content p{
+        font-size: 14px;
+    }
+    .field-component input{
+        padding: 9px;
+        font-size: 13px;
+    }
+    .remember-chkbx label, .forgot a {
+        font-size: 13px;
+    }
+    #remember{
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 768px) { 
+    .welcome{
+      display: none;
+    }
+    .signing{
+      width: 100%;
+    }
+    .container{
+      width: 40%;
+    }
+    .btn{
+      font-size: 16px;
     }
 }
