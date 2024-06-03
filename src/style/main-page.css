@@ -370,3 +370,49 @@ header{
 .footer-content h5{
     color: #F3A367;
 }
+
+@media (max-width:1270px){
+    .title-main{
+        width: 35%;
+    }
+    .dorm-img{
+        width: 450px;
+    }
+    .navbar-items li{
+        margin-left: 25px;
+    }
+    .logo-nav{
+        width: 150px;
+    }
+
+    .title-main h1{
+        font-size: 40px;
+    }
+
+    .btn-book{
+        text-wrap: nowrap;
+        padding: 16px 30px;
+        box-sizing:border-box;
+        margin-right: 0;
+    }
+    .btn-submission{
+        text-wrap: nowrap;
+        padding: 16px 15px;
+        box-sizing:border-box;
+        margin-right: 0;
+    }
+    .footer-icons img{
+        width: 24px;
+        height: 24px;
+    }
+    .footer-logo{
+        width: 15%;
+    }
+
+    .footer-team-name p{
+        text-wrap: nowrap;
+    }
+    .nav-btn svg{
+        margin-right: 25px;
+    }
+}

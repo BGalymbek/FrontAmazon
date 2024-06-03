@@ -15,7 +15,7 @@ export default function Booking() {
     const [selectedFloor, setSelectedFloor] = useState("");
     const [selectedCorridor, setSelectedCorridor] = useState("");
     const [selectedCorridorNumDuration, setSelectedCorridorNumDuration] = useState("");
-    const [reservedUsers, setReservedUsers] = useState("");
+    const [reservedUsers, setUsers] = useState("");
     const [selectedSeatPlace, setSelectedSeatPlace] = useState("");
     const [selectedSeatID, setSelectedSeatID] = useState("");
     const [roomNumber, setRoomNumber] = useState("");
@@ -167,9 +167,9 @@ export default function Booking() {
     console.log("Выбранное комната: ", roomNumber);
 
     useEffect(()=>{
-        const getAllRoomsInformation = async() =>{
+        const getAllUsersInformation = async() =>{
             try{
-                const response = axios.get('rooms/',{
+                const response = axios.get('users/',{
                     headers: {
                         Authorization: `Bearer ${authTokens.access}` // Добавляем токен для аутентификации запроса
                       }
@@ -177,17 +177,13 @@ export default function Booking() {
 
                 const res = (await response).data;
                 console.log(res);
+                setUsers(res)
 
-                // Создаем массив только с бронированными пользователями
-                const reservedUsers = res.filter(doc => doc.is_reserved).map(doc => doc);
-                console.log("Пользователи которые забронировали: ", reservedUsers);
-
-                setReservedUsers(reservedUsers); 
             }catch(err){
-                console.error('Ошибка при получении списка документов:', err);
+                console.error('Ошибка при получении списка пользователей:', err);
             }
         }
-        getAllRoomsInformation()
+        getAllUsersInformation()
     },[authTokens]);
 
     localStorage.setItem('dataSelectedToReserverByUser', JSON.stringify({selectedBlock:selectedBlock, selectedCorridor:selectedCorridor, selectedSeatPlace:selectedSeatPlace, roomNumber:roomNumber,step:step,selectedSemester:selectedSemester}))

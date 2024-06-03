@@ -27,7 +27,6 @@ import NewsPublish from "./containers/AdminPages/NewsPublish";
 import AddNews from "./containers/AdminPages/AddNews";
 import CongratsPublished from "./containers/ResponsePages/CongratsPublished";
 
-
 const App = () => {
   return (
       <Router>
@@ -67,43 +66,3 @@ const App = () => {
   );
 };
 export default App;
-// class App extends React.Component(){
-//   state = {details: [], }
-
-//   componentDidMount(){
-//     let data; 
-//     axios.get('http://localhost:8000')
-//     .then(res=>{
-//       data = res.data
-//       this.setState({
-//         details: data
-//       });
-//     }).catch(err=>{
-//       console.log(err);
-//     })
-//   }
-//   render(){
-//     return(
-//       <div>
-//         <header>Данные из Django</header>
-//         <hr></hr>
-//         {this.state.details.map((output,id) => {
-//           <div key={id}>
-//             <div>
-//               <h2>{output.first_name}</h2>
-//               <p>{output.last_name}</p>
-//             </div>
-//           </div>
-//         })}
-//       </div>
-//     )
-//   }
-// }
-
-// function App() {
-//   return (
-//     <div>
-//         <Login/>
-//     </div>
-//   );
-// }

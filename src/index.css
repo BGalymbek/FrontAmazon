@@ -1,4 +1,5 @@
 @import url('./style/reset.css');
+@import url('./style/login');
 @import url('./style/main-page.css');
 @import url('./style/rooms.css');
 @import url('./style/news.css');
@@ -10,11 +11,6 @@
 	src: url("./fonts/SF-Pro-Display-Bold.otf");
 }
 
-
-/* html{
-  background-color: #EAFAFF;
-} */
-
 body{
   min-height: 100vh;
 }
@@ -25,61 +21,6 @@ main{
 
 .main-page{
   background-color: #fff;
-}
-
-.signing{
-  width: 42%;
-  height: 100vh;
-  /* padding-top: 103px; */
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.welcome{
-  width: 58%;
-  /* height: 100%; */
-  background-color: #EAFAFF;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.container{
-  width: 50%;
-  box-sizing: border-box;
-}
-
-.logo img{
-  width: 100%;
-}
-
-.logo{
-  margin-bottom: 55px;
-}
-
-.title-content{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #212153;
-  margin-bottom: 20px;
-}
-
-.title-content h2{
-  font-size: 34px;
-  margin-bottom: 12px;
-}
-
-@font-face {
-font-family: "SF Pro Display medium";
-src: url("./fonts/SF-Pro-Display-Medium.otf");
-}
-.title-content p{
-  font-family: "SF Pro Display medium";
-  font-size: 16px;
-  font-weight: 500;
 }
 
 .field-component{
@@ -119,47 +60,6 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
   border-color: rgba(0, 0, 0, .3);
 }
 
-.additional{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  margin-top: 10px;
-}
-
-.additional input{
-  margin: 0;
-  width: 25px;
-  height: 25px;
-}
-
-.error-register{
-  color: #E94949;
-}
-
-.remember-chkbx{
-  display: flex;
-  align-items: center;
-}
-
-.remember-chkbx label, .forgot a{
-  font-family: "SF Pro Display medium";
-  font-size: 16px;
-  color: #21215399;
-}
-
-.forgot{
-  display: flex;
-  align-items: center;
-}
-
-.forgot a{
-  text-decoration: none;
-}
-
-#remember{
-  margin-right: 10px;
-}
-
 .btn{
   width: 100%;
   background-color: #2B2B67;
@@ -181,44 +81,6 @@ src: url("./fonts/SF-Pro-Display-Medium.otf");
 .container h4, .container h4>a{
   text-decoration: none;
   color: #212153B2;
-}
-
-.welcome-items{
-  width: 53%;
-  padding-top: 7%;
-  box-sizing: border-box;
-}
-
-.welcome .img>img{
-  width: 100%;
-}
-
-.img{
-  margin-bottom: 10px; 
-}
-
-.welcome-content{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.welcome-title{
-  font-family: "SF Pro Display";
-  font-size: 32px;
-  color: #2B2B67;
-  margin-bottom: 14px;
-}
-
-.welcome-desc{
-  display: flex;
-  width: 90%;
-  text-align: center;
-  font-size: 14px;
-  font-family: "SF Pro Display medium";
-  font-weight: 500;
-  letter-spacing: -2%;
-  color: #2B2B67BF;
 }
 
 /* burger-menu */
