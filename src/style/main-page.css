@@ -170,6 +170,7 @@ header{
     width: calc(30% - 20px);
     border-radius: 16px;
     position: relative;
+    box-sizing: border-box;
 }
 
 .vision h3, .mission h3, .goal h3{
@@ -494,5 +495,34 @@ header{
     }
     .vision p, .mission p, .goal p {
         font-size: 16px;
+    }
+}
+
+@media (max-width:768px){
+    .footer-content{
+        flex-direction: column;
+    }
+    .docSubmissin-instructional{
+        flex-direction: column-reverse;
+    }
+    .docSubmissin-instructional-img{
+        width: 100%;
+    }
+    .docSubmissin-instructional-content {
+        width: 100%;
+        text-align: center;
+        padding-bottom: 0;
+    }
+    .docSubmissin-instructional-content div{
+        width: 100%;
+    }
+    .instruction-videos-item:last-child{
+        flex-direction: column;
+    }
+    .navbar{
+        width: 22%;
+    }
+    .nav-btn svg{
+        margin-right: 15px;
     }
 }
