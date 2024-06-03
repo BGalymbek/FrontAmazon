@@ -215,7 +215,7 @@
         text-wrap: nowrap;
     }
 }
-
+/* Medium devices (tablets, 768px and up) */
 @media (max-width:997px){
     .welcome{
         width: 50%;
@@ -258,6 +258,7 @@
     }
 }
 
+/* Small devices (landscape phones, 576px and up) */
 @media (max-width: 768px) { 
     .welcome{
       display: none;

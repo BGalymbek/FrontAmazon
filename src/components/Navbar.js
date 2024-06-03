@@ -1,7 +1,8 @@
-import React, { useContext, useEffect,useState } from 'react'
+import React, { useContext, useEffect,useState, useRef } from 'react'
 import AuthContext from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import {FaBars, FaTimes} from 'react-icons/fa'
 
 export default function Navbar() {
   const { authTokens, logoutUser } = useContext(AuthContext);
@@ -9,14 +10,12 @@ export default function Navbar() {
   const [isStaff, setStaff] = useState("");
   const navigate = useNavigate();
 
+  const navRef = useRef();
+
 //   const isDisabled = selectedBlock !== null;
   let menu = document.getElementById('burger-menu')
   let userBookedEarlier = JSON.parse(localStorage.getItem('userBookedEarlier'))
   let userProfile = JSON.parse(localStorage.getItem('userProfile'))
-
-
-//   console.log("UserProfie:", userProfile);
-//   console.log("UserBookerEarlier:", userBookedEarlier);
 
   useEffect(() => {
     if (authTokens) {
@@ -28,6 +27,10 @@ export default function Navbar() {
 
   const changeBurgerMenu = ()=>{
        menu.classList.toggle('open-menu')
+  }
+
+  const showNavbar = ()=>{
+        navRef.current.classList.toggle('responsive_nav')
   }
     
   const handleClickBookNow = async ()=> {
@@ -85,6 +88,25 @@ export default function Navbar() {
                     <li><a href="/news">News</a></li>
                   )}
                   <li><a href="">About Us</a></li>
+              </ul>
+              <ul className="burger-navbar-items" ref={navRef}>
+                  <li><a href="/main-page">Home Page</a></li>
+                  <li><a href="/rooms">Rooms</a></li>
+                  {isStaff ? null:
+                  (
+                    <li><a onClick={()=>handleClickBookNow()}>Booking</a></li>
+                  )}
+                  {isStaff ? (
+                     <li><a href="/news-admin">News</a></li>
+                  ):(
+                    <li><a href="/news">News</a></li>
+                  )}
+                  <li><a href="">About Us</a></li>
+                  <button onClick={showNavbar} className='cancel-burger-btn'>
+                        <FaTimes/>
+                  </button>
+              </ul>
+              <ul className='navbar-icons'> 
                   <li className="nav-icons">
                       <button className="nav-btn">
                           <svg width="23" height="25" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,6 +118,9 @@ export default function Navbar() {
                               <path d="M12.5 14.0625C16.3818 14.0625 19.5312 10.9131 19.5312 7.03125C19.5312 3.14941 16.3818 0 12.5 0C8.61816 0 5.46875 3.14941 5.46875 7.03125C5.46875 10.9131 8.61816 14.0625 12.5 14.0625ZM18.75 15.625H16.0596C14.9756 16.123 13.7695 16.4062 12.5 16.4062C11.2305 16.4062 10.0293 16.123 8.94043 15.625H6.25C2.79785 15.625 0 18.4229 0 21.875V22.6562C0 23.9502 1.0498 25 2.34375 25H22.6562C23.9502 25 25 23.9502 25 22.6562V21.875C25 18.4229 22.2021 15.625 18.75 15.625Z" fill="#F5F5F5" fill-opacity="0.6"/>
                           </svg>
                       </button>
+                      <button onClick={showNavbar} className='burger-btn'>
+                            <FaBars className='burger-icon'/>
+                      </button>  
                       <div id="burger-menu">
                       {isStaff ? (
                             <div className="menu-item">
@@ -133,7 +158,7 @@ export default function Navbar() {
                         <div className="menu-item" onClick={logoutUser}>
                             <p>Sign Out</p>
                         </div>
-                    </div>                          
+                      </div>                         
                   </li>
               </ul>
           </div>

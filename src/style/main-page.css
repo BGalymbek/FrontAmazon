@@ -371,6 +371,37 @@ header{
     color: #F3A367;
 }
 
+.cancel-burger-btn{
+    padding: 5px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #FFFFFF99;
+    display: none;
+  }
+  
+  .burger-btn{
+    padding: 5px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #FFFFFF99;
+    transition: .3s;
+    display: none;
+  }
+  
+  .burger-btn:hover{
+    color: #fff;
+  }
+  
+  .burger-icon{
+    font-size: 1.3rem; 
+  }  
+
+
+/* Large devices (desktops, 992px and up) */
 @media (max-width:1270px){
     .title-main{
         width: 35%;
@@ -414,5 +445,54 @@ header{
     }
     .nav-btn svg{
         margin-right: 25px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width:997px){
+    .header{
+        padding-top: 140px;
+        flex-direction: column-reverse;
+    }
+    .title-main {
+        width: 100%;
+        margin-top: 40px;
+    }
+    .dorm-img{
+        width: 100%;
+        height: auto;
+    }
+    .dorm-img img{
+        object-fit: cover;
+        width: 100%;
+    }
+    .navbar-items{
+        display: none;
+    }
+    .burger-btn{
+        display: block;
+    }
+    .navbar{
+        width: 15%;
+    }
+    .navbar-icons{
+        width: 100%;
+    }
+    .nav-icons{
+        display: flex;
+    }
+    .main-points-container{
+        display: flex;
+        flex-direction: column;
+        gap: 45px;
+    }
+    .vision, .mission, .goal {
+        width: 100%;
+    }
+    .vision h3, .mission h3, .goal h3 {
+        font-size: 25px;
+    }
+    .vision p, .mission p, .goal p {
+        font-size: 16px;
     }
 }
