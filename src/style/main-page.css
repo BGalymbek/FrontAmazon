@@ -525,4 +525,63 @@ header{
     .nav-btn svg{
         margin-right: 15px;
     }
+    .title-main h1 {
+        font-size: 32px;
+    }
+    .title-main p{
+        font-size: 15px;
+    }
+    .logo-nav {
+        width: 130px;
+    }
+}
+
+@media (max-width: 576px) { 
+    .navbar{
+        width: 33%;
+    }
+    .vision h3, .mission h3, .goal h3 {
+        font-size: 22px;
+    }
+    .vision p, .mission p, .goal p {
+        font-size: 15px;
+    }
+    .vision-circle, .mission-circle, .goal-circle {
+        width: 58px;
+        height: 58px;
+    }
+    .main-points h2 {
+        font-size:27px;
+    }
+    .docSubmissin-instructional-content h2 {
+        font-size: 25px;
+    }
+    .docSubmissin-instructional-content p {
+        font-size: 15px;
+    }
+    .docSubmissin-instructional-content a {
+        padding: 13px 12px;
+    }
+    .footer-content {
+        gap: 65px;
+    }
+    .footer-icons img {
+        width: 20px;
+        height: 20px;
+    }
+    .footer-logo {
+        width: 25%;
+    }
+    .footer-team-name{
+        width: 33%;
+    }
+    .footer-team-name p {
+        font-size: 13px;
+    }
+    .footer-icons{
+        width: 23%;
+    }
+    .nav-btn svg {
+        margin-right: 20px;
+    }
 }

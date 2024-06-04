@@ -189,13 +189,13 @@ export default function MainPage() {
         </section>
         <footer className='footer'>
              <div className='footer-header'>
-                <div className='footer-logo'>
+                <div className='footer-logo footer-header-item'>
                     <img src={require('../img/logo-nav.png')}  alt="footer-logo"/>
                 </div>
-                <div className='footer-team-name'>
+                <div className='footer-team-name footer-header-item'>
                     <p>© 2024 Vision Team</p>
                 </div>
-                <div className='footer-icons'>
+                <div className='footer-icons footer-header-item'>
                     <img src={require('../img/icons/icon-x.png')}  alt="footer-icon1"/>
                     <img src={require('../img/icons/icon-insta.png')}  alt="footer-icon2"/>
                     <img src={require('../img/icons/icon-facebook.png')}  alt="footer-icon3"/>
