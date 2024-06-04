@@ -59,7 +59,7 @@ export default function Rooms() {
                         </section>
                         <section className='instructional-videos dormitory-review'>
                             <h1>SDU  Student Dormitory review</h1>
-                            <div className='docSubmissin-instructional instruction-videos-item'>
+                            <div className='docSubmissin-instructional instruction-videos-item dormitory-item'>
                                 <div className='docSubmissin-instructional-content'>
                                     <div>
                                         <h2>Living and Social Spaces</h2>
@@ -76,7 +76,7 @@ export default function Rooms() {
                                     <img src={require('../img/lounge-room.png')}  alt="doc-submission"/>
                                 </div>
                             </div>
-                            <div className='docSubmissin-instructional instruction-videos-item'>
+                            <div className='docSubmissin-instructional instruction-videos-item dormitory-item'>
                                 <div className='docSubmissin-instructional-img instructional-img-left'>
                                     <img src={require('../img/kitchen.png')}  alt="doc-submission"/>
                                 </div>
@@ -93,7 +93,7 @@ export default function Rooms() {
                                     </div>
                                 </div>
                             </div>
-                            <div className='docSubmissin-instructional instruction-videos-item'>
+                            <div className='docSubmissin-instructional instruction-videos-item dormitory-item'>
                                 <div className='docSubmissin-instructional-content'>
                                     <div>
                                         <h2>Health and Well-being</h2>
@@ -110,7 +110,7 @@ export default function Rooms() {
                                     <img src={require('../img/medical.png')}  alt="doc-submission"/>
                                 </div>
                             </div>
-                            <div className='docSubmissin-instructional instruction-videos-item'>
+                            <div className='docSubmissin-instructional instruction-videos-item dormitory-item'>
                                 <div className='docSubmissin-instructional-img instructional-img-left'>
                                     <img src={require('../img/laundry.png')}  alt="doc-submission"/>
                                 </div>
@@ -127,7 +127,7 @@ export default function Rooms() {
                                     </div>
                                 </div>
                             </div>
-                            <div className='docSubmissin-instructional instruction-videos-item'>
+                            <div className='docSubmissin-instructional instruction-videos-item dormitory-item'>
                                 <div className='docSubmissin-instructional-content'>
                                     <div>
                                         <h2>Recreational Facilities</h2>
@@ -144,7 +144,7 @@ export default function Rooms() {
                                     <img src={require('../img/court.png')}  alt="doc-submission"/>
                                 </div>
                             </div>
-                            <div className='docSubmissin-instructional instruction-videos-item'>
+                            <div className='docSubmissin-instructional instruction-videos-item dormitory-item'>
                                 <div className='docSubmissin-instructional-img instructional-img-left'>
                                     <img src={require('../img/room.png')}  alt="doc-submission"/>
                                 </div>
@@ -232,8 +232,8 @@ export default function Rooms() {
                             </div>
                         </section>
                         <section className='instructional-videos dormitory-review social-life-review'>
-                            <div className='docSubmissin-instructional instruction-videos-item'>
-                                <div className='docSubmissin-instructional-content'>
+                            <div className='docSubmissin-instructional instruction-videos-item social-life-item'>
+                                <div className='docSubmissin-instructional-content social-life-content'>
                                     <div>
                                         <h2>SDU ICE Party</h2>
                                         <p>SDU ICE Party event, held annually in winter for dormitory students.This is considered a day trip.In the morning, buses are waiting for students in front of the hostel, and by the same bus, students, together with their teachers, go to the Medeo ice skating rink.It is played in different ways. And along the way, a quiz question and answer game will be played for students on the bus.The winners will be Prize-winning</p>
@@ -249,11 +249,11 @@ export default function Rooms() {
                                     <img src={require('../img/ice-party.jpg')}  alt="doc-submission"/>
                                 </div>
                             </div>
-                            <div className='docSubmissin-instructional instruction-videos-item'>
+                            <div className='docSubmissin-instructional instruction-videos-item social-life-item'>
                                 <div className='docSubmissin-instructional-img instructional-img-left social-life-img'>
                                     <img src={require('../img/sdu-heroes.jpg')}  alt="doc-submission"/>
                                 </div>
-                                <div className='docSubmissin-instructional-content docSubmissin-instructional-content-right'>
+                                <div className='docSubmissin-instructional-content docSubmissin-instructional-content-right social-life-content'>
                                     <div className='content-right'>
                                         <h2>SDU Heroes</h2>
                                         <p>One of the seasonal events is he SDU Heroes. This event is held annually in the fall. In the morning, students go on a day trip to the Mountain Recreation Area "Electron" outside the city. It competes through sports relays, where the finish point was the mountain.Each student joins the team, and each team also has two groups of leaders.The winners will be awarded prizes such as breakfast with the Rector, breakfast with the dean</p>
@@ -266,8 +266,8 @@ export default function Rooms() {
                                     </div>
                                 </div>
                             </div>
-                            <div className='docSubmissin-instructional instruction-videos-item'>
-                                <div className='docSubmissin-instructional-content'>
+                            <div className='docSubmissin-instructional instruction-videos-item social-life-item'>
+                                <div className='docSubmissin-instructional-content social-life-content'>
                                     <div>
                                         <h2>Hangover</h2>
                                         <p>The Hangover is a seasonal event held each year in the spring.This event consists of several sub-stages.It can be said that the main thing is to have fun without sleeping until the morning. As for the types of sub-stages, among students there are tournaments on CS:Go, table tennis, tournaments on Playstation and, most importantly, it is a quest game.</p>

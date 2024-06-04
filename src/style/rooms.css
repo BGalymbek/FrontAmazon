@@ -167,9 +167,12 @@
 .social-item-content{
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     background-color: #212153;
     border-radius: 0 0 30px 30px;
     padding: 20px 67px 19px 41px;
+    /* padding-right: 67px;
+    padding-left: 41px; */
 }
 
 .social-item-content h3{
@@ -200,6 +203,7 @@
     align-self: flex-start;
     padding: 16px 20px;
     border-radius: 8px;
+    margin-top: auto;
 }
 
 .social-life-review{
@@ -212,4 +216,99 @@
 
 .social-life-img img{
  border: none;
+}
+
+@media (max-width:1270px){
+    .data-dorm-item {
+        width: 15%;
+    }
+    .data-dorm-item h1 {
+        font-size: 40px;
+    }
+    .data-dorm-item p {
+        font-size: 13px;
+    }
+    .data-dorm-item h4 {
+        font-size: 15px;
+    }
+    .dorm-information-header {
+        padding-top: 60px;
+    }
+    .title-main p {
+        font-size: 15px;
+    }
+    .numeric-data-dorm {
+        margin-bottom: 130px;
+    }
+    .dormitory-review h1 {
+        margin-bottom: 50px;
+        font-size: 36px;
+    }
+    .docSubmissin-instructional {
+        margin-bottom: 50px;
+    }
+    .room-has-info>h2 {
+        font-size: 28px;
+    }
+    .social-header h1 {
+        font-size: 40px;
+    }
+    .social-header-content h2 {
+        font-size: 25px;
+        line-height: 38px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width:997px){
+    .social-header-container {
+        width: 100%;
+        margin-bottom: 90px;
+    }
+    .social-header h1 {
+        font-size: 36px;
+    }
+    .social-life-boxes {
+        flex-direction: column;
+        gap: 65px;
+    }
+    .social-box-item {
+        width: 100%;
+    }
+    .social-life-item{
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+    .social-life-item:nth-child(2){
+        flex-direction: column;
+    }
+    .social-life-content{
+        width: 100%;
+    }
+    .social-life-content div{
+        width: 100%;
+    }
+    .social-life-img{
+        width: 100%;
+    }
+    .numeric-data-dorm{
+        flex-direction: column;
+        gap: 30px;
+    }
+    .data-dorm-item{
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .dorm-information-header{
+        flex-direction: column-reverse;
+    }
+}
+
+@media (max-width:768px){
+    .dormitory-item:nth-child(3){
+        flex-direction: column;
+    }
+    .dormitory-item:nth-child(5){
+        flex-direction: column;
+    }
 }
