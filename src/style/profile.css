@@ -89,7 +89,8 @@
     font-weight: 700;
     line-height: 28.64px;
     justify-self: start;
-    color: #212153CC;
+    color: #212153;
+    opacity: .75;
   }
 
   .user-info-item p{
