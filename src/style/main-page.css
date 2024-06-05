@@ -534,6 +534,25 @@ header{
     .logo-nav {
         width: 130px;
     }
+    .footer-content {
+        gap: 65px;
+    }
+    .footer-icons img {
+        width: 20px;
+        height: 20px;
+    }
+    .footer-logo {
+        width: 25%;
+    }
+    .footer-team-name{
+        width: 33%;
+    }
+    .footer-team-name p {
+        font-size: 13px;
+    }
+    .footer-icons{
+        width: 23%;
+    }
 }
 
 @media (max-width: 576px) { 
@@ -561,25 +580,6 @@ header{
     }
     .docSubmissin-instructional-content a {
         padding: 13px 12px;
-    }
-    .footer-content {
-        gap: 65px;
-    }
-    .footer-icons img {
-        width: 20px;
-        height: 20px;
-    }
-    .footer-logo {
-        width: 25%;
-    }
-    .footer-team-name{
-        width: 33%;
-    }
-    .footer-team-name p {
-        font-size: 13px;
-    }
-    .footer-icons{
-        width: 23%;
     }
     .nav-btn svg {
         margin-right: 20px;

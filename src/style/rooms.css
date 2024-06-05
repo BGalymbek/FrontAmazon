@@ -311,4 +311,52 @@
     .dormitory-item:nth-child(5){
         flex-direction: column;
     }
+    .social-header-container{
+        flex-direction: column-reverse;
+    }
+    .social-header-content {
+        width: 100%;
+    }
+    .social-header-img {
+        width: 80%;
+    }
+    .social-header h1 {
+        font-size: 32px;
+    }
+    .social-life-item:nth-child(3) {
+        flex-direction: column-reverse;
+    }
+}
+
+@media (max-width: 576px) { 
+    .dorm-information-header {
+        padding-top: 20px;
+    }
+    .social-header h1 {
+        font-size: 27px;
+    }
+    .social-header-content h2 {
+        font-size: 23px;
+    }
+    .social-header-content p {
+        font-size: 15px;
+    }
+    .data-dorm-item {
+        gap: 16px;
+    }
+    .data-dorm-item h1 {
+        font-size: 37px;
+    }
+    .dormitory-review h1 {
+        font-size: 32px;
+    }
+    .numeric-data-dorm {
+        margin-bottom: 90px;
+    }
+    .data-dorm-item {
+        gap: 13px;
+    }
+    .data-dorm-item {
+        padding: 20px 30px;
+    }
 }
