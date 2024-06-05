@@ -74,34 +74,31 @@
   }
   
   .user-infos{
-    display: flex;
+    display: grid;
+    grid-template-columns: max-content auto;
+    gap: 10px 20px;     
   }
-  
-  .user-info-labels{
+
+  .user-info-item{
+    display: contents;
+  }
+
+  .user-info-item h4{
     font-family: 'SF Pro Display';
-    font-size: 17px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 28.64px;
-    text-align: left;
+    justify-self: start;
     color: #212153CC;
   }
-  
-  .user-info-labels li{
-    margin-bottom: 10px;
-  }
-  
-  .user-info{
+
+  .user-info-item p{
     font-family: 'SF Pro Display';
-    font-size: 17px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 28.64px;
-    text-align: left;
-    margin-left: 60px;
+    justify-self: start;
     color: #212153;
-  }
-  
-  .user-info li{
-    margin-bottom: 10px;
   }
   
   .profile-btns{
@@ -218,6 +215,27 @@
     color: #E94949;
   }
 
+@media (max-width:1270px){
+  .profile-data {
+    width: 75%;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width:997px){
+  .profile-data {
+    width: 100%;
+  }
+  .profile-content h1 {
+    font-size: 38px;
+  }
+}
+
+@media (max-width:768px){
+  .user-info-box {
+    padding: 25px 50px 25px 45px;
+  }
+}
 
 @media (max-width: 576px) { 
     .profile-nav button {
@@ -228,4 +246,20 @@
     .profile-nav {
         margin-bottom: 30px;
     }
+    .user-infos{
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .user-info-item h4, .user-info-item p{
+      grid-column: span 1;
+    }
+    .profile-content h1 {
+      font-size: 30px;
+    }
+    .user-info-box {
+      padding: 25px 50px 25px 30px;
+    }
+    .profile-btns button:first-child {
+      margin-left: 0;
+    } 
 }

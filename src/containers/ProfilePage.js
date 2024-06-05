@@ -179,20 +179,26 @@ const fetchData = async () => {
                           <div className='user-info-box'>
                               <h3>User information</h3>
                               <div className='user-infos'>
-                                  <ul className='user-info-labels'>
-                                      <li>Full name</li>
-                                      <li>Student ID</li>
-                                      <li>Email</li>
-                                      <li>Faculty</li>
-                                      <li>Gender</li>
-                                  </ul>
-                                  <ul className='user-info'>
-                                      <li>{userProfile.first_name} {userProfile.last_name}</li>
-                                      <li>{userProfile.id_number}</li>
-                                      <li>{userProfile.email}</li>
-                                      <li>{userProfile.faculty_name}</li>
-                                      <li>{userProfile.gender}</li>
-                                  </ul>
+                                  <div className='user-info-item'>
+                                      <h4 className='user-info-label'>Full name</h4>
+                                      <p className='user-information'>{userProfile.first_name} {userProfile.last_name}</p>
+                                  </div>
+                                  <div className='user-info-item'>
+                                      <h4 className='user-info-label'>Student ID</h4>
+                                      <p className='user-information'>{userProfile.id_number}</p>
+                                  </div>
+                                  <div className='user-info-item'>
+                                      <h4 className='user-info-label'>Email</h4>
+                                      <p className='user-information'>{userProfile.email}</p>
+                                  </div>
+                                  <div className='user-info-item'>
+                                      <h4 className='user-info-label'>Faculty</h4>
+                                      <p className='user-information'>{userProfile.faculty_name}</p>
+                                  </div>
+                                  <div className='user-info-item'>
+                                      <h4 className='user-info-label'>Gender</h4>
+                                      <p className='user-information'>{userProfile.gender}</p>
+                                  </div>
                               </div>
                           </div>
                           <div className='profile-btns'>
