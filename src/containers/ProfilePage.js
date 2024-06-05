@@ -164,7 +164,7 @@ const fetchData = async () => {
         <Navbar/>
         <div className='profile-container'>
             <div className='profile-content'>
-                <div className='profile-nav' id='profile-nav'>
+                <div className='profile-nav profile-page-nav' id='profile-nav'>
                     <button className={numTurn === 1 ? 'active' : ''} onClick={()=>setNumTurnClick(1)}>
                         My Profile
                     </button>

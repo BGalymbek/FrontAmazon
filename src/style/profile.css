@@ -248,13 +248,13 @@
     }
     .user-infos{
       grid-template-columns: 1fr;
-      gap: 18px;
+      gap: 15px;
     }
     .user-info-item h4, .user-info-item p{
       grid-column: span 1;
     }
     .profile-content h1 {
-      font-size: 30px;
+      font-size: 23px;
     }
     .user-info-box {
       padding: 25px 50px 25px 30px;
@@ -262,4 +262,16 @@
     .profile-btns button:first-child {
       margin-left: 0;
     } 
+    .user-info-box h3 {
+      font-size: 20px;
+    }
+    .user-info-item h4 {
+      font-size: 16px;
+    }
+    .user-info-item p {
+      font-size: 15px;
+    }
+    .profile-page-nav button{
+      padding: 11px 12px;
+    }
 }
