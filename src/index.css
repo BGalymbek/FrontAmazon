@@ -1471,14 +1471,9 @@ main{
 
 .submitted-doc-list{
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  margin-bottom: 25px;
-}
-
-.submitted-item{
-  width: calc(20% - 30px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 45px;
 }
 
 .submitted-item>div{
@@ -1502,6 +1497,7 @@ main{
 
 .submitted-item>div:first-child p{
   padding: 15px 60px 40px 25px;
+  text-wrap: nowrap;
 }
 
 .update-file>img{
@@ -1580,14 +1576,6 @@ tbody{
   border-bottom-right-radius: 8px;
 }
 
-/* .header-table th:first-child{
-  border-radius: 8px 0 0 0;
-}
-
-.header-table th:last-child{
-  border-radius: 0 8px 0 0;
-} */
-
 .my-booking-container h1{
   font-family: 'SF Pro Display';
   font-size: 48px;
@@ -1604,4 +1592,33 @@ tbody{
   line-height: 28.64px;
   color: #00A35D;
   margin-bottom: 30px;
+}
+
+@media (max-width:1270px){
+  .submitted-doc-list{
+    gap: 30px;
+  }
+}
+
+@media (max-width:997px){
+  .submitted-doc-list{
+    grid-template-columns: repeat(2, 1fr);
+    gap: 55px 65px;
+  }
+}
+
+@media (max-width:768px) {
+    .status-txt{
+      width: 55%;
+    }
+    .submitted-doc-list{
+      gap: 45px 50px;
+    }
+}
+
+@media (max-width: 576px) { 
+  .submitted-doc-list{
+    grid-template-columns: repeat(1, .9fr);
+    justify-content: center;
+  }
 }
