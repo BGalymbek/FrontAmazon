@@ -1621,4 +1621,16 @@ tbody{
     grid-template-columns: repeat(1, .9fr);
     justify-content: center;
   }
+  .status-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+  }
+  .status-txt {
+    width: 100%;
+    margin-right: 0;
+  }
+  .status{
+    margin-left: 12px;
+  }
 }
