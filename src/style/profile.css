@@ -132,93 +132,99 @@
     padding-left: 40px;
     padding-right: 40px;
   }
-  
+
   /* Modal Form Change Password */
-  .modal-changePswd{
-    height: 410px;
-    gap: 25px;
-  }
-  
-  .modal-form{
-    display: flex;
-    flex-direction: column;
-    width: 45%;
-  }
-  
-  .modal-form input{
-    padding: 12px;
-    border: 1px solid #0000004D;
-    border-radius:8px;
-  }
-  
-  .modal-form input:not(:nth-child(3)){
-    margin-bottom: 10px;
-  }
-  
-  .modal-form input:nth-child(3){
-    margin-bottom: 20px;
-  }
-  
-  .btns-changePswd{
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    gap: 8px;
-  }
-  
-  .btns-changePswd button{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 8px;
-    border: none;
-    background-color: #2B2B67;
-    color: #fff;
-    font-family: 'SF Pro Display';
-    font-size: 17px;
-    line-height: 28.64px;
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-  }
-  
-  .btns-changePswd button:nth-child(2){
-    background-color: transparent;
-    color: #2B2B67;
-    border: 2px solid #2B2B67;
-  }
-  
-  .modal-changePswd h3{
-    color: #212153;
-  }
-  
-  /* edit Profile */
-  .modal-editProfile{
-    height: 480px;
-  }
-  
-  .modal-editProfile input:nth-child(3){
-    margin-bottom: 10px;
-  }
-  
-  .faculty-select-profileEdit{
-    margin-bottom: 10px;
-  }
-  
-  .modal-form #faculty-select{
-    padding-right: 36px;
-  }
-  
-  .oops-profile-container{
-    padding-top: 0;
-  }
-  
-  .oops-profile-content h1{
-    color: #E94949;
-  }
+.modal-changePswd{
+  height: 420px;
+  gap: 25px;
+}
+
+.modal-form{
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+
+.modal-form input{
+  padding: 12px;
+  border: 1px solid #0000004D;
+  border-radius:8px;
+}
+
+.modal-form input:not(:nth-child(3)){
+  margin-bottom: 10px;
+}
+
+.modal-form input:nth-child(3){
+  margin-bottom: 20px;
+}
+
+.btns-changePswd{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  gap: 8px;
+}
+
+.btns-changePswd button{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 8px;
+  border: none;
+  background-color: #2B2B67;
+  color: #fff;
+  font-family: 'SF Pro Display';
+  font-size: 17px;
+  line-height: 28.64px;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.btns-changePswd button:nth-child(2){
+  background-color: transparent;
+  color: #2B2B67;
+  border: 2px solid #2B2B67;
+}
+
+.modal-changePswd h3{
+  color: #212153;
+}
+
+ /* edit Profile */
+ .modal-editProfile{
+  height: 480px;
+}
+
+.modal-editProfile input:nth-child(3){
+  margin-bottom: 10px;
+}
+
+.faculty-select-profileEdit{
+  margin-bottom: 10px;
+}
+
+.modal-form #faculty-select{
+  padding-right: 36px;
+}
+
+.oops-profile-container{
+  padding-top: 0;
+}
+
+.oops-profile-content h1{
+  color: #E94949;
+}
 
 @media (max-width:1270px){
   .profile-data {
     width: 75%;
+  }
+  .modal-changePswd{
+      width: 540px;
+  }
+  .modal-form {
+    width: 50%;
   }
 }
 
@@ -230,11 +236,27 @@
   .profile-content h1 {
     font-size: 38px;
   }
+  .modal-changePswd{
+    width: 450px;
+  }
+  .modal-form {
+    width: 53%;
+  }
 }
 
 @media (max-width:768px){
   .user-info-box {
     padding: 25px 50px 25px 45px;
+  }
+  .modal-changePswd{
+    width: 380px;
+  }
+  .modal-form {
+    width: 61%;
+  }
+  .btns-changePswd button {
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 }
 
@@ -274,5 +296,20 @@
     }
     .profile-page-nav button{
       padding: 10px 10px;
+    }
+    .modal-changePswd{
+      width: 360px;
+      height: 450px;
+    }
+    .modal-form {
+      width: 65%;
+    }
+    .btns-changePswd button {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .modal-editProfile {
+      width: 340px;
+      height: 480px;
     }
 }
