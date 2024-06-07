@@ -72,20 +72,18 @@ export default function MyBookings() {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{userBooking.block}-Block</td>
-                        <td>{floor}- floor</td>
-                        <td>{corridorNum}- corridor</td>
-                        <td>{room}-room</td>
-                        <td>{userBooking.seat_number}-seat</td>
-                    </tr>
-                    <tr className='table-cost'>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Total cost: 195 000 KZT</td>
+                        <td data-label="Block">{userBooking.block}-Block</td>
+                        <td data-label="Floor">{floor}-floor</td>
+                        <td data-label="Corridor">{corridorNum}-corridor</td>
+                        <td data-label="Room">{room}-room</td>
+                        <td data-label="Seat">{userBooking.seat_number}-seat</td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr className='table-cost'>
+                        <td colspan="5">Total cost: 195 000 KZT</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <footer></footer>
