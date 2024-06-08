@@ -60,31 +60,33 @@ export default function MyBookings() {
         <div className='my-booking-container'>
             <h1>Booking</h1>
             <h3>You have successfully completed your booking, the booking details are as follows:</h3>
-            <table className='table'>
-                <thead>
-                    <tr className='header-table'>
-                        <th>Block</th>
-                        <th>Floor</th>
-                        <th>Corridor</th>
-                        <th>Room</th>
-                        <th>Seat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td data-label="Block">{userBooking.block}-Block</td>
-                        <td data-label="Floor">{floor}-floor</td>
-                        <td data-label="Corridor">{corridorNum}-corridor</td>
-                        <td data-label="Room">{room}-room</td>
-                        <td data-label="Seat">{userBooking.seat_number}-seat</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr className='table-cost'>
-                        <td colspan="5">Total cost: 195 000 KZT</td>
-                    </tr>
-                </tfoot>
-            </table>
+            <div className='table-container'>
+                <table className='table'>
+                    <thead>
+                        <tr className='header-table'>
+                            <th>Block</th>
+                            <th>Floor</th>
+                            <th>Corridor</th>
+                            <th>Room</th>
+                            <th>Seat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Block">{userBooking.block}-Block</td>
+                            <td data-label="Floor">{floor}-floor</td>
+                            <td data-label="Corridor">{corridorNum}-corridor</td>
+                            <td data-label="Room">{room}-room</td>
+                            <td data-label="Seat">{userBooking.seat_number}-seat</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr className='table-cost'>
+                            <td colspan="5">Total cost: 195 000 KZT</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
         <footer></footer>
     </div>

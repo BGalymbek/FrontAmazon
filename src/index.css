@@ -1472,9 +1472,10 @@ main{
 
 table{
   width: 100%;
-  border-collapse: collapse;
-  overflow: hidden;
+  border-collapse: separate; /* Важно: используем separate для применения border-radius */
+  border-spacing: 0; /* Сброс отступов */
   border-radius: 8px;
+  overflow: hidden;
 }
 
 tbody, tfoot{
@@ -1489,6 +1490,7 @@ tbody, tfoot{
 .table th, .table td{
   width: 20%;
   padding: 10px;
+  box-sizing: border-box;
   text-align: center;
   border: 1px solid #000;
 }
@@ -1500,6 +1502,16 @@ tbody, tfoot{
   line-height: 16.71px;
   text-align: center;
   color: #173F8F;
+  border-bottom-left-radius: 8px; /* Rounded corner */
+  border-bottom-right-radius: 8px; /* Rounded corner */
+  border-bottom: 1px solid #000;
+}
+
+.header-table th:first-child {
+  border-top-left-radius: 8px;
+}
+.header-table th:last-child {
+  border-top-right-radius: 8px;
 }
 
 .my-booking-container h1{
@@ -1537,6 +1549,13 @@ tbody, tfoot{
   .title-update{
     font-size: 38px;
   }
+  .my-booking-container h1 {
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+  .my-booking-container h3 {
+    font-size: 18px;
+  }
 }
 
 @media (max-width:768px) {
@@ -1548,6 +1567,13 @@ tbody, tfoot{
     }
     .title-update{
       font-size: 36px;
+    }
+    .my-booking-container h1 {
+      font-size: 36px;
+      margin-bottom: 24px;
+    }
+    .my-booking-container h3 {
+      font-size: 17px;
     }
 }
 
@@ -1594,11 +1620,14 @@ tbody, tfoot{
   .table tfoot{
     grid-column: 1 / 3;
   }
-
-  .table thead th, .table tbody td, .table tfoot td{
-    border: none;
+  tbody tr td:first-child {
+    border-top-right-radius: 8px;
   }
-  .table tfoot{
-    border: 1px solid #000;
+  .my-booking-container h1 {
+    font-size: 33px;
+    margin-bottom: 20px;
+  }
+  .my-booking-container h3 {
+    font-size: 16px;
   }
 }
