@@ -59,6 +59,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
+    grid-auto-rows: auto;
 }
 
 .news-list-item{
@@ -168,6 +169,9 @@
     .link-news-reading{
         height: 580px;
     }
+    .news-container {
+        padding-bottom: 100px;
+    }
     .news-list-box{
         grid-template-columns: repeat(2, 1fr);
     } 
@@ -189,6 +193,9 @@
     .news-list-box{
         grid-template-columns: repeat(1, 1fr);
     } 
+    .news-container {
+        padding-bottom: 85px;
+    }
     .link-news-reading h1 {
         font-size: 24px;
         padding-left: 30px;
