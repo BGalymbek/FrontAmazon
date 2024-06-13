@@ -978,6 +978,7 @@ main{
   background-color: #EAFAFF;
   padding-bottom: 76px;
   padding-top: 140px;
+  min-height: 100vh;
 }
 
 .background-payment{
@@ -1548,6 +1549,14 @@ tbody, tfoot{
   margin-bottom: 30px;
 }
 
+.user-docs-item{
+  width: calc(25% - 30px);
+}
+
+.user-docs-item img{
+  width: 100%;
+}
+
 @media (max-width:1270px){
   .booking-system>div {
     padding-bottom: 150px;
@@ -1596,9 +1605,29 @@ tbody, tfoot{
   .booking-visually {
     margin-left: 0;
   }
+  .confirmation-info-left {
+    padding-left: 0px;
+    padding-right: 50px;
+  }
+  .background-payment {
+    width: 40%;
+  }
 }
 
 @media (max-width:997px){
+  .background-payment {
+    width: 50%;
+  }
+  .confirmation-info-left {
+    padding-right: 20px;
+  }
+  .txt-details h2 {
+    font-size: 29px;
+  }
+  .me-selected>div h3 {
+    font-size: 18px;
+    padding: 14px 25px 14px 25px;
+  }
   .booking-system>div h2 {
     font-size: 29px;
   }
@@ -1642,6 +1671,36 @@ tbody, tfoot{
 }
 
 @media (max-width:768px) {
+  .background-payment {
+    width: 60%;
+  }
+  .confirmation-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .confirmation-info-left {
+    width: 100%;
+  } 
+  .confirmation-info-right{
+    align-items: flex-start;
+    width: 100%;
+    gap: 25px;
+  }
+  .btns-confirmation button:first-child, .btns-confirmation button:nth-child(2) {
+    padding: 12px 16px;
+  }
+  .btns-confirmation {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .background-of-confirmation {
+    padding-right: 30px;
+    padding-left: 40px;
+  }
+  .confirmation-info-left {
+    padding-right: 0px;  
+  }
+
   .btn-booking-colors {
     flex-wrap: wrap;
     gap: 20px;
@@ -1677,6 +1736,44 @@ tbody, tfoot{
 }
 
 @media (max-width: 576px) {
+  .form-payment div:first-child{
+    margin-bottom: 15px;
+  }
+  .payment-cvv-mm {
+    margin-bottom: 50px;
+}
+  .payment-header h2:nth-child(2) {
+    font-size: 26px;
+  }
+  .background-payment {
+    padding: 60px 40px 100px 40px;
+  }
+  .background-payment {
+    width: 80%;
+  }
+  .background-of-confirmation {
+    width: 74%;
+  }
+  .background-of-confirmation {
+    padding-left: 25px;
+  }
+  .txt-details h2 {
+    font-size: 26px;
+  }
+  .me-selected>div h3 {
+    font-size: 18px;
+    padding: 10px 20px 10px 20px;
+  }
+  .confirmation-info-right>div h3 {
+    font-size: 16px;
+  }
+  .me-selected>div h3 {
+    font-size: 18px;
+    padding: 12px 22px 12px 22px;
+  }
+  .background-of-confirmation {
+    padding-right: 20px;
+  }
   .selected-place-orange h4, .available-seat h4, .not-available-seat h4{
     font-size: 14px;
   }
@@ -1693,6 +1790,10 @@ tbody, tfoot{
   .seat-visual-item {
     width: 15px;
     height: 15px;
+  }
+
+  .seat-place{
+    color: #000;
   }
   .seat-places>div:first-child {
     margin-bottom: 15px;

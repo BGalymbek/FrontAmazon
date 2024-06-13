@@ -108,9 +108,9 @@ export default function UpdateSubmission() {
                   <>
                     <div>
                       <div className='submitted-img'>
-                        <img src={userDocuments[0].statement.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
+                        <a href={userDocuments[0].statement} target="_blank" rel="noopener noreferrer"><img src={userDocuments[0].statement.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
                           userDocuments[0].statement.endsWith('.docx') || userDocuments[0].statement.endsWith('.doc') ? 
-                          require('../img/icons/icon-docx.png') : userDocuments[0].statement} alt="submited-item"/>
+                          require('../img/icons/icon-docx.png') : userDocuments[0].statement} alt="submited-item"/></a>
                       </div>
                       <p>statement</p>
                     </div>
@@ -135,9 +135,9 @@ export default function UpdateSubmission() {
                   <>
                   <div>
                     <div className='submitted-img'>
-                      <img src={userDocuments[0].photo_3x4.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
+                      <a href={userDocuments[0].photo_3x4} target="_blank" rel="noopener noreferrer"><img src={userDocuments[0].photo_3x4.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
                           userDocuments[0].photo_3x4.endsWith('.docx') || userDocuments[0].photo_3x4.endsWith('.doc') ? 
-                          require('../img/icons/icon-docx.png') : userDocuments[0].photo_3x4} alt="submited-item"/>
+                          require('../img/icons/icon-docx.png') : userDocuments[0].photo_3x4} alt="submited-item"/></a>
                     </div>
                     <p>3x4-photo</p>
                     </div>
@@ -159,9 +159,9 @@ export default function UpdateSubmission() {
                   <>
                     <div>
                       <div className='submitted-img'>
-                        <img src={userDocuments[0].form_075.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
+                      <a href={userDocuments[0].form_075} target="_blank" rel="noopener noreferrer"><img src={userDocuments[0].form_075.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
                           userDocuments[0].form_075.endsWith('.docx') || userDocuments[0].form_075.endsWith('.doc') ? 
-                          require('../img/icons/icon-docx.png') : userDocuments[0].form_075} alt="submited-item"/>
+                          require('../img/icons/icon-docx.png') : userDocuments[0].form_075} alt="submited-item"/></a>
                       </div>
                       <p>075-form</p>
                     </div>
@@ -183,9 +183,9 @@ export default function UpdateSubmission() {
                   <>
                     <div>
                       <div className='submitted-img'>
-                        <img src={userDocuments[0].identity_card_copy.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
+                        <a href={userDocuments[0].identity_card_copy} target="_blank" rel="noopener noreferrer"><img src={userDocuments[0].identity_card_copy.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
                           userDocuments[0].identity_card_copy.endsWith('.docx') || userDocuments[0].identity_card_copy.endsWith('.doc') ? 
-                          require('../img/icons/icon-docx.png') : userDocuments[0].identity_card_copy} alt="submited-item"/>
+                          require('../img/icons/icon-docx.png') : userDocuments[0].identity_card_copy} alt="submited-item"/></a>
                       </div>
                       <p>identity-card</p>
                     </div>
