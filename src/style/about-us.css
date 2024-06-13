@@ -234,13 +234,6 @@
 }
 
 @media (max-width:576px){
-    .about-us-nav button{
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-    .dorm-contact-container {
-        margin-bottom: 110px;
-    }
     .male-info-item>h3:after, .female-info-item>h3:after {
         display: none;
     }
@@ -262,5 +255,12 @@
     .male-dorm-info, .female-dorm-info {
         padding-left: 30px;
         padding-right: 30px;
+    }
+    .aboutUs-nav button{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .dorm-contact-container {
+        margin-bottom: 110px;
     }
 }
