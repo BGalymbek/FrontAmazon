@@ -459,15 +459,13 @@ main{
 
 .booking{
   display: block;
-  height: 100%;
+  min-height: 100vh;
   background-color: #EAFAFF !important;
 }
 
 .booking-content{
   display: flex;
   flex-direction: row;
-  padding-left: 144px;
-  padding-right: 144px;
   padding-bottom: 76px;
   padding-top: 140px; 
 }
@@ -524,6 +522,11 @@ main{
   /* justify-content: center; */
 }
 
+.selection{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .block{
   font-family: "SF Pro Display";
   font-size: 12px;
@@ -598,6 +601,7 @@ main{
 .instructional-video>p{
   margin-bottom: 52px;
   color: #212153B2;
+  align-self: flex-start;
 }
 
 .instructional-video a{
@@ -607,7 +611,7 @@ main{
 
 /* Визуальное бронирование */
 .booking-visually{
-  margin-left: 24px;
+  margin-left: 35px;
 }
 
 .seats{
@@ -1545,6 +1549,16 @@ tbody, tfoot{
 }
 
 @media (max-width:1270px){
+  .booking-system>div {
+    padding-bottom: 150px;
+  }
+  .instructional-video>img {
+    width: 350px;
+  }
+  .booking-system>div {
+    padding-left: 77px;
+    padding-right: 77px;
+  }
   .submitted-doc-list{
     gap: 30px;
   }
@@ -1566,9 +1580,39 @@ tbody, tfoot{
   .submission-list>div h2 {
     font-size: 27px;
   }
+  .booking-content{
+    flex-direction: column;
+    gap: 80px;
+  }
+  .booking-video .instructional-video {
+    display: none;
+  }
+  .booking-system {
+    width: 100%;
+  }
+  .seats {
+    justify-content: center;
+  }
+  .booking-visually {
+    margin-left: 0;
+  }
 }
 
 @media (max-width:997px){
+  .booking-system>div h2 {
+    font-size: 29px;
+  }
+  .booking-system>div {
+    padding-left: 55px;
+    padding-right: 55px;
+    padding-bottom: 220px;
+  }
+  .instructional-video>img {
+    width: 285px;
+  }
+  .booking-system>div img {
+    width: 143px;
+  }
   .submitted-doc-list{
     grid-template-columns: repeat(2, 1fr);
     gap: 55px 65px;
@@ -1589,9 +1633,31 @@ tbody, tfoot{
   .submission-list>div {
     padding-bottom: 70px;
   }
+  #floor-select, #corridor-select, #semester-select {
+    width: 240px;
+  }
+  .booking-system>div {
+    padding-bottom: 140px;
+  }
 }
 
 @media (max-width:768px) {
+  .btn-booking-colors {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+    #floor-select, #corridor-select, #semester-select {
+       width: 305px;
+    }
+    .booking-system>div img {
+      width: 156px;
+    }
+    .booking-system{
+      width: 100%;
+    }
+    .booking-system>div {
+      padding-bottom: 100px;
+    }
     .status-txt{
       width: 55%;
     }
@@ -1610,7 +1676,40 @@ tbody, tfoot{
     }
 }
 
-@media (max-width: 576px) { 
+@media (max-width: 576px) {
+  .selected-place-orange h4, .available-seat h4, .not-available-seat h4{
+    font-size: 14px;
+  }
+  .btn-back button, .btn-confirm-restart button {
+    padding: 14px 25px;
+  } 
+  .btn-confirm-restart button:first-child {
+    padding: 14px 20px;
+    margin-right: 5px;
+  }
+  .booking-content{
+    width: 90%;
+  }
+  .seat-visual-item {
+    width: 15px;
+    height: 15px;
+  }
+  .seat-places>div:first-child {
+    margin-bottom: 15px;
+  }
+  .seat-places>div:last-child {
+    margin-top: 15px;
+  }
+  #floor-select, #corridor-select, #semester-select {
+    width: 220px;
+    padding: 14px;
+  }
+  .txt {
+    font-size: 13px;
+  }
+  .block {
+    padding:26px 16px;
+  }
   .update-container{
     padding-bottom: 70px;
   }

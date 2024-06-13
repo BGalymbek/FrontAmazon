@@ -242,35 +242,37 @@ export default function Booking() {
                                     </>
                                 )}
                             </div>
-                            <div className='floor-selection'>
-                                <select id="floor-select" value={selectedFloor} onChange={handleFloorChange}>
-                                    <option value="">Select the floor</option> {/* Опция по умолчанию */}
-                                    <option value="2nd-floor">2nd floor</option> {/* Значения для этажей */}
-                                    <option value="3rd-floor">3rd floor</option>
-                                    <option value="4th-floor">4th floor</option>
-                                    <option value="5th-floor">5th floor</option>
-                                </select>
+                            <div className='selection-group'>
+                              <div className='floor-selection'>
+                                  <select id="floor-select" value={selectedFloor} onChange={handleFloorChange}>
+                                      <option value="">Select the floor</option> {/* Опция по умолчанию */}
+                                      <option value="2nd-floor">2nd floor</option> {/* Значения для этажей */}
+                                      <option value="3rd-floor">3rd floor</option>
+                                      <option value="4th-floor">4th floor</option>
+                                      <option value="5th-floor">5th floor</option>
+                                  </select>
+                              </div>
+                              <div className='corridor-selection'>
+                                  <select id="corridor-select" value={selectedCorridor} onChange={handleCorridorChange}>
+                                      <option value="">Select the corridor</option>
+                                      {corridorOptions.map((option, index) => (
+                                          <option key={index} value={`${option}`}>{option}</option>
+                                      ))}
+                                  </select>
+                              </div>
+                              <div className='semester-selection'>
+                                  <select id="semester-select" value={selectedSemester} onChange={handleSemesterChange}>
+                                      <option value="">Select the semester</option> {/* Опция по умолчанию */}
+                                      <option value="1st-semester">1st-semester</option> {/* Значения для этажей */}
+                                      <option value="2nd-semester">2nd-semester</option>
+                                  </select>
+                              </div>
+                              <button className='btn-show-availability'
+                              disabled={!selectedCorridor && !selectedFloor}
+                              onClick={handleAvailibilityClick}>
+                                  Show availability
+                              </button>
                             </div>
-                            <div className='corridor-selection'>
-                                <select id="corridor-select" value={selectedCorridor} onChange={handleCorridorChange}>
-                                    <option value="">Select the corridor</option>
-                                    {corridorOptions.map((option, index) => (
-                                        <option key={index} value={`${option}`}>{option}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className='semester-selection'>
-                                <select id="semester-select" value={selectedSemester} onChange={handleSemesterChange}>
-                                    <option value="">Select the semester</option> {/* Опция по умолчанию */}
-                                    <option value="1st-semester">1st-semester</option> {/* Значения для этажей */}
-                                    <option value="2nd-semester">2nd-semester</option>
-                                </select>
-                            </div>
-                            <button className='btn-show-availability'
-                            disabled={!selectedCorridor && !selectedFloor}
-                            onClick={handleAvailibilityClick}>
-                                Show availability
-                            </button>
                         </div>
                     )}
                     {step === 3 && (
@@ -317,7 +319,7 @@ export default function Booking() {
                 </div>
             </div>
             <div className='booking-video'>
-                <div className='instructional-video' style={{marginLeft: step === 3 ?  '24px': '84px' }}>
+                <div className='instructional-video' style={{marginLeft: step === 3 ?  '35px': '84px' }}>
                     <img src={require('../img/booking-illustration.png')} alt="booking-illustration"/> 
                     <p>If you need an instructional video,<Link> click here</Link></p>
                 </div>
