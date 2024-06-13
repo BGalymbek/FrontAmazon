@@ -191,6 +191,12 @@ main{
   padding: 7px;
 }
 
+.field-signup input[type="date"] {
+  width: 100%;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
 #speciality-select, #faculty-select, #gender-select{
   border: 1.6px solid rgba(0, 0, 0, .3);
   appearance: none;
