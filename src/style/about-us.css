@@ -197,7 +197,7 @@
     }
     .dorm-contact-container{
         flex-direction: column;
-        gap: 30px;
+        gap: 50px;
     }
     .male-dorm-contact, .female-dorm-contact {
         width: 90%;
@@ -228,9 +228,19 @@
     .team-member{
         height: auto;
     }
+    .main-tasks h2, .contact-dormitory>h2 {
+        font-size: 30px;
+    }
 }
 
 @media (max-width:576px){
+    .about-us-nav button{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .dorm-contact-container {
+        margin-bottom: 110px;
+    }
     .male-info-item>h3:after, .female-info-item>h3:after {
         display: none;
     }

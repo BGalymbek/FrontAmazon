@@ -18,7 +18,7 @@ export default function AboutUs() {
     <div className='rooms' style={{ backgroundColor: numTurn === 2 ? '#f0f0f0' : '' }}>
         <Navbar/>
         <div className='rooms-container'>
-                <div className='profile-nav' id='profile-nav'>
+                <div className='profile-nav about-us-nav' id='profile-nav'>
                     <button className={numTurn === 1 ? 'active' : ''} onClick={()=>setNumTurnClick(1)}>
                         About the Dorm
                     </button>
