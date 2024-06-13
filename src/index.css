@@ -221,21 +221,20 @@ main{
   background-color: #EAFAFF !important;
 }
 
-.submission-content{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 24px;
-  padding-top: 140px;
-  padding-right: 144px;
-  padding-left: 144px;
-  padding-bottom: 76px;
-  min-height: 100%;
-  /* box-sizing: border-box; */
-}
+  .submission-content{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding-top: 140px;
+    padding-bottom: 76px;
+    min-height: 100%;
+    box-sizing: border-box;
+  }
 
 .submission-item{
   text-align: left;
+  display: flex;
+  flex-direction: column; 
   margin-bottom: 20px;
   width: 100%;
 }
@@ -251,6 +250,12 @@ main{
   line-height: 21.48px;
   color: #212153BF;
 
+}
+
+.upload-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .custom-file-input {
@@ -330,6 +335,7 @@ main{
   letter-spacing: -0.02em;
   text-align: center;
   cursor: pointer;
+  align-self: flex-start;
 }
 
 .submission-material>div{
@@ -340,7 +346,6 @@ main{
 .submission-list, .submission-material{
   background-color: #fff;
   border-radius: 24px;
-  width: 50%;
   box-shadow: 0px 16px 74px -30px #00000066;
 }
 
@@ -1546,6 +1551,21 @@ tbody, tfoot{
   .title-update{
     font-size: 42px;
   }
+  .submission-material>div {
+    margin: 0;
+    width: 100%;
+  }
+  .submission-list>div {
+    padding-left: 70px;
+    padding-right: 70px;
+  }
+  .submission-material>div {
+    padding-left: 70px;
+    padding-right: 70px;
+  }
+  .submission-list>div h2 {
+    font-size: 27px;
+  }
 }
 
 @media (max-width:997px){
@@ -1562,6 +1582,12 @@ tbody, tfoot{
   }
   .my-booking-container h3 {
     font-size: 18px;
+  }
+  .submission-content {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .submission-list>div {
+    padding-bottom: 70px;
   }
 }
 
@@ -1636,5 +1662,25 @@ tbody, tfoot{
   }
   .my-booking-container h3 {
     font-size: 16px;
+  }
+  .submission-list>div h2 {
+    font-size: 25px;
+  }
+  .submission-material>div h2 {
+    font-size: 29px;
+  }
+  .submission-list>div {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .submission-material>div {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  .submission-content {
+    width: 90%;
+  }
+  .list-doc {
+    padding: 20px 80px 28px 60px;
   }
 }
