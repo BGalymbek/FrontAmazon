@@ -178,6 +178,12 @@
     margin-bottom: 40px;
 }
 
+.aboutUs-nav{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
 @media (max-width:1270px){
     .team-member{
         height: 440px;
@@ -260,8 +266,8 @@
         padding-right: 30px;
     }
     .aboutUs-nav button{
-        padding-left: 7px;
-        padding-right: 7px;
+        padding-left: 8px;
+        padding-right: 8px;
     }
     .dorm-contact-container {
         margin-bottom: 110px;
