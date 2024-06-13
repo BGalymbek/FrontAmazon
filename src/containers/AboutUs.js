@@ -20,7 +20,7 @@ export default function AboutUs() {
         <div className='rooms-container'>
                 <div className='profile-nav aboutUs-nav' id='profile-nav'>
                     <button className={numTurn === 1 ? 'active' : ''} onClick={()=>setNumTurnClick(1)}>
-                        About the Gala
+                        About the Dorm
                     </button>
                     <button className={numTurn === 2 ? 'active' : ''} onClick={()=>setNumTurnClick(2)}>
                         Development Team

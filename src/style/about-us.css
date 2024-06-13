@@ -234,6 +234,9 @@
 }
 
 @media (max-width:576px){
+    .main-tasks h2, .contact-dormitory>h2 {
+        font-size: 28px;
+    }
     .male-info-item>h3:after, .female-info-item>h3:after {
         display: none;
     }
@@ -257,8 +260,8 @@
         padding-right: 30px;
     }
     .aboutUs-nav button{
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 8px;
+        padding-right: 8px;
     }
     .dorm-contact-container {
         margin-bottom: 110px;
