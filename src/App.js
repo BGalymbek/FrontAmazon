@@ -26,6 +26,7 @@ import News from "./containers/News";
 import NewsPublish from "./containers/AdminPages/NewsPublish";
 import AddNews from "./containers/AdminPages/AddNews";
 import CongratsPublished from "./containers/ResponsePages/CongratsPublished";
+import AboutUs from "./containers/AboutUs";
 
 const App = () => {
   return (
@@ -51,6 +52,7 @@ const App = () => {
                 <Route exact path="/news-admin" element={<NewsPublish/>}/>
                 <Route exact path="/add-news" element={<AddNews/>}/>
                 <Route exact path="/congrats-published" element={<CongratsPublished/>}/>
+                <Route exact path="/about-us" element={<AboutUs/>}/>
                 <Route
                   path="/main-page"
                   element={

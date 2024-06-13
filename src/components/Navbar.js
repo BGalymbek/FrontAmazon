@@ -87,7 +87,7 @@ export default function Navbar() {
                   ):(
                     <li><a href="/news">News</a></li>
                   )}
-                  <li><a href="">About Us</a></li>
+                  <li><a href="/about-us">About Us</a></li>
               </ul>
               <ul className="burger-navbar-items" ref={navRef}>
                   <li><a href="/main-page">Home Page</a></li>
@@ -101,7 +101,7 @@ export default function Navbar() {
                   ):(
                     <li><a href="/news">News</a></li>
                   )}
-                  <li><a href="">About Us</a></li>
+                  <li><a href="/about-us">About Us</a></li>
                   <button onClick={showNavbar} className='cancel-burger-btn'>
                         <FaTimes/>
                   </button>
