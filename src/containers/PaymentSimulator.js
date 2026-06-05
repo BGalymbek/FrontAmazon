@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export default function PaymentSimulator() {
   const { authTokens } = useContext(AuthContext);
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [loadingStatus, setLoadingStatus] = useState('');
   const [message, setMessage] = useState('');
@@ -61,23 +63,23 @@ export default function PaymentSimulator() {
         <section className='dorm-information'>
           <header className='dorm-information-header'>
             <div className='title-main'>
-              <h1>Payment Simulator</h1>
+              <h1>{t('payment.simulatorTitle')}</h1>
               <p>Provider: {provider} | Payment ID: {paymentId || 'N/A'}</p>
             </div>
           </header>
         </section>
 
-        <section style={{ background: '#fff', borderRadius: '16px', padding: '24px', boxShadow: '0 10px 25px rgba(0,0,0,0.08)' }}>
-          <p>Choose the payment result to continue your booking flow.</p>
-          <div style={{ display: 'flex', gap: '12px', marginTop: '14px', flexWrap: 'wrap' }}>
-            <button onClick={() => simulateStatus('paid')} disabled={Boolean(loadingStatus)}>
-              {loadingStatus === 'paid' ? 'Processing...' : 'Simulate success'}
+        <section className="ui-card">
+          <p>{t('payment.simulatorDesc')}</p>
+          <div className="ui-actions-row">
+            <button type="button" className="ui-btn ui-btn-success" onClick={() => simulateStatus('paid')} disabled={Boolean(loadingStatus)}>
+              {loadingStatus === 'paid' ? t('payment.processing') : t('payment.simulateSuccess')}
             </button>
-            <button onClick={() => simulateStatus('failed')} disabled={Boolean(loadingStatus)}>
-              {loadingStatus === 'failed' ? 'Processing...' : 'Simulate fail'}
+            <button type="button" className="ui-btn ui-btn-danger" onClick={() => simulateStatus('failed')} disabled={Boolean(loadingStatus)}>
+              {loadingStatus === 'failed' ? t('payment.processing') : t('payment.simulateFail')}
             </button>
           </div>
-          {message && <p style={{ marginTop: '12px', color: '#E94949' }}>{message}</p>}
+          {message && <p className="ui-error form-feedback">{message}</p>}
         </section>
       </div>
     </div>

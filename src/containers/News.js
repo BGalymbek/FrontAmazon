@@ -1,9 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 import Navbar from '../components/Navbar'
 import AuthContext from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export default function News() {
-    const {authTokens} = useContext(AuthContext);
+    const { authTokens } = useContext(AuthContext);
+    const { t } = useTranslation();
 
     const [numTurn, setNumTurn] = useState(1);
     const [newsList, setNewsList] = useState([]);
@@ -15,33 +19,46 @@ export default function News() {
     useEffect(()=>{
         const getNewsList = async() =>{
             try{
-                const response = await fetch('http://localhost:8000/news/', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${authTokens.access}`,
-                    },
-            });
-
-                const res = await response.json();
-                setNewsList(res)
-                console.log(res);
+                const response = await axios.get('http://localhost:8000/news/', {
+                    headers: authTokens?.access
+                      ? { Authorization: `Bearer ${authTokens.access}` }
+                      : {},
+                });
+                setNewsList(Array.isArray(response.data) ? response.data : [])
             }catch(err){
-                console.error('Ошибка при получении списка документов:', err);
+                console.error('Failed to load news:', err);
             }
         }
         getNewsList()
     },[authTokens]);
+
+    const renderNewsItems = (items) => (
+      <div className='news-list-box'>
+        {items.map(newsItem => (
+          <div className='news-list-item' key={newsItem.id}>
+            <div className='list-item-img'>
+              <img src={newsItem.file} alt='news-list-img'/>
+            </div>
+            <div className='list-item-content'>
+              <p className={newsItem.title === "AC Catering News" ? 'news-badge-hot' : ''}>{newsItem.title}</p>
+              <h3>{newsItem.content}</h3>
+              <Link to={`/news/${newsItem.id}`}>{t('news.readNow')}</Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
 
   return (
     <div className='news'>
         <Navbar/>   
         <div className='news-container'>
             <section className='social-header social-news'>
-                <h1>Social Dormitory News</h1>
+                <h1>{t('news.pageTitle')}</h1>
                 <div className='social-header-container'>
                     <div className='social-header-content'>
-                        <h2>This page is developed for all changes and news within the dorm.</h2>
-                        <p>Stay up to date with policy updates, accommodation deadlines, and student-life events from universities across Kazakhstan.</p>
+                        <h2>{t('news.pageSubtitle')}</h2>
+                        <p>{t('news.pageDesc')}</p>
                     </div>
                     <div className='social-header-img'>
                         <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1000&q=80" alt='social-header-img'/>
@@ -49,79 +66,27 @@ export default function News() {
                 </div>
             </section>
             <section className='latest-news'>
-                <h2>Latest news</h2>
+                <h2>{t('news.latest')}</h2>
                 <button type='button' className='link-news-reading'>
                     <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80" alt='latest-news-img'/>
-                    <h1>Applications for the new semester are now open for partner universities.</h1>
+                    <h1>{t('news.featured')}</h1>
                 </button>
             </section>
             <section className='news-list'>
                 <div className='news-list-nav'>
                     <button className={numTurn === 1 ? 'active-list' : ''} onClick={()=>setNumTurnClick(1)}>
-                        All news
+                        {t('news.all')}
                     </button >
                     <button className={numTurn === 2 ? 'active-list' : ''} onClick={()=>setNumTurnClick(2)}>
-                        Dorm Hub News
+                        {t('news.dormHub')}
                     </button>
                     <button className={numTurn === 3 ? 'active-list' : ''} onClick={()=>setNumTurnClick(3)}>
-                        AC Catering News
+                        {t('news.catering')}
                     </button>
                 </div>
-                {numTurn === 1 &&
-                (
-                    <div className='news-list-box'>
-                        {newsList.map(newsItem => (
-                            <div className='news-list-item' key={newsItem.id}>
-                                <div className='list-item-img'>
-                                    <img src={newsItem.file} alt='news-list-img'/>
-                                </div>
-                                <div className='list-item-content'>
-                                    <p style={{ backgroundColor: newsItem.title === "AC Catering News" ? '#E94949' : '' }}>{newsItem.title}</p>
-                                    <h3>{newsItem.content}</h3>
-                                    <button type='button'>Read now</button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-                {numTurn === 2 &&
-                (
-                    <div className='news-list-box'>
-                        {newsList
-                        .filter(newsItem => newsItem.title === "Dorm Hub News")
-                        .map(newsItem => (
-                            <div className='news-list-item' key={newsItem.id}>
-                                <div className='list-item-img'>
-                                    <img src={newsItem.file} alt='news-list-img'/>
-                                </div>
-                                <div className='list-item-content'>
-                                    <p style={{ backgroundColor: newsItem.title === "AC Catering News" ? '#E94949' : '' }}>{newsItem.title}</p>
-                                    <h3>{newsItem.content}</h3>
-                                    <button type='button'>Read now</button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>  
-                )}
-                {numTurn === 3 &&
-                (
-                    <div className='news-list-box'>
-                        {newsList
-                        .filter(newsItem => newsItem.title === "AC Catering News")
-                        .map(newsItem => (
-                            <div className='news-list-item' key={newsItem.id}>
-                                <div className='list-item-img'>
-                                    <img src={newsItem.file} alt='news-list-img'/>
-                                </div>
-                                <div className='list-item-content'>
-                                    <p style={{ backgroundColor: newsItem.title === "AC Catering News" ? '#E94949' : '' }}>{newsItem.title}</p>
-                                    <h3>{newsItem.content}</h3>
-                                    <button type='button'>Read now</button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>  
-                )}
+                {numTurn === 1 && renderNewsItems(newsList)}
+                {numTurn === 2 && renderNewsItems(newsList.filter(newsItem => newsItem.title === "Dorm Hub News"))}
+                {numTurn === 3 && renderNewsItems(newsList.filter(newsItem => newsItem.title === "AC Catering News"))}
             </section>
         </div>
         <footer className='footer'>
@@ -130,7 +95,7 @@ export default function News() {
                     <img src={require('../img/logo-nav.png')}  alt="footer-logo"/>
                 </div>
                 <div className='footer-team-name'>
-                    <p>© 2024 Vision Team</p>
+                    <p>© 2026 Dorm Hub Kazakhstan</p>
                 </div>
                 <div className='footer-icons'>
                     <img src={require('../img/icons/icon-x.png')}  alt="footer-icon1"/>
@@ -140,17 +105,17 @@ export default function News() {
              </div>
              <div className='footer-content'>
                 <div className='footer-item'>
-                    <h5>Dormitory administration support:</h5>
+                    <h5>{t('news.footerSupport')}</h5>
                     <p>support@dormhub.kz</p>
                     <p>(hotline) +7 700 000 0000</p>
                 </div>
                 <div className='footer-item'>
-                    <h5>Reception/ plumbing services</h5>
+                    <h5>{t('news.footerReception')}</h5>
                     <p>(mob.) +7 778 727 9567</p>
                     <p>(tel.) +7 727 307 9560 (int. 704)</p>
                 </div>
                 <div className='footer-item'>
-                    <h5>Security and Medical care:</h5>
+                    <h5>{t('news.footerSecurity')}</h5>
                     <p>(tel.) +7 727 307 9560 (int. 199 /197) | Security</p>
                     <p>(mob.) +7 778 997 5839 | Medical care</p>
                 </div>

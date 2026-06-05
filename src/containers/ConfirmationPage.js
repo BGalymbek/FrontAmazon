@@ -104,20 +104,12 @@ export default function ConfirmationPage() {
               </div>
             </div>
             {(draft.image_url || draft.room_image_url) && (
-              <div style={{ display: 'flex', gap: '10px', marginTop: '12px', flexWrap: 'wrap' }}>
+              <div className="confirmation-images">
                 {draft.image_url && (
-                  <img
-                    src={draft.image_url}
-                    alt="Dormitory exterior"
-                    style={{ width: '150px', height: '95px', objectFit: 'cover', borderRadius: '8px' }}
-                  />
+                  <img src={draft.image_url} alt="Dormitory exterior" />
                 )}
                 {draft.room_image_url && (
-                  <img
-                    src={draft.room_image_url}
-                    alt="Dormitory room"
-                    style={{ width: '150px', height: '95px', objectFit: 'cover', borderRadius: '8px' }}
-                  />
+                  <img src={draft.room_image_url} alt="Dormitory room" />
                 )}
               </div>
             )}
@@ -150,7 +142,7 @@ export default function ConfirmationPage() {
             {isSubmitting ? 'Creating booking...' : `Pay: ${bookingAmount.toLocaleString('ru-RU')} ₸`}
           </button>
         </div>
-        {submitError && <p style={{ color: '#E94949', marginTop: '10px' }}>{submitError}</p>}
+        {submitError && <p className="ui-error form-feedback">{submitError}</p>}
       </div>
     </main>
   );

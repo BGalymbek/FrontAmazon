@@ -3,10 +3,13 @@ import Navbar from '../components/Navbar'
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router';
+import DocumentThumb from '../components/DocumentThumb';
+import { useTranslation } from 'react-i18next';
 
 export default function UpdateSubmission() {
 
   const { authTokens } = useContext(AuthContext)
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [userDocuments, setDocumentsOfUser] = useState([])
@@ -60,11 +63,11 @@ export default function UpdateSubmission() {
               },
           });
 
-          setActionMessage('Documents were updated successfully.');
+          setActionMessage(t('docs.updateSuccess'));
           await loadDocuments();
           navigate('/main-page');
       } catch (err) {
-          setActionMessage('Failed to update documents.');
+          setActionMessage(t('docs.updateFail'));
           console.error('You have problems: ' + err);
       }
   };
@@ -107,9 +110,9 @@ export default function UpdateSubmission() {
     <div className='update-submission'>
       <Navbar/>
       <div className='update-container'>
-        <h1 className='title-update'>Submitted Documents</h1>
+        <h1 className='title-update'>{t('docs.submittedTitle')}</h1>
         <div className='status-container'>
-          <p className='status-txt'>Current Status of Document Submission: </p>
+          <p className='status-txt'>{t('docs.submittedTitle')}: </p>
           <div className='status'>
             {userDocuments && userDocuments.length > 0 &&(
               userDocuments[0].is_verified === false ? (
@@ -121,9 +124,9 @@ export default function UpdateSubmission() {
             {userDocuments && userDocuments.length > 0 &&
               (
                 userDocuments[0].is_verified === false ? (
-                  <p>Waiting verification of admin</p>
+                  <p>{t('docs.waitingVerification')}</p>
                 ):(
-                  <p>Verified by Admin</p>
+                  <p>{t('docs.verifiedByAdmin')}</p>
                 )
               )}
           </div>
@@ -134,9 +137,7 @@ export default function UpdateSubmission() {
                   <>
                     <div>
                       <div className='submitted-img'>
-                        <a href={userDocuments[0].statement} target="_blank" rel="noopener noreferrer"><img src={userDocuments[0].statement.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
-                          userDocuments[0].statement.endsWith('.docx') || userDocuments[0].statement.endsWith('.doc') ? 
-                          require('../img/icons/icon-docx.png') : userDocuments[0].statement} alt="submited-item"/></a>
+                        <DocumentThumb fileUrl={userDocuments[0].statement} label={t('docs.statement')} kind="document" />
                       </div>
                       <p>statement</p>
                     </div>
@@ -166,9 +167,7 @@ export default function UpdateSubmission() {
                   <>
                   <div>
                     <div className='submitted-img'>
-                      <a href={userDocuments[0].photo_3x4} target="_blank" rel="noopener noreferrer"><img src={userDocuments[0].photo_3x4.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
-                          userDocuments[0].photo_3x4.endsWith('.docx') || userDocuments[0].photo_3x4.endsWith('.doc') ? 
-                          require('../img/icons/icon-docx.png') : userDocuments[0].photo_3x4} alt="submited-item"/></a>
+                      <DocumentThumb fileUrl={userDocuments[0].photo_3x4} label={t('docs.photo')} kind="photo" />
                     </div>
                     <p>3x4-photo</p>
                     </div>
@@ -198,9 +197,7 @@ export default function UpdateSubmission() {
                   <>
                     <div>
                       <div className='submitted-img'>
-                      <a href={userDocuments[0].form_075} target="_blank" rel="noopener noreferrer"><img src={userDocuments[0].form_075.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
-                          userDocuments[0].form_075.endsWith('.docx') || userDocuments[0].form_075.endsWith('.doc') ? 
-                          require('../img/icons/icon-docx.png') : userDocuments[0].form_075} alt="submited-item"/></a>
+                      <DocumentThumb fileUrl={userDocuments[0].form_075} label={t('docs.form075')} kind="document" />
                       </div>
                       <p>075-form</p>
                     </div>
@@ -230,9 +227,7 @@ export default function UpdateSubmission() {
                   <>
                     <div>
                       <div className='submitted-img'>
-                        <a href={userDocuments[0].identity_card_copy} target="_blank" rel="noopener noreferrer"><img src={userDocuments[0].identity_card_copy.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
-                          userDocuments[0].identity_card_copy.endsWith('.docx') || userDocuments[0].identity_card_copy.endsWith('.doc') ? 
-                          require('../img/icons/icon-docx.png') : userDocuments[0].identity_card_copy} alt="submited-item"/></a>
+                        <DocumentThumb fileUrl={userDocuments[0].identity_card_copy} label={t('docs.identityCard')} kind="document" />
                       </div>
                       <p>identity-card</p>
                     </div>
@@ -270,7 +265,7 @@ export default function UpdateSubmission() {
         )
         }
         {actionMessage && (
-          <p style={{ marginTop: '12px', color: actionMessage.includes('successfully') ? '#00A35D' : '#E94949' }}>
+          <p className={`form-feedback ${actionMessage === t('docs.updateSuccess') ? 'success' : 'error'}`}>
             {actionMessage}
           </p>
         )}

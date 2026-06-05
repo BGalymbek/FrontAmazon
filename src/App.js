@@ -12,6 +12,8 @@ import VerifyDocs from "./containers/VerifyDocs";
 import UserDocuments from "./containers/UserDocuments";
 
 import { AuthProvider } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext";
+import Settings from "./containers/Settings";
 import Booking from "./containers/Booking"; 
 import ConfirmationPage from "./containers/ConfirmationPage";
 import PaymentBooking from "./containers/PaymentBooking";
@@ -33,10 +35,15 @@ import Notifications from "./containers/Notifications";
 import PaymentSuccess from "./containers/ResponsePages/PaymentSuccess";
 import PaymentFail from "./containers/ResponsePages/PaymentFail";
 import PaymentSimulator from "./containers/PaymentSimulator";
+import EmailVerified from "./containers/EmailVerified";
+import NewsDetail from "./containers/NewsDetail";
+import AdminApplications from "./containers/AdminPages/AdminApplications";
+import AdminUsers from "./containers/AdminPages/AdminUsers";
 
 const App = () => {
   return (
       <Router>
+        <ThemeProvider>
         <AuthProvider>
             <Routes>
                 <Route exact path="/" element={<Login/>}/>
@@ -53,6 +60,7 @@ const App = () => {
                 <Route exact path="/update-submission" element={<PrivateRoute><UpdateSubmission/></PrivateRoute>}/>
                 <Route exact path="/congrats-booking" element={<CongratsBooking/>}/>
                 <Route exact path="/profile" element={<PrivateRoute><ProfilePage/></PrivateRoute>}/>
+                <Route exact path="/settings" element={<PrivateRoute><Settings/></PrivateRoute>}/>
                 <Route exact path="/rooms" element={<Rooms/>}/>
                 <Route exact path="/news" element={<News/>}/>
                 <Route exact path="/news-admin" element={<PrivateRoute><AdminRoute><NewsPublish/></AdminRoute></PrivateRoute>}/>
@@ -65,6 +73,10 @@ const App = () => {
                 <Route exact path="/payment-success" element={<PrivateRoute><PaymentSuccess/></PrivateRoute>}/>
                 <Route exact path="/payment-fail" element={<PrivateRoute><PaymentFail/></PrivateRoute>}/>
                 <Route exact path="/payment-simulator" element={<PrivateRoute><PaymentSimulator/></PrivateRoute>}/>
+                <Route exact path="/email-verified" element={<EmailVerified/>}/>
+                <Route exact path="/news/:id" element={<PrivateRoute><NewsDetail/></PrivateRoute>}/>
+                <Route exact path="/admin-applications" element={<PrivateRoute><AdminRoute><AdminApplications/></AdminRoute></PrivateRoute>}/>
+                <Route exact path="/admin-users" element={<PrivateRoute><AdminRoute><AdminUsers/></AdminRoute></PrivateRoute>}/>
                 <Route
                   path="/main-page"
                   element={
@@ -77,6 +89,7 @@ const App = () => {
                 <Route exact path="/password-reset/:token" element={<ResetPassword/>}/>
             </Routes>
           </AuthProvider>
+        </ThemeProvider>
       </Router>
   );
 };

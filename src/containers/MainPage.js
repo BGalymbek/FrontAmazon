@@ -23,9 +23,9 @@ export default function MainPage() {
         });
         
         const res = response.data[0]
-        console.log("Doc is submitted: ", userProfile.is_doc_submitted);
+        console.log("Doc is submitted: ", userProfile?.is_doc_submitted);
 
-        if (userProfile.is_doc_submitted === false) {
+        if (userProfile?.is_doc_submitted === false) {
             let messageDocSubmissionTxt = 'you must first submit the documents to the Dorm administration!';
             localStorage.setItem('messageDocSubm', messageDocSubmissionTxt)
             navigate('/oops');
@@ -98,7 +98,7 @@ export default function MainPage() {
             <header className='header'>
                 <div className="title-main">
                     <h1>{t('main.title')}</h1>
-                    <p>This platform is designed for dormitory placement across universities in Kazakhstan. Students can submit documents, track verification, book a bed, and complete payment in one transparent digital flow.</p>
+                    <p>{t('main.heroDesc')}</p>
                     <div className="btn-group">
                         <>
                             {hasActiveBooking ? (
@@ -123,7 +123,7 @@ export default function MainPage() {
                                 {t('main.supportChat')}
                             </button>
 
-                            {userProfile.is_doc_submitted === true ? (
+                            {userProfile?.is_doc_submitted === true ? (
                                 <button className="btn-submission" onClick={()=>navigate('/update-submission')}>{t('main.updateSubmission')}</button>
                             ):(
                                 <button className="btn-submission" onClick={()=>navigate('/document-submission')}>{t('main.documentSubmission')}</button>

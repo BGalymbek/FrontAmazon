@@ -88,6 +88,9 @@ export const AuthProvider = ({children}) => {
                 setErrorLogin('')
 
                 localStorage.setItem('authTokens', JSON.stringify(data))
+                if (data.user) {
+                    localStorage.setItem('userProfile', JSON.stringify(data.user))
+                }
                 registerDeviceToken(data.access)
                 
                 navigate('/main-page')

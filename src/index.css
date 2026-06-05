@@ -9,6 +9,8 @@
 @import url('./style/profile.css');
 @import url('./style/about-us.css');
 @import url('./style/redesign.css');
+@import url('./style/ui-polish.css');
+@import url('./style/support-chat.css');
 
 @font-face {
 	font-family: "SF Pro Display";

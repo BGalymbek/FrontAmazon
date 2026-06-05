@@ -1,88 +1,192 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import AuthContext from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
+function renderMessageText(text) {
+  if (!text) {
+    return null;
+  }
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+    return <span key={index}>{part}</span>;
+  });
+}
+
 export default function SupportChat() {
   const { authTokens } = useContext(AuthContext);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const messagesEndRef = useRef(null);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
-    { role: 'assistant', text: 'Hello! I can help with booking, documents, and payments.' },
-  ]);
+  const [messages, setMessages] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [bootstrapped, setBootstrapped] = useState(false);
 
-  const sendMessage = async () => {
-    if (!message.trim()) {
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, loading]);
+
+  useEffect(() => {
+    const bootstrap = async () => {
+      if (!authTokens?.access || bootstrapped) {
+        return;
+      }
+      setBootstrapped(true);
+      setLoading(true);
+      try {
+        const greeting =
+          i18n.language === 'ru'
+            ? 'Привет'
+            : i18n.language === 'kz'
+              ? 'Сәлем'
+              : 'Hello';
+        const response = await axios.post(
+          'chatbot/query/',
+          { message: greeting, history: [] },
+          {
+            headers: { Authorization: `Bearer ${authTokens.access}` },
+          }
+        );
+        setMessages([{ role: 'assistant', text: response.data.reply }]);
+        setSuggestions(response.data.suggestions || []);
+      } catch (error) {
+        setMessages([
+          {
+            role: 'assistant',
+            text: t('chat.welcomeFallback'),
+          },
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    bootstrap();
+  }, [authTokens, bootstrapped, i18n.language, t]);
+
+  const sendMessage = async (textOverride) => {
+    const userText = (textOverride ?? message).trim();
+    if (!userText || loading) {
       return;
     }
-    const userText = message.trim();
+
+    const history = messages.map((item) => ({
+      role: item.role,
+      text: item.text,
+    }));
+
     setMessages((prev) => [...prev, { role: 'user', text: userText }]);
     setMessage('');
+    setSuggestions([]);
     setLoading(true);
+
     try {
       const response = await axios.post(
         'chatbot/query/',
-        { message: userText },
+        { message: userText, history },
         {
           headers: {
             Authorization: `Bearer ${authTokens.access}`,
           },
         }
       );
-      setMessages((prev) => [...prev, { role: 'assistant', text: response.data.reply }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: 'assistant', text: response.data.reply },
+      ]);
+      setSuggestions(response.data.suggestions || []);
     } catch (error) {
-      setMessages((prev) => [...prev, { role: 'assistant', text: 'Failed to get reply from support bot.' }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: 'assistant', text: t('chat.error') },
+      ]);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage();
+    }
+  };
+
+  const displayName = authTokens?.user?.first_name || 'Student';
+
   return (
-    <div className='rooms'>
+    <div className="rooms">
       <Navbar />
-      <div className='rooms-container'>
-        <section className='dorm-information'>
-          <header className='dorm-information-header'>
-            <div className='title-main'>
+      <div className="rooms-container support-chat-page">
+        <section className="dorm-information">
+          <header className="dorm-information-header">
+            <div className="title-main">
               <h1>{t('chat.title')}</h1>
-              <p>Ask your questions about documents, room booking, and payments.</p>
+              <p>{t('chat.subtitle')}</p>
             </div>
           </header>
         </section>
 
-        <section style={{ background: '#fff', borderRadius: '16px', padding: '24px', boxShadow: '0 10px 25px rgba(0,0,0,0.08)' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '16px', maxHeight: '360px', overflowY: 'auto' }}>
+        <section className="support-chat-panel">
+          <div className="support-chat-header">
+            <div className="support-chat-avatar">DH</div>
+            <div>
+              <h3>{t('chat.botName')}</h3>
+              <p className="support-chat-meta">
+                {t('chat.online')} · {displayName}
+              </p>
+            </div>
+          </div>
+
+          <div className="support-chat-messages">
             {messages.map((item, index) => (
               <div
                 key={`${item.role}-${index}`}
-                style={{
-                  alignSelf: item.role === 'user' ? 'flex-end' : 'flex-start',
-                  background: item.role === 'user' ? '#dbeafe' : '#f3f4f6',
-                  borderRadius: '12px',
-                  padding: '10px 14px',
-                  maxWidth: '70%'
-                }}
+                className={`support-chat-bubble ${item.role}`}
               >
-                {item.text}
+                {renderMessageText(item.text)}
               </div>
             ))}
+            {loading && (
+              <div className="support-chat-typing">{t('chat.typing')}</div>
+            )}
+            <div ref={messagesEndRef} />
           </div>
 
-          <div style={{ display: 'flex', gap: '10px' }}>
+          {suggestions.length > 0 && !loading && (
+            <div className="support-chat-suggestions">
+              {suggestions.map((chip) => (
+                <button
+                  key={chip}
+                  type="button"
+                  className="support-chat-chip"
+                  onClick={() => sendMessage(chip)}
+                >
+                  {chip}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <div className="support-chat-input-row">
             <input
               value={message}
               onChange={(event) => setMessage(event.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder={t('chat.placeholder')}
-              style={{ flex: 1, padding: '12px', borderRadius: '10px', border: '1px solid #d1d5db' }}
-            />
-            <button
-              onClick={sendMessage}
               disabled={loading}
-              style={{ padding: '12px 18px', border: 'none', borderRadius: '10px', background: '#1f3a8a', color: '#fff', cursor: 'pointer' }}
-            >
-              {loading ? '...' : t('chat.send')}
+              aria-label={t('chat.placeholder')}
+            />
+            <button type="button" onClick={() => sendMessage()} disabled={loading}>
+              {loading ? '…' : t('chat.send')}
             </button>
           </div>
         </section>

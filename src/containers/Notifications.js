@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export default function Notifications() {
   const { authTokens } = useContext(AuthContext);
+  const { t } = useTranslation();
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
@@ -21,7 +23,7 @@ export default function Notifications() {
         });
         setNotifications(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
-        setErrorMessage('Failed to load notifications.');
+        setErrorMessage(t('notifications.loadError'));
       } finally {
         setLoading(false);
       }
@@ -37,40 +39,26 @@ export default function Notifications() {
         <section className='dorm-information'>
           <header className='dorm-information-header'>
             <div className='title-main'>
-              <h1>Notifications</h1>
-              <p>Recent updates for your booking, documents, and payment status.</p>
+              <h1>{t('notifications.title')}</h1>
+              <p>{t('notifications.desc')}</p>
             </div>
           </header>
         </section>
 
-        <section
-          style={{
-            background: '#fff',
-            borderRadius: '16px',
-            padding: '24px',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
-          }}
-        >
-          {loading && <p>Loading notifications...</p>}
-          {!loading && errorMessage && <p style={{ color: '#E94949' }}>{errorMessage}</p>}
+        <section className="ui-card">
+          {loading && <p className="ui-muted">{t('common.loading')}</p>}
+          {!loading && errorMessage && <p className="ui-error">{errorMessage}</p>}
           {!loading && !errorMessage && notifications.length === 0 && (
-            <p>No notifications yet.</p>
+            <p className="ui-muted">{t('notifications.empty')}</p>
           )}
 
           {!loading && notifications.length > 0 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div className="ui-stack">
               {notifications.map((item) => (
-                <div
-                  key={item.id}
-                  style={{
-                    border: '1px solid #e5e7eb',
-                    borderRadius: '12px',
-                    padding: '12px 14px',
-                  }}
-                >
-                  <h3 style={{ marginBottom: '6px' }}>{item.title || 'Notification'}</h3>
-                  <p style={{ marginBottom: '6px' }}>{item.body}</p>
-                  <small style={{ color: '#6b7280' }}>
+                <div key={item.id} className="ui-list-item">
+                  <h3>{item.title || t('notifications.defaultTitle')}</h3>
+                  <p>{item.body}</p>
+                  <small className="ui-muted">
                     {item.created_at ? new Date(item.created_at).toLocaleString() : ''}
                   </small>
                 </div>

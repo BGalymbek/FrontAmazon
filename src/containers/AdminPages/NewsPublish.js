@@ -82,7 +82,7 @@ export default function NewsPublish() {
                                     <img src={newsItem.file} alt='news-list-img'/>
                                 </div>
                                 <div className='list-item-content'>
-                                    <p style={{ backgroundColor: newsItem.title === "AC Catering News" ? '#E94949' : '' }}>{newsItem.title}</p>
+                                    <p className={newsItem.title === "AC Catering News" ? 'news-badge-hot' : ''}>{newsItem.title}</p>
                                     <h3>{newsItem.content}</h3>
                                     <button type='button'>Read now</button>
                                 </div>
@@ -101,7 +101,7 @@ export default function NewsPublish() {
                                     <img src={newsItem.file} alt='news-list-img'/>
                                 </div>
                                 <div className='list-item-content'>
-                                    <p style={{ backgroundColor: newsItem.title === "AC Catering News" ? '#E94949' : '' }}>{newsItem.title}</p>
+                                    <p className={newsItem.title === "AC Catering News" ? 'news-badge-hot' : ''}>{newsItem.title}</p>
                                     <h3>{newsItem.content}</h3>
                                     <button type='button'>Read now</button>
                                 </div>
@@ -120,7 +120,7 @@ export default function NewsPublish() {
                                     <img src={newsItem.file} alt='news-list-img'/>
                                 </div>
                                 <div className='list-item-content'>
-                                    <p style={{ backgroundColor: newsItem.title === "AC Catering News" ? '#E94949' : '' }}>{newsItem.title}</p>
+                                    <p className={newsItem.title === "AC Catering News" ? 'news-badge-hot' : ''}>{newsItem.title}</p>
                                     <h3>{newsItem.content}</h3>
                                     <button type='button'>Read now</button>
                                 </div>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
+import { useTranslation } from 'react-i18next'
 
 export default function Rooms() {
+  const { t } = useTranslation();
   const [tab, setTab] = useState(1);
 
   return (
@@ -10,10 +12,10 @@ export default function Rooms() {
       <div className='rooms-container'>
         <div className='profile-nav' id='profile-nav'>
           <button className={tab === 1 ? 'active' : ''} onClick={() => setTab(1)}>
-            Dormitory Infrastructure
+            {t('rooms.infrastructure')}
           </button>
           <button className={tab === 2 ? 'active' : ''} onClick={() => setTab(2)}>
-            Student Life
+            {t('rooms.studentLife')}
           </button>
         </div>
 
@@ -22,11 +24,8 @@ export default function Rooms() {
             <section className='dorm-information'>
               <header className='dorm-information-header'>
                 <div className="title-main">
-                  <h1>University Dormitories in Kazakhstan</h1>
-                  <p>
-                    A unified model for infrastructure, document workflow, booking, and settlement operations.
-                    Each university can adapt local rules while preserving one digital process.
-                  </p>
+                  <h1>{t('rooms.title')}</h1>
+                  <p>{t('rooms.desc')}</p>
                 </div>
                 <div className="dorm-img">
                   <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80" alt="Dormitory campus"/>

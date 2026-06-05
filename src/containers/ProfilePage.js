@@ -31,6 +31,7 @@ export default function ProfilePage() {
   const [faculty_name, setFaculty] = useState('')
   const [docsActionMessage, setDocsActionMessage] = useState('')
   const [deletingField, setDeletingField] = useState('')
+  const [application, setApplication] = useState(null)
 
   function setNumTurnClick(index){
      setNumTurn(index);
@@ -120,6 +121,22 @@ const handleFacultyChange= (event) => {
     fetchData(); // Вызов функции для выполнения запроса при загрузке компонента
 }, [authTokens]);
 
+  useEffect(() => {
+    const loadApplication = async () => {
+      try {
+        const response = await axios.get('applications/me/', {
+          headers: { Authorization: `Bearer ${authTokens.access}` },
+        });
+        setApplication(response.data);
+      } catch (error) {
+        setApplication(null);
+      }
+    };
+    if (authTokens?.access) {
+      loadApplication();
+    }
+  }, [authTokens]);
+
 const fetchData = async () => {
   const formData = new FormData();
 
@@ -197,6 +214,17 @@ const deleteDocument = async (fileField) => {
                 {numTurn === 1 && (
                     <>
                         <h1>{userProfile.first_name} {userProfile.last_name}</h1>
+                        {application && (
+                          <div className="profile-status-card">
+                            <h3>Application status</h3>
+                            <p><strong>Status:</strong> {application.status}</p>
+                            <p><strong>Type:</strong> {application.application_type}</p>
+                            <p><strong>Priority score:</strong> {application.priority_score}</p>
+                            {application.admin_comment && (
+                              <p><strong>Admin comment:</strong> {application.admin_comment}</p>
+                            )}
+                          </div>
+                        )}
                         <div className='profile-data'>
                           <div className='user-info-box'>
                               <h3>User information</h3>
@@ -432,7 +460,7 @@ const deleteDocument = async (fileField) => {
                             </div>
                         ): null}
                         {docsActionMessage && (
-                          <p style={{ marginTop: '12px', color: docsActionMessage.includes('successfully') ? '#00A35D' : '#E94949' }}>
+                          <p className={`form-feedback ${docsActionMessage.includes('successfully') ? 'success' : 'error'}`}>
                             {docsActionMessage}
                           </p>
                         )}

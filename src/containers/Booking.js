@@ -217,23 +217,21 @@ export default function Booking() {
               </div>
             </div>
             {selectedDormitoryData && (
-              <div style={{ marginTop: '14px', marginBottom: '8px' }}>
+              <div className="dorm-preview">
                 <p>
                   Dormitory price per semester: {Number(selectedDormitoryData.price_per_semester || 0).toLocaleString('ru-RU')} ₸
                 </p>
-                <div style={{ display: 'flex', gap: '12px', marginTop: '8px', flexWrap: 'wrap' }}>
+                <div className="dorm-preview-images">
                   {selectedDormitoryData.image_url && (
                     <img
                       src={selectedDormitoryData.image_url}
                       alt={`${selectedDormitoryData.name} exterior`}
-                      style={{ width: '180px', height: '120px', objectFit: 'cover', borderRadius: '10px' }}
                     />
                   )}
                   {selectedDormitoryData.room_image_url && (
                     <img
                       src={selectedDormitoryData.room_image_url}
                       alt={`${selectedDormitoryData.name} room`}
-                      style={{ width: '180px', height: '120px', objectFit: 'cover', borderRadius: '10px' }}
                     />
                   )}
                 </div>
@@ -260,7 +258,7 @@ export default function Booking() {
               <p>No booking blocks configured for this dormitory yet.</p>
             )}
             {selectedBlockLayout && (
-              <p style={{ marginTop: '8px' }}>
+              <p className="booking-availability">
                 Available in block {selectedBlockLayout.block}: {selectedBlockLayout.available_seats} / {selectedBlockLayout.total_seats}
               </p>
             )}
@@ -317,19 +315,17 @@ export default function Booking() {
             )}
 
             {!loadingSeats && Object.keys(groupedSeats).length > 0 && (
-              <div style={{ marginTop: '20px', textAlign: 'left' }}>
+              <div className="booking-rooms-grid">
                 {Object.keys(groupedSeats).sort((a, b) => Number(a) - Number(b)).map((room) => (
-                  <div key={room} style={{ marginBottom: '16px', border: '1px solid #d9d9d9', borderRadius: '8px', padding: '10px 12px' }}>
-                    <h4 style={{ marginBottom: '8px' }}>Room {room}</h4>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                  <div key={room} className="booking-room-card">
+                    <h4>Room {room}</h4>
+                    <div className="booking-seats-row">
                       {groupedSeats[room].map((seat) => (
                         <button
                           key={seat.id}
+                          type="button"
                           onClick={() => setSelectedSeat(seat)}
-                          className='seat-place'
-                          style={{
-                            backgroundColor: selectedSeat?.id === seat.id ? '#F3A367' : '#00A35D',
-                          }}
+                          className={`seat-place ${selectedSeat?.id === seat.id ? 'selected-seat' : ''}`}
                         >
                           Seat {seat.seat_number}
                         </button>
@@ -340,9 +336,9 @@ export default function Booking() {
               </div>
             )}
 
-            {bookingError && <p style={{ marginTop: '10px', color: '#E94949' }}>{bookingError}</p>}
+            {bookingError && <p className="ui-error form-feedback">{bookingError}</p>}
 
-            <div className='btn-confirm-booking' style={{ marginTop: '20px' }}>
+            <div className='btn-confirm-booking'>
               <div className='btn-confirm-restart'>
                 <button onClick={() => {
                   setSelectedSeat(null);

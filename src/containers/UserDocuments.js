@@ -1,14 +1,16 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthContext';
 import Navbar from '../components/Navbar';
-import { useNavigate } from 'react-router-dom';
+import DocumentThumb from '../components/DocumentThumb';
+import { useTranslation } from 'react-i18next';
 
 export default function UserDocuments() {
     const { email } = useParams();
-    const {authTokens } = useContext(AuthContext)
-    const [userDocuments, setUserDocuments] = useState([]);
+    const { authTokens } = useContext(AuthContext)
+    const { t } = useTranslation();
+    const [userDocuments, setUserDocuments] = useState(null);
     const [userVerifiedOrNot, setUserVerifiedOrNot] = useState("");
     const [facultyOfStudent, setFacultyOfStudent] = useState("");
     const [IdNumberOfStudent, setIdNumberOfStudent] = useState("");
@@ -24,18 +26,15 @@ export default function UserDocuments() {
                         }
                     })
     
-                    const res = (await response).data;
-                    
+                    const res = response.data;
                     setUserDocuments(res);
-                    setIdNumberOfStudent(res.user.id_number)
-                    setFacultyOfStudent(res.user.faculty_name)
-                    setUserName(res.user.first_name)
+                    setIdNumberOfStudent(res.user?.id_number)
+                    setFacultyOfStudent(res.user?.faculty_name)
+                    setUserName(res.user?.first_name)
                     setUserVerifiedOrNot(res.is_verified)
-                    console.log(res);
-                    console.log("Result this person verified or not: " + res.is_verified);
     
                 }catch(err){
-                    console.error('Ошибка при получении документов пользователя:', err);
+                    console.error('Failed to load user documents:', err);
                 }
             }
             if(email){
@@ -52,85 +51,96 @@ export default function UserDocuments() {
                     'Authorization': `Bearer ${authTokens.access}`,
                 }
             });
-            // Обнови состояние, чтобы отразить, что пользователь верифицирован
             setUserVerifiedOrNot(true);
-            console.log("Пользователь верифицирован:", userDocuments.user.first_name);
         } catch (err) {
-            console.error('Ошибка при верификации пользователя:', err);
+            console.error('Verification failed:', err);
         }
     }
 
     const cancelVerifyUser = async () => {
         try {
-            axios.put(`documents/verify/?email=${email}`, {
+            await axios.put(`documents/verify/?email=${email}`, {
                 is_verified: false
             }, {
                 headers: {
                     'Authorization': `Bearer ${authTokens.access}`,
                 }
             });
-            // Обнови состояние, чтобы отразить, что пользователь верифицирован
             setUserVerifiedOrNot(false);
-            console.log("Пользователь убран с верифицированности:", userDocuments.user.first_name);
         } catch (err) {
-            console.error('Ошибка при убратии с верификации пользователя:', err);
+            console.error('Cancel verification failed:', err);
         }
     }
 
     const handleBack = ()=>{
         navigate('/verify-documents')
-    }    
+    }
+
+    const docItems = [
+      { key: 'form_075', label: t('docs.form075'), kind: 'document' },
+      { key: 'identity_card_copy', label: t('docs.identityCard'), kind: 'document' },
+      { key: 'photo_3x4', label: t('docs.photo'), kind: 'photo' },
+      { key: 'statement', label: t('docs.statement'), kind: 'document' },
+    ];
 
     return (
-    <div id="view-details">
+    <div className="rooms" id="view-details">
         <Navbar/>
-        <div className='view-doc-details'>
-            <h1>View Details</h1>
-            <button className='btn-update' onClick={()=>handleBack()}><img src={require('../img/go-back.png')} alt="back"/>Go Back</button>
-            <div className='info-of-student'>
-                <h2>{userName}</h2>
-                <p className='stud-id-txt'>Student ID: {IdNumberOfStudent}</p>
-                <p>Faculty: {facultyOfStudent}</p>
-            </div>
-            <div className='user-documents-content'>
-                <div>
-                    <h3>{userName} sent these documents for verification:</h3>
+        <div className='rooms-container'>
+            <section className='dorm-information'>
+              <header className='dorm-information-header'>
+                <div className='title-main'>
+                  <h1>{t('docs.viewDetails')}</h1>
+                  <p>{t('docs.viewDetailsDesc')}</p>
                 </div>
-                <div className='user-documents'>
-                    <div className='user-docs-item'>
-                        <p>Form-075</p>
-                        <a href={userDocuments.form_075} target="_blank" rel="noopener noreferrer"><img src={userDocuments?.form_075?.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
-                                  userDocuments?.form_075?.endsWith('.docx') || userDocuments?.form_075?.endsWith('.doc') ? 
-                                  require('../img/icons/icon-docx.png') : userDocuments.form_075} alt="dorm"/></a>
-                    </div>
-                    <div className='user-docs-item'>
-                        <p>Identity Card Copy</p>
-                        <a href={userDocuments.identity_card_copy} target="_blank" rel="noopener noreferrer"><img src={userDocuments?.identity_card_copy?.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
-                                  userDocuments?.identity_card_copy?.endsWith('.docx') || userDocuments?.identity_card_copy?.endsWith('.doc') ? 
-                                  require('../img/icons/icon-docx.png') : userDocuments.identity_card_copy} alt="dorm"/></a>
-                    </div>
-                    <div className='user-docs-item'>
-                        <p>Photo 3x4</p>
-                        <a href={userDocuments.photo_3x4} target="_blank" rel="noopener noreferrer"><img src={userDocuments?.photo_3x4?.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
-                                  userDocuments?.photo_3x4?.endsWith('.docx') || userDocuments?.photo_3x4?.endsWith('.doc') ? 
-                                  require('../img/icons/icon-docx.png') : userDocuments.photo_3x4} alt="dorm"/></a>
-                    </div>
-                    <div className='user-docs-item'>
-                        <p>Statement</p>
-                        <a href={userDocuments.statement} target="_blank" rel="noopener noreferrer"><img src={userDocuments?.statement?.endsWith('.pdf') ? require('../img/icons/icon-pdf.png') : 
-                                  userDocuments?.statement?.endsWith('.docx') || userDocuments?.statement?.endsWith('.doc') ? 
-                                  require('../img/icons/icon-docx.png') : userDocuments.statement} alt="dorm"/></a>
-                    </div>
-                </div>
+              </header>
+            </section>
+
+            <div className="ui-toolbar">
+              <button type="button" className='ui-btn ui-btn-secondary btn-update' onClick={handleBack}>
+                <img src={require('../img/go-back.png')} alt="" />
+                {t('common.goBack')}
+              </button>
             </div>
-            {!userVerifiedOrNot && (
-                    <button className='btn-verification' onClick={verifyUser}>Verify</button>
+
+            <div className='ui-card'>
+              <div className='info-of-student'>
+                  <h2>{userName}</h2>
+                  <p className='stud-id-txt'>{t('admin.studentId')}: {IdNumberOfStudent || '—'}</p>
+                  <p>{t('admin.faculty')}: {facultyOfStudent || '—'}</p>
+                  <span className={`doc-status-pill ${userVerifiedOrNot ? 'verified' : 'pending'}`}>
+                    {userVerifiedOrNot ? t('admin.verified') : t('admin.pending')}
+                  </span>
+              </div>
+
+              <h3>{t('docs.submittedForVerification', { name: userName || '' })}</h3>
+              <div className='user-docs-grid'>
+                {docItems.map((item) => (
+                  <div key={item.key} className='user-doc-card'>
+                    <p>{item.label}</p>
+                    <DocumentThumb
+                      fileUrl={userDocuments?.[item.key]}
+                      label={item.label}
+                      kind={item.kind}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="ui-actions-row">
+                {!userVerifiedOrNot && (
+                  <button type="button" className='ui-btn ui-btn-success' onClick={verifyUser}>
+                    {t('docs.verify')}
+                  </button>
                 )}
                 {userVerifiedOrNot && (
-                    <button onClick={cancelVerifyUser} style={{ backgroundColor: '#E94949' }}>Cancel Verification</button>
-            )}
+                  <button type="button" className='ui-btn ui-btn-danger' onClick={cancelVerifyUser}>
+                    {t('docs.cancelVerification')}
+                  </button>
+                )}
+              </div>
+            </div>
         </div>
     </div>
   )
 }
-

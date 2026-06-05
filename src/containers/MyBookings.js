@@ -189,16 +189,16 @@ export default function MyBookings() {
                     </tfoot>
                 </table>
             </div>
-            <div style={{ marginTop: '18px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                <button onClick={cancelBooking} disabled={!hasActiveBooking || isCancelling}>
+            <div className="ui-actions-row">
+                <button type="button" className="ui-btn ui-btn-danger" onClick={cancelBooking} disabled={!hasActiveBooking || isCancelling}>
                     {isCancelling ? 'Cancelling...' : 'Cancel booking'}
                 </button>
-                <button onClick={downloadReceipt} disabled={isDownloading}>
+                <button type="button" className="ui-btn ui-btn-primary" onClick={downloadReceipt} disabled={isDownloading}>
                     {isDownloading ? 'Downloading...' : 'Download receipt (PDF)'}
                 </button>
             </div>
             {actionMessage && (
-                <p style={{ marginTop: '10px', color: actionMessage.includes('successfully') ? '#00A35D' : '#E94949' }}>
+                <p className={actionMessage.includes('successfully') ? 'ui-success' : 'ui-error'}>
                     {actionMessage}
                 </p>
             )}
