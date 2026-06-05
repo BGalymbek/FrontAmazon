@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import axios from 'axios'
 import { useTranslation } from 'react-i18next';
+import { setOopsMessageKey } from '../utils/translateApiError';
 
 export default function MainPage() {
     const { authTokens } = useContext(AuthContext)
@@ -26,8 +27,7 @@ export default function MainPage() {
         console.log("Doc is submitted: ", userProfile?.is_doc_submitted);
 
         if (userProfile?.is_doc_submitted === false) {
-            let messageDocSubmissionTxt = 'you must first submit the documents to the Dorm administration!';
-            localStorage.setItem('messageDocSubm', messageDocSubmissionTxt)
+            setOopsMessageKey('oops.mustSubmitDocs')
             navigate('/oops');
         }else{
             if(res && res.hasOwnProperty('is_verified')){
@@ -35,8 +35,7 @@ export default function MainPage() {
                 if (userDocVerified === true) {
                     navigate('/booking') 
                 }else{
-                    let messageDocSubmissionTxt = 'the Dorm administration must verify your documents';
-                    localStorage.setItem('messageDocSubm', messageDocSubmissionTxt)
+                    setOopsMessageKey('oops.mustVerifyDocs')
                     navigate('/oops');
                 }
             }else{

@@ -6,6 +6,7 @@ import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { translateApiError } from '../utils/translateApiError';
 
 export default function PaymentBooking() {
     const [expiry, setExpiry] = useState('');
@@ -50,7 +51,8 @@ export default function PaymentBooking() {
                 navigate('/payment-success');
             }catch(err){
                 console.error(err);
-                setPaymentError('Payment failed. Please check card details or try again.')
+                const apiMessage = err?.response?.data?.error || err?.response?.data?.detail || 'Payment failed. Please check card details or try again.';
+                setPaymentError(translateApiError(t, apiMessage))
                 navigate('/payment-fail');
             } finally {
                 setIsSubmitting(false)
@@ -95,8 +97,8 @@ export default function PaymentBooking() {
                 </div>
                 <form className='form-payment'>
                     {!bookingId && (
-                        <p style={{ color: '#E94949' }}>
-                            Booking was not found. Please return to booking step.
+                        <p className="ui-error form-feedback">
+                            {t('payment.notFoundBooking')}
                         </p>
                     )}
                     <div className="field-component">

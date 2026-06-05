@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
 import AuthContext from '../../context/AuthContext';
+import { useTranslation } from 'react-i18next';
+import { translateApiError } from '../../utils/translateApiError';
 
 export default function PaymentFail() {
   const { authTokens } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [message, setMessage] = useState('Payment failed.');
+  const { t } = useTranslation();
+  const [message, setMessage] = useState(t('payment.failDefault'));
 
   useEffect(() => {
     const loadStatus = async () => {
@@ -17,13 +20,13 @@ export default function PaymentFail() {
             Authorization: `Bearer ${authTokens.access}`,
           },
         });
-        setMessage(response?.data?.message || 'Payment failed.');
+        setMessage(translateApiError(t, response?.data?.message || 'Payment failed.'));
       } catch (error) {
-        setMessage('Payment failed. Please try again.');
+        setMessage(t('payment.failed'));
       }
     };
     loadStatus();
-  }, [authTokens]);
+  }, [authTokens, t]);
 
   return (
     <div className='oops'>
@@ -33,11 +36,11 @@ export default function PaymentFail() {
           <img src={require('../../img/oops.png')} alt='payment-fail' />
         </div>
         <div className='oops-content'>
-          <h1 className='oops-title'>Payment Failed</h1>
+          <h1 className='oops-title'>{t('payment.failTitle')}</h1>
           <p className='oops-message'>{message}</p>
         </div>
         <button className='oops-link' onClick={() => navigate('/payment-booking')}>
-          Retry payment
+          {t('payment.failRetry')}
         </button>
       </div>
     </div>

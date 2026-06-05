@@ -2,8 +2,11 @@ import React from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useTranslation } from 'react-i18next'
+import { translateApiError } from '../utils/translateApiError'
 
 export default function Register() {
+  const { t } = useTranslation()
   const [first_name, setName] = useState('')
   const [last_name, setLastName] = useState('')
   const [id_number, setIdNum] = useState('')
@@ -205,9 +208,9 @@ export default function Register() {
       if(response.status === 201){
         setTimeout(()=> setRedirect(true),10000);
         setErrorRegister('')
-        setSuccessfullyRegister('You registered succesfully! Please check your email')
+        setSuccessfullyRegister(t('register.success'))
       }else{
-        setErrorRegister(response.response.data.email)
+        setErrorRegister(translateApiError(t, response.response.data.email))
         setSuccessfullyRegister('')
       }
      }catch(err){

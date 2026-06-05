@@ -1,10 +1,13 @@
 import React, { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
+import { translateApiError } from '../utils/translateApiError';
 
 export default function ResetPassword() {
   const { token } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -22,13 +25,13 @@ export default function ResetPassword() {
 
     try {
       await axios.post('password-reset-request/', { email });
-      setSuccessMessage('Password reset link was sent to your email.');
+      setSuccessMessage(t('reset.linkSent'));
     } catch (requestError) {
       const apiMessage =
         requestError?.response?.data?.email?.[0] ||
         requestError?.response?.data?.detail ||
         'Failed to send reset link. Please try again.';
-      setError(apiMessage);
+      setError(translateApiError(t, apiMessage));
     } finally {
       setIsSubmitting(false);
     }
@@ -40,11 +43,11 @@ export default function ResetPassword() {
     setSuccessMessage('');
 
     if (!password || !confirmPassword) {
-      setError('Please fill in both password fields.');
+      setError(t('reset.fillBoth'));
       return;
     }
     if (password !== confirmPassword) {
-      setError('Passwords do not match.');
+      setError(t('reset.passwordMismatch'));
       return;
     }
 
@@ -54,7 +57,7 @@ export default function ResetPassword() {
         token,
         password,
       });
-      setSuccessMessage('Password updated successfully. You can now sign in.');
+      setSuccessMessage(t('reset.success'));
       setTimeout(() => navigate('/'), 1200);
     } catch (requestError) {
       const apiMessage =
@@ -62,7 +65,7 @@ export default function ResetPassword() {
         requestError?.response?.data?.token?.[0] ||
         requestError?.response?.data?.detail ||
         'Failed to update password. The reset link may be invalid or expired.';
-      setError(apiMessage);
+      setError(translateApiError(t, apiMessage));
     } finally {
       setIsSubmitting(false);
     }

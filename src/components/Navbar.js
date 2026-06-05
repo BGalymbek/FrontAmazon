@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import {FaBars, FaTimes} from 'react-icons/fa'
 import { useTranslation } from 'react-i18next';
+import { setOopsMessageKey } from '../utils/translateApiError';
 
 export default function Navbar() {
   const { authTokens, logoutUser } = useContext(AuthContext);
@@ -18,12 +19,6 @@ export default function Navbar() {
   const adminRef = useRef();
 
   let menu = document.getElementById('burger-menu')
-  let userProfile = null
-  try {
-    userProfile = JSON.parse(localStorage.getItem('userProfile'))
-  } catch (e) {
-    userProfile = null
-  }
 
   useEffect(() => {
     if (authTokens) {
@@ -60,34 +55,36 @@ export default function Navbar() {
         navRef.current?.classList.toggle('responsive_nav')
   }
     
-  const handleClickBookNow = async ()=> {
-      try {
-        const getResponse = await axios.get('documents/get/', {
-          headers: {
-              'Authorization': `Bearer ${authTokens.access}`,
-          }
-        });
+  const handleClickBookNow = async () => {
+    try {
+      const headers = { Authorization: `Bearer ${authTokens.access}` };
+      const profileResponse = await axios.get('profile/', { headers });
+      const profile = profileResponse.data;
+      localStorage.setItem('userProfile', JSON.stringify(profile));
 
-        const res = getResponse.data[0]
+      if (!profile?.is_doc_submitted) {
+        setOopsMessageKey('oops.mustSubmitDocs');
+        navigate('/oops');
+        return;
+      }
 
-        if (!userProfile?.is_doc_submitted) {
-            localStorage.setItem('messageDocSubm', t('oops.mustSubmitDocs'))
-            navigate('/oops');
-            return
+      const documentsResponse = await axios.get('documents/get/', { headers });
+      const document = documentsResponse.data?.[0];
+
+      if (document && Object.prototype.hasOwnProperty.call(document, 'is_verified')) {
+        if (document.is_verified === true) {
+          navigate('/booking');
+        } else {
+          setOopsMessageKey('oops.mustVerifyDocs');
+          navigate('/oops');
         }
-
-        if(res && res.hasOwnProperty('is_verified')){
-            if (res.is_verified === true){
-                navigate('/booking') 
-            } else {
-                localStorage.setItem('messageDocSubm', t('oops.mustVerifyDocs'))
-                navigate('/oops');
-            }
-        }
-      } catch (error) {
+      } else {
         navigate('/document-submission');
       }
-  }
+    } catch (error) {
+      navigate('/document-submission');
+    }
+  };
 
   const langSelect = (
     <select
