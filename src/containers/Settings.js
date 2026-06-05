@@ -48,19 +48,26 @@ export default function Settings() {
       ]);
 
       const data = userRes.data;
-      setProfile(data);
+      let cachedProfile = {};
+      try {
+        cachedProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+      } catch (e) {
+        cachedProfile = {};
+      }
+      const mergedProfile = { ...cachedProfile, ...data };
+      setProfile(mergedProfile);
       setUniversities(Array.isArray(uniRes.data) ? uniRes.data : []);
       setFaculties(Array.isArray(facRes.data) ? facRes.data : []);
       setSpecialities(Array.isArray(specRes.data) ? specRes.data : []);
-      setForm(profileToForm(data));
-      localStorage.setItem('userProfile', JSON.stringify(data));
+      setForm(profileToForm(mergedProfile));
+      localStorage.setItem('userProfile', JSON.stringify(mergedProfile));
 
       const storedTokens = localStorage.getItem('authTokens');
       if (storedTokens) {
         try {
           const parsed = JSON.parse(storedTokens);
           if (parsed?.user) {
-            parsed.user = { ...parsed.user, ...data };
+            parsed.user = { ...parsed.user, ...mergedProfile };
             localStorage.setItem('authTokens', JSON.stringify(parsed));
           }
         } catch (e) {
@@ -92,9 +99,16 @@ export default function Settings() {
         headers: { Authorization: `Bearer ${authTokens.access}` },
       });
       const data = response.data;
-      setProfile(data);
-      setForm(profileToForm(data));
-      localStorage.setItem('userProfile', JSON.stringify(data));
+      let cachedProfile = {};
+      try {
+        cachedProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+      } catch (e) {
+        cachedProfile = {};
+      }
+      const mergedProfile = { ...cachedProfile, ...data };
+      setProfile(mergedProfile);
+      setForm(profileToForm(mergedProfile));
+      localStorage.setItem('userProfile', JSON.stringify(mergedProfile));
       setProfileMessage(t('settings.profileSaved'));
     } catch (error) {
       const detail = error?.response?.data;
