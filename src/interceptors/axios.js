@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // axios.defaults.baseURL = 'http://13.49.18.134/api'
-axios.defaults.baseURL = 'http://localhost:8000/api'
+axios.defaults.baseURL = process.env.REACT_APP_API_ROOT || 'http://localhost:8000/api'
 
 const storedTokens = localStorage.getItem('authTokens');
 if (storedTokens) {

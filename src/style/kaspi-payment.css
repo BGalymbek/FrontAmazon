@@ -1,0 +1,194 @@
+.kaspi-pay-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(160deg, #f14635 0%, #d92d20 55%, #b42318 100%);
+}
+
+.kaspi-pay-page.stripe-theme {
+  background: linear-gradient(160deg, #635bff 0%, #4f46e5 55%, #3730a3 100%);
+}
+
+.kaspi-pay-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 32px 28px 28px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
+  text-align: center;
+}
+
+.kaspi-pay-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.kaspi-pay-brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #f14635;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 36px;
+}
+
+.stripe-theme .kaspi-pay-brand-mark {
+  background: #635bff;
+}
+
+.kaspi-pay-brand-text {
+  font-size: 34px;
+  font-weight: 800;
+  color: #f14635;
+  letter-spacing: -1px;
+  text-transform: lowercase;
+}
+
+.stripe-theme .kaspi-pay-brand-text {
+  color: #635bff;
+  text-transform: none;
+}
+
+.kaspi-pay-subtitle {
+  margin: 0 0 24px;
+  color: #667085;
+  font-size: 15px;
+}
+
+.kaspi-pay-amount-label {
+  margin: 0 0 6px;
+  color: #98a2b3;
+  font-size: 14px;
+}
+
+.kaspi-pay-amount {
+  margin: 0 0 28px;
+  font-size: 36px;
+  font-weight: 800;
+  color: #101828;
+  letter-spacing: -0.5px;
+}
+
+.kaspi-pay-qr-wrap {
+  position: relative;
+  display: inline-flex;
+  padding: 18px;
+  border-radius: 24px;
+  background: #fff;
+  border: 2px solid #f2f4f7;
+  box-shadow: inset 0 0 0 6px #fff7f6;
+  margin-bottom: 24px;
+}
+
+.stripe-theme .kaspi-pay-qr-wrap {
+  box-shadow: inset 0 0 0 6px #f5f3ff;
+}
+
+.kaspi-pay-qr-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 28px;
+  border: 2px solid rgba(241, 70, 53, 0.25);
+  animation: kaspiPulse 2s ease-in-out infinite;
+}
+
+.stripe-theme .kaspi-pay-qr-wrap::before {
+  border-color: rgba(99, 91, 255, 0.25);
+}
+
+.kaspi-pay-qr {
+  width: 240px;
+  height: 240px;
+  display: block;
+  border-radius: 12px;
+}
+
+.kaspi-pay-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #f9fafb;
+  color: #475467;
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+.kaspi-pay-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #d0d5dd;
+  border-top-color: #f14635;
+  border-radius: 50%;
+  animation: kaspiSpin 0.8s linear infinite;
+}
+
+.stripe-theme .kaspi-pay-spinner {
+  border-top-color: #635bff;
+}
+
+.kaspi-pay-hint {
+  margin: 0;
+  color: #667085;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.kaspi-pay-back {
+  display: inline-block;
+  margin-top: 20px;
+  color: #667085;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.kaspi-pay-back:hover {
+  color: #344054;
+}
+
+.kaspi-pay-error {
+  margin-top: 12px;
+  color: #d92d20;
+  font-size: 14px;
+}
+
+@keyframes kaspiSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes kaspiPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .kaspi-pay-card {
+    padding: 24px 18px 20px;
+    border-radius: 22px;
+  }
+
+  .kaspi-pay-qr {
+    width: 210px;
+    height: 210px;
+  }
+
+  .kaspi-pay-amount {
+    font-size: 30px;
+  }
+}

@@ -11,6 +11,7 @@
 @import url('./style/redesign.css');
 @import url('./style/ui-polish.css');
 @import url('./style/support-chat.css');
+@import url('./style/kaspi-payment.css');
 
 @font-face {
 	font-family: "SF Pro Display";
