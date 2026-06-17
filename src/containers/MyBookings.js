@@ -2,11 +2,14 @@ import React, { useCallback, useContext, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import axios from 'axios'
 import AuthContext from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export default function MyBookings() {
-    const {authTokens} =useContext(AuthContext)
+    const { authTokens } = useContext(AuthContext)
+    const { t } = useTranslation()
     const [userBooking, setUserBooking] = useState(null)
     const [bookingId, setBookingId] = useState(null)
+    const [totalAmount, setTotalAmount] = useState(null)
     const [corridorNum, setCorridorNum] = useState('')
     const [bookingStatus, setBookingStatus] = useState('Active booking')
     const [paymentStatus, setPaymentStatus] = useState('Pending')
@@ -16,6 +19,20 @@ export default function MyBookings() {
     const room = userBooking?.room_number
     const floor = room ? Math.round(room / 100) : '-'
     const hasActiveBooking = Boolean(userBooking)
+
+    const formatPaymentStatus = (status) => {
+        if (!status) {
+            return t('myBookings.paymentPending');
+        }
+        const normalized = String(status).toLowerCase();
+        if (normalized === 'paid') {
+            return t('myBookings.paymentPaid');
+        }
+        if (normalized === 'failed') {
+            return t('myBookings.paymentFailed');
+        }
+        return t('myBookings.paymentPending');
+    };
 
     const loadBookings = useCallback(async () => {
         try {
@@ -27,74 +44,50 @@ export default function MyBookings() {
 
             const res = getResponse.data
             if (res.length > 0) {
-                setUserBooking(res[0].seat_detail)
-                setBookingId(res[0].id)
-                setBookingStatus('Confirmed')
+                const booking = res[0];
+                setUserBooking(booking.seat_detail)
+                setBookingId(booking.id)
+                setTotalAmount(booking.total_amount)
+                setBookingStatus(t('myBookings.statusConfirmed'))
+                setPaymentStatus(formatPaymentStatus(booking.payment_status))
             } else {
                 setUserBooking(null)
                 setBookingId(null)
-                setBookingStatus('No active booking')
+                setTotalAmount(null)
+                setBookingStatus(t('myBookings.statusNone'))
+                setPaymentStatus(t('myBookings.paymentPending'))
             }
         } catch (error) {
             console.error('Error fetching bookings:', error);
         }
-    }, [authTokens]);
-
-    const loadPaymentReceipt = useCallback(async () => {
-        try {
-            const response = await axios.get('payment/receipt/', {
-                headers: {
-                    'Authorization': `Bearer ${authTokens.access}`,
-                }
-            });
-            const receiptStatus = response?.data?.receipt?.status;
-            if (receiptStatus) {
-                setPaymentStatus(receiptStatus);
-                return;
-            }
-        } catch (error) {
-            console.log('Payment receipt is not available yet');
-        }
-
-        const userProfile = JSON.parse(localStorage.getItem('userProfile'));
-        if (userProfile?.is_dorm) {
-            setPaymentStatus('Paid');
-        } else {
-            setPaymentStatus('Pending');
-        }
-    }, [authTokens]);
+    }, [authTokens, t]);
 
     useEffect(() => {
         loadBookings();
     }, [loadBookings]);
 
     useEffect(() => {
-        loadPaymentReceipt();
-    }, [loadPaymentReceipt]);
-
-    useEffect(() => {
         if (!room) {
             return;
         }
 
-        const recognizeCorridorNum = (room)=>{
-            if (room) {
-                let num = room % 100;
-                console.log("num: " + num);
-                
-                if(num>=12 && num<=16){
-                 setCorridorNum(2)
-                }else if(num>=22 && num<=26){
-                     setCorridorNum(3)
-                }else if(num>=34 && num<=38){
-                     setCorridorNum(4) 
-                }else{
+        const recognizeCorridorNum = (roomNum) => {
+            if (roomNum) {
+                let num = roomNum % 100;
+
+                if (num >= 12 && num <= 16) {
+                    setCorridorNum(2)
+                } else if (num >= 22 && num <= 26) {
+                    setCorridorNum(3)
+                } else if (num >= 34 && num <= 38) {
+                    setCorridorNum(4)
+                } else {
                     setCorridorNum(1)
                 }
             }
         }
         recognizeCorridorNum(room);
-    }, [room]); 
+    }, [room]);
 
     const cancelBooking = async () => {
         if (!hasActiveBooking || isCancelling) {
@@ -113,13 +106,22 @@ export default function MyBookings() {
                     },
                 }
             );
-            setActionMessage('Booking cancelled successfully.');
-            setPaymentStatus('Pending');
+            setActionMessage(t('myBookings.cancelSuccess'));
+            setPaymentStatus(t('myBookings.paymentPending'));
             localStorage.removeItem('currentBookingId');
             localStorage.removeItem('currentBookingAmount');
+            localStorage.removeItem('bookingDraft');
+
+            const storedProfile = localStorage.getItem('userProfile');
+            if (storedProfile) {
+                const profile = JSON.parse(storedProfile);
+                profile.is_dorm = false;
+                localStorage.setItem('userProfile', JSON.stringify(profile));
+            }
+
             await loadBookings();
         } catch (error) {
-            setActionMessage(error?.response?.data?.error || 'Failed to cancel booking.');
+            setActionMessage(error?.response?.data?.error || t('myBookings.cancelFailed'));
         } finally {
             setIsCancelling(false);
         }
@@ -149,7 +151,7 @@ export default function MyBookings() {
             link.remove();
             window.URL.revokeObjectURL(blobUrl);
         } catch (error) {
-            setActionMessage('Receipt is not available yet.');
+            setActionMessage(t('myBookings.receiptUnavailable'));
         } finally {
             setIsDownloading(false);
         }
@@ -159,18 +161,18 @@ export default function MyBookings() {
     <div className='my-booking'>
         <Navbar/>
         <div className='my-booking-container'>
-            <h1>Booking</h1>
-            <h3>You have successfully completed your booking, the booking details are as follows:</h3>
-            <h3>Booking status: {bookingStatus} | Payment status: {paymentStatus}</h3>
+            <h1>{t('myBookings.title')}</h1>
+            <h3>{t('myBookings.subtitle')}</h3>
+            <h3>{t('myBookings.statusLine', { bookingStatus, paymentStatus })}</h3>
             <div className='table-container'>
                 <table className='table'>
                     <thead>
                         <tr className='header-table'>
-                            <th>Block</th>
-                            <th>Floor</th>
-                            <th>Corridor</th>
-                            <th>Room</th>
-                            <th>Seat</th>
+                            <th>{t('myBookings.block')}</th>
+                            <th>{t('myBookings.floor')}</th>
+                            <th>{t('myBookings.corridor')}</th>
+                            <th>{t('myBookings.room')}</th>
+                            <th>{t('myBookings.seat')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -184,21 +186,27 @@ export default function MyBookings() {
                     </tbody>
                     <tfoot>
                         <tr className='table-cost'>
-                            <td colSpan="5">Total cost: 195 000 KZT</td>
+                            <td colSpan="5">
+                                {t('myBookings.totalCost', {
+                                    amount: totalAmount
+                                        ? Number(totalAmount).toLocaleString('ru-RU')
+                                        : '—',
+                                })}
+                            </td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
             <div className="ui-actions-row">
                 <button type="button" className="ui-btn ui-btn-danger" onClick={cancelBooking} disabled={!hasActiveBooking || isCancelling}>
-                    {isCancelling ? 'Cancelling...' : 'Cancel booking'}
+                    {isCancelling ? t('myBookings.cancelling') : t('myBookings.cancel')}
                 </button>
                 <button type="button" className="ui-btn ui-btn-primary" onClick={downloadReceipt} disabled={isDownloading}>
-                    {isDownloading ? 'Downloading...' : 'Download receipt (PDF)'}
+                    {isDownloading ? t('myBookings.downloading') : t('myBookings.downloadReceipt')}
                 </button>
             </div>
             {actionMessage && (
-                <p className={actionMessage.includes('successfully') ? 'ui-success' : 'ui-error'}>
+                <p className={actionMessage.includes(t('myBookings.cancelSuccess')) ? 'ui-success' : 'ui-error'}>
                     {actionMessage}
                 </p>
             )}

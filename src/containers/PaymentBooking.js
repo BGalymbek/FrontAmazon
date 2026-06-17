@@ -56,7 +56,6 @@ export default function PaymentBooking() {
             const response = await axios.post(
                 'payment/',
                 {
-                    amount,
                     booking: bookingId,
                     provider,
                 },
@@ -76,12 +75,18 @@ export default function PaymentBooking() {
             navigate('/payment-success');
         } catch (err) {
             console.error(err);
+            const data = err?.response?.data;
             const apiMessage =
-                err?.response?.data?.error ||
-                err?.response?.data?.detail ||
+                data?.detail ||
+                data?.booking?.[0] ||
+                data?.amount?.[0] ||
+                data?.provider?.[0] ||
+                data?.error ||
                 'Payment failed. Please check card details or try again.';
             setPaymentError(translateApiError(t, apiMessage));
-            navigate('/payment-fail');
+            if (err?.response?.status !== 400) {
+                navigate('/payment-fail');
+            }
         } finally {
             setIsSubmitting(false);
         }

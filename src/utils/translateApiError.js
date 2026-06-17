@@ -11,6 +11,7 @@ const API_ERROR_KEYS = {
   'Payment failed. Please check card details or try again.': 'payment.failed',
   'This booking does not belong to the current user.': 'errors.bookingNotYours',
   'This booking has already been paid for.': 'errors.bookingAlreadyPaid',
+  'This booking is no longer active.': 'errors.bookingInactive',
   'dormitory_id is required': 'errors.dormitoryRequired',
   'No documents found for the user.': 'errors.noDocuments',
   'File not found': 'errors.fileNotFound',
