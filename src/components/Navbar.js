@@ -5,6 +5,7 @@ import axios from 'axios'
 import {FaBars, FaTimes} from 'react-icons/fa'
 import { useTranslation } from 'react-i18next';
 import { setOopsMessageKey } from '../utils/translateApiError';
+import { isAdminLikeUser } from '../utils/authRoles';
 
 export default function Navbar() {
   const { authTokens, logoutUser } = useContext(AuthContext);
@@ -39,7 +40,7 @@ export default function Navbar() {
     return () => document.removeEventListener('click', closeAdmin);
   }, []);
 
-  const isAdminLike = isStaff || role === 'admin' || role === 'dorm_staff';
+  const isAdminLike = isAdminLikeUser(authTokens?.user);
 
   const onLanguageChange = (event) => {
     const lang = event.target.value;
@@ -117,6 +118,7 @@ export default function Navbar() {
           <Link to="/admin-dashboard" onClick={() => setAdminOpen(false)}>{t('nav.analytics')}</Link>
           <Link to="/admin-applications" onClick={() => setAdminOpen(false)}>{t('nav.applications')}</Link>
           <Link to="/admin-users" onClick={() => setAdminOpen(false)}>{t('nav.users')}</Link>
+          <Link to="/admin-dormitories" onClick={() => setAdminOpen(false)}>{t('nav.dormitories')}</Link>
           <Link to="/verify-documents" onClick={() => setAdminOpen(false)}>{t('nav.verifyDocs')}</Link>
           <Link to="/news-admin" onClick={() => setAdminOpen(false)}>{t('nav.publishNews')}</Link>
         </div>
@@ -133,8 +135,11 @@ export default function Navbar() {
           <div className="navbar">
               <ul className="navbar-items">
                   <li><Link to="/main-page">{t('nav.home')}</Link></li>
+                  <li><Link to="/universities">{t('nav.universities')}</Link></li>
                   <li><Link to="/rooms">{t('nav.rooms')}</Link></li>
-                  <li><button type="button" className='nav-link-button' onClick={handleClickBookNow}>{t('nav.booking')}</button></li>
+                  {!isAdminLike && (
+                    <li><button type="button" className='nav-link-button' onClick={handleClickBookNow}>{t('nav.booking')}</button></li>
+                  )}
                   <li><Link to="/support-chat">{t('nav.supportChat')}</Link></li>
                   <li><Link to="/news">{t('nav.news')}</Link></li>
                   <li><Link to="/about-us">{t('nav.about')}</Link></li>
@@ -143,14 +148,17 @@ export default function Navbar() {
               </ul>
               <ul className="burger-navbar-items" ref={navRef}>
                   <li><Link to="/main-page">{t('nav.home')}</Link></li>
+                  <li><Link to="/universities">{t('nav.universities')}</Link></li>
                   <li><Link to="/rooms">{t('nav.rooms')}</Link></li>
-                  <li><button type="button" className='nav-link-button' onClick={handleClickBookNow}>{t('nav.booking')}</button></li>
-                  <li><Link to="/payment-booking">{t('nav.payment')}</Link></li>
+                  {!isAdminLike && (
+                    <li><button type="button" className='nav-link-button' onClick={handleClickBookNow}>{t('nav.booking')}</button></li>
+                  )}
                   <li><Link to="/support-chat">{t('nav.supportChat')}</Link></li>
                   <li><Link to="/news">{t('nav.news')}</Link></li>
                   {isAdminLike && <li><Link to="/admin-dashboard">{t('nav.analytics')}</Link></li>}
                   {isAdminLike && <li><Link to="/admin-applications">{t('nav.applications')}</Link></li>}
                   {isAdminLike && <li><Link to="/admin-users">{t('nav.users')}</Link></li>}
+                  {isAdminLike && <li><Link to="/admin-dormitories">{t('nav.dormitories')}</Link></li>}
                   {isAdminLike && <li><Link to="/verify-documents">{t('nav.verifyDocs')}</Link></li>}
                   {isAdminLike && <li><Link to="/news-admin">{t('nav.publishNews')}</Link></li>}
                   <li><Link to="/about-us">{t('nav.about')}</Link></li>
@@ -193,9 +201,11 @@ export default function Navbar() {
                                 <Link to='/profile'>{t('nav.profile')}</Link>
                             </div>
                         )}
-                        <div className="menu-item">
-                            <Link to="/my-booking">{t('nav.bookingHistory')}</Link>
-                        </div>
+                        {!isAdminLike && (
+                            <div className="menu-item">
+                                <Link to="/my-booking">{t('nav.bookingHistory')}</Link>
+                            </div>
+                        )}
                         {isAdminLike && (
                             <div className="menu-item">
                                 <Link to="/verify-documents">{t('nav.verifyDocs')}</Link>

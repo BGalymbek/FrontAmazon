@@ -19,7 +19,7 @@ export default function News() {
     useEffect(()=>{
         const getNewsList = async() =>{
             try{
-                const response = await axios.get('http://localhost:8000/news/', {
+                const response = await axios.get('news/', {
                     headers: authTokens?.access
                       ? { Authorization: `Bearer ${authTokens.access}` }
                       : {},

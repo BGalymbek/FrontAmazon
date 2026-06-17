@@ -39,6 +39,9 @@ import EmailVerified from "./containers/EmailVerified";
 import NewsDetail from "./containers/NewsDetail";
 import AdminApplications from "./containers/AdminPages/AdminApplications";
 import AdminUsers from "./containers/AdminPages/AdminUsers";
+import AdminDormitories from "./containers/AdminPages/AdminDormitories";
+import UniversitiesOverview from "./containers/UniversitiesOverview";
+import StudentRoute from "./utils/StudentRoute";
 
 const App = () => {
   return (
@@ -51,17 +54,18 @@ const App = () => {
                 <Route exact path="/document-submission" element={<PrivateRoute><DocumentSubmission/></PrivateRoute>}/>
                 <Route exact path="/verify-documents" element={<PrivateRoute><AdminRoute><VerifyDocs/></AdminRoute></PrivateRoute>}/>
                 <Route exact path="/detailed-doc/:email" element={<PrivateRoute><AdminRoute><UserDocuments/></AdminRoute></PrivateRoute>}/>
-                <Route exact path="/booking" element={<PrivateRoute><Booking/></PrivateRoute>}/>
-                <Route exact path="/confirmation-booking" element={<PrivateRoute><ConfirmationPage/></PrivateRoute>}/>
-                <Route exact path="/payment-booking" element={<PrivateRoute><PaymentBooking/></PrivateRoute>}/>
+                <Route exact path="/booking" element={<PrivateRoute><StudentRoute><Booking/></StudentRoute></PrivateRoute>}/>
+                <Route exact path="/confirmation-booking" element={<PrivateRoute><StudentRoute><ConfirmationPage/></StudentRoute></PrivateRoute>}/>
+                <Route exact path="/payment-booking" element={<PrivateRoute><StudentRoute><PaymentBooking/></StudentRoute></PrivateRoute>}/>
                 <Route exact path="/oops" element={<Oops/>}/>
-                <Route exact path="/my-booking" element={<PrivateRoute><MyBookings/></PrivateRoute>}/>
+                <Route exact path="/my-booking" element={<PrivateRoute><StudentRoute><MyBookings/></StudentRoute></PrivateRoute>}/>
                 <Route exact path="/doc-submitted" element={<DocSumbitted/>}/>
                 <Route exact path="/update-submission" element={<PrivateRoute><UpdateSubmission/></PrivateRoute>}/>
                 <Route exact path="/congrats-booking" element={<CongratsBooking/>}/>
                 <Route exact path="/profile" element={<PrivateRoute><ProfilePage/></PrivateRoute>}/>
                 <Route exact path="/settings" element={<PrivateRoute><Settings/></PrivateRoute>}/>
                 <Route exact path="/rooms" element={<Rooms/>}/>
+                <Route exact path="/universities" element={<UniversitiesOverview/>}/>
                 <Route exact path="/news" element={<News/>}/>
                 <Route exact path="/news-admin" element={<PrivateRoute><AdminRoute><NewsPublish/></AdminRoute></PrivateRoute>}/>
                 <Route exact path="/add-news" element={<PrivateRoute><AdminRoute><AddNews/></AdminRoute></PrivateRoute>}/>
@@ -72,11 +76,12 @@ const App = () => {
                 <Route exact path="/notifications" element={<PrivateRoute><Notifications/></PrivateRoute>}/>
                 <Route exact path="/payment-success" element={<PrivateRoute><PaymentSuccess/></PrivateRoute>}/>
                 <Route exact path="/payment-fail" element={<PrivateRoute><PaymentFail/></PrivateRoute>}/>
-                <Route exact path="/payment-simulator" element={<PrivateRoute><PaymentSimulator/></PrivateRoute>}/>
+                <Route exact path="/payment-simulator" element={<PrivateRoute><StudentRoute><PaymentSimulator/></StudentRoute></PrivateRoute>}/>
                 <Route exact path="/email-verified" element={<EmailVerified/>}/>
                 <Route exact path="/news/:id" element={<PrivateRoute><NewsDetail/></PrivateRoute>}/>
                 <Route exact path="/admin-applications" element={<PrivateRoute><AdminRoute><AdminApplications/></AdminRoute></PrivateRoute>}/>
                 <Route exact path="/admin-users" element={<PrivateRoute><AdminRoute><AdminUsers/></AdminRoute></PrivateRoute>}/>
+                <Route exact path="/admin-dormitories" element={<PrivateRoute><AdminRoute><AdminDormitories/></AdminRoute></PrivateRoute>}/>
                 <Route
                   path="/main-page"
                   element={

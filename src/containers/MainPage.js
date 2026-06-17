@@ -5,6 +5,7 @@ import AuthContext from '../context/AuthContext'
 import axios from 'axios'
 import { useTranslation } from 'react-i18next';
 import { setOopsMessageKey } from '../utils/translateApiError';
+import { isAdminLikeUser } from '../utils/authRoles';
 
 export default function MainPage() {
     const { authTokens } = useContext(AuthContext)
@@ -14,7 +15,8 @@ export default function MainPage() {
     const [userProfile, setUserProfile] = useState('')
 
     const navigate = useNavigate();
-    const hasActiveBooking = Array.isArray(userBookedEarlier) && userBookedEarlier.length > 0;
+    const isAdmin = isAdminLikeUser(authTokens?.user);
+    const hasActiveBooking = !isAdmin && Array.isArray(userBookedEarlier) && userBookedEarlier.length > 0;
 
     const handleClickBookNow = async ()=> {
         const response = await axios.get('documents/get/', {
@@ -46,6 +48,9 @@ export default function MainPage() {
     }
 
     useEffect(() => {
+        if (isAdmin) {
+            return;
+        }
         const fetchData = async () => {
             try {
                 // Выполняем GET запрос
@@ -64,8 +69,8 @@ export default function MainPage() {
             }
         };
 
-        fetchData(); // Вызов функции для выполнения запроса при загрузке компонента
-    }, [authTokens]);
+        fetchData();
+    }, [authTokens, isAdmin]);
     localStorage.setItem('userBookedEarlier', JSON.stringify(userBookedEarlier))
 
     useEffect(() => {
@@ -99,35 +104,43 @@ export default function MainPage() {
                     <h1>{t('main.title')}</h1>
                     <p>{t('main.heroDesc')}</p>
                     <div className="btn-group">
-                        <>
-                            {hasActiveBooking ? (
-                                <button className="btn-book" onClick={()=>navigate('/my-booking')}>{t('main.myBookings')}</button>
-                            ):(
-                                <button className="btn-book" onClick={()=>handleClickBookNow()}>{t('main.bookNow')}</button>
-                            )}
-
-                            {hasActiveBooking && (
-                                <button className="btn-submission" onClick={()=>navigate('/payment-booking')}>
-                                    {t('main.paymentPage')}
+                        {isAdmin ? (
+                            <>
+                                <button className="btn-book" onClick={() => navigate('/admin-dashboard')}>
+                                    {t('nav.adminPanel')}
                                 </button>
-                            )}
-
-                            {!hasActiveBooking && (
-                                <button className="btn-submission" onClick={()=>navigate('/booking')}>
-                                    {t('main.openBooking')}
+                                <button className="btn-submission" onClick={() => navigate('/admin-dormitories')}>
+                                    {t('nav.dormitories')}
                                 </button>
-                            )}
+                                <button className="btn-submission" onClick={() => navigate('/verify-documents')}>
+                                    {t('nav.verifyDocs')}
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                {hasActiveBooking ? (
+                                    <button className="btn-book" onClick={() => navigate('/my-booking')}>{t('main.myBookings')}</button>
+                                ) : (
+                                    <button className="btn-book" onClick={() => handleClickBookNow()}>{t('main.bookNow')}</button>
+                                )}
 
-                            <button className="btn-submission" onClick={()=>navigate('/support-chat')}>
-                                {t('main.supportChat')}
-                            </button>
+                                {!hasActiveBooking && (
+                                    <button className="btn-submission" onClick={() => navigate('/booking')}>
+                                        {t('main.openBooking')}
+                                    </button>
+                                )}
 
-                            {userProfile?.is_doc_submitted === true ? (
-                                <button className="btn-submission" onClick={()=>navigate('/update-submission')}>{t('main.updateSubmission')}</button>
-                            ):(
-                                <button className="btn-submission" onClick={()=>navigate('/document-submission')}>{t('main.documentSubmission')}</button>
-                            )}
-                        </>
+                                <button className="btn-submission" onClick={() => navigate('/support-chat')}>
+                                    {t('main.supportChat')}
+                                </button>
+
+                                {userProfile?.is_doc_submitted === true ? (
+                                    <button className="btn-submission" onClick={() => navigate('/update-submission')}>{t('main.updateSubmission')}</button>
+                                ) : (
+                                    <button className="btn-submission" onClick={() => navigate('/document-submission')}>{t('main.documentSubmission')}</button>
+                                )}
+                            </>
+                        )}
                     </div>
                 </div>
                 <div className="dorm-img">
@@ -140,31 +153,45 @@ export default function MainPage() {
             <h2>{t('main.quickActionsTitle')}</h2>
             <p>{t('main.quickActionsDesc')}</p>
             <div className='quick-actions-grid'>
-              <button className='quick-action-card' onClick={handleClickBookNow}>
-                <h3>{t('main.bookNow')}</h3>
-                <p>{t('main.quickBookDesc')}</p>
-              </button>
-              <button className='quick-action-card' onClick={() => navigate('/my-booking')}>
-                <h3>{t('main.myBookings')}</h3>
-                <p>{t('main.quickMyBookingDesc')}</p>
-              </button>
-              <button
-                className='quick-action-card'
-                onClick={() => navigate('/payment-booking')}
-                disabled={!hasActiveBooking}
-                title={!hasActiveBooking ? t('main.paymentDisabledHint') : ''}
-              >
-                <h3>{t('main.paymentPage')}</h3>
-                <p>{hasActiveBooking ? t('main.quickPaymentDesc') : t('main.paymentDisabledHint')}</p>
-              </button>
-              <button className='quick-action-card' onClick={() => navigate('/support-chat')}>
-                <h3>{t('main.supportChat')}</h3>
-                <p>{t('main.quickChatDesc')}</p>
-              </button>
-              <button className='quick-action-card' onClick={() => navigate('/document-submission')}>
-                <h3>{t('main.documentSubmission')}</h3>
-                <p>{t('main.quickDocsDesc')}</p>
-              </button>
+              {isAdmin ? (
+                <>
+                  <button className='quick-action-card' onClick={() => navigate('/admin-dashboard')}>
+                    <h3>{t('nav.analytics')}</h3>
+                    <p>{t('main.quickAdminDashboardDesc')}</p>
+                  </button>
+                  <button className='quick-action-card' onClick={() => navigate('/admin-dormitories')}>
+                    <h3>{t('nav.dormitories')}</h3>
+                    <p>{t('main.quickAdminDormDesc')}</p>
+                  </button>
+                  <button className='quick-action-card' onClick={() => navigate('/verify-documents')}>
+                    <h3>{t('nav.verifyDocs')}</h3>
+                    <p>{t('main.quickAdminDocsDesc')}</p>
+                  </button>
+                  <button className='quick-action-card' onClick={() => navigate('/universities')}>
+                    <h3>{t('nav.universities')}</h3>
+                    <p>{t('main.quickUniversitiesDesc')}</p>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button className='quick-action-card' onClick={handleClickBookNow}>
+                    <h3>{t('main.bookNow')}</h3>
+                    <p>{t('main.quickBookDesc')}</p>
+                  </button>
+                  <button className='quick-action-card' onClick={() => navigate('/my-booking')}>
+                    <h3>{t('main.myBookings')}</h3>
+                    <p>{t('main.quickMyBookingDesc')}</p>
+                  </button>
+                  <button className='quick-action-card' onClick={() => navigate('/support-chat')}>
+                    <h3>{t('main.supportChat')}</h3>
+                    <p>{t('main.quickChatDesc')}</p>
+                  </button>
+                  <button className='quick-action-card' onClick={() => navigate('/document-submission')}>
+                    <h3>{t('main.documentSubmission')}</h3>
+                    <p>{t('main.quickDocsDesc')}</p>
+                  </button>
+                </>
+              )}
             </div>
         </section>
         <section className="main-points">

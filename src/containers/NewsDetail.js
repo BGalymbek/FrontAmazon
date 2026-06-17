@@ -18,7 +18,7 @@ export default function NewsDetail() {
         const headers = authTokens?.access
           ? { Authorization: `Bearer ${authTokens.access}` }
           : {};
-        const response = await axios.get(`http://localhost:8000/news-detail/${id}/`, { headers });
+        const response = await axios.get(`news-detail/${id}/`, { headers });
         setNewsItem(response.data);
       } catch (err) {
         setError(t('news.loadError'));

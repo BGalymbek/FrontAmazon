@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import axios from 'axios'
 import Navbar from '../../components/Navbar'
 import AuthContext from '../../context/AuthContext';
 
@@ -15,16 +16,12 @@ export default function NewsPublish() {
     useEffect(()=>{
         const getNewsList = async() =>{
             try{
-                const response = await fetch('http://localhost:8000/news/', {
-                    method: 'GET',
+                const response = await axios.get('news/', {
                     headers: {
-                        'Authorization': `Bearer ${authTokens.access}`,
+                        Authorization: `Bearer ${authTokens.access}`,
                     },
-            });
-
-                const res = await response.json();
-                setNewsList(res)
-                console.log(res);
+                });
+                setNewsList(Array.isArray(response.data) ? response.data : [])
             }catch(err){
                 console.error('Ошибка при получении списка документов:', err);
             }

@@ -1,0 +1,245 @@
+.universities-page {
+  min-height: 100vh;
+  background: var(--bg, #f4f8ff);
+}
+
+.universities-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+.universities-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 16px 40px rgba(16, 24, 40, 0.08);
+  margin-bottom: 28px;
+}
+
+.universities-hero h1 {
+  margin: 0 0 8px;
+  font-size: 34px;
+  color: #0f172a;
+}
+
+.universities-hero p {
+  margin: 0;
+  color: #667085;
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+.universities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.university-card {
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(16, 24, 40, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.university-card-image-wrap {
+  height: 180px;
+  background: linear-gradient(135deg, #dbeafe, #eff6ff);
+}
+
+.university-card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.university-card-placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 800;
+  color: #1f3a8a;
+}
+
+.university-card-body {
+  padding: 22px;
+}
+
+.university-card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.university-card-head h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.university-city {
+  color: #667085;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.university-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.university-stat {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.university-stat .label {
+  display: block;
+  color: #667085;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.university-stat strong {
+  font-size: 20px;
+  color: #0f172a;
+}
+
+.university-stat strong.available {
+  color: #059669;
+}
+
+.university-occupancy-top {
+  display: flex;
+  justify-content: space-between;
+  color: #475467;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.university-occupancy-bar {
+  height: 10px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.university-occupancy-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #1f3a8a);
+  border-radius: 999px;
+}
+
+.university-price {
+  margin: 16px 0 0;
+  font-weight: 700;
+  color: #1f3a8a;
+}
+
+.universities-muted {
+  color: #667085;
+}
+
+.admin-dorm-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: #475467;
+}
+
+.admin-dorm-form input {
+  padding: 12px 14px;
+  border: 1px solid #d0d5dd;
+  border-radius: 12px;
+}
+
+.admin-dorm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.admin-dorm-rooms {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.admin-dorm-room-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 12px;
+}
+
+.admin-dorm-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-dorm-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eaecf0;
+}
+
+.admin-dorm-item:last-child {
+  border-bottom: none;
+}
+
+.admin-dorm-item h3 {
+  margin: 0 0 6px;
+}
+
+.admin-dorm-item p {
+  margin: 0 0 4px;
+  color: #667085;
+}
+
+.admin-dorm-item-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #344054;
+  font-size: 14px;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .universities-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-dorm-grid,
+  .admin-dorm-room-row {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dorm-item {
+    flex-direction: column;
+  }
+
+  .admin-dorm-item-stats {
+    text-align: left;
+  }
+}
