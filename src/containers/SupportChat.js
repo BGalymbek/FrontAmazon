@@ -56,7 +56,7 @@ export default function SupportChat() {
             headers: { Authorization: `Bearer ${authTokens.access}` },
           }
         );
-        setMessages([{ role: 'assistant', text: response.data.reply }]);
+        setMessages([{ role: 'assistant', text: response.data.reply, engine: response.data.engine }]);
         setSuggestions(response.data.suggestions || []);
       } catch (error) {
         setMessages([
@@ -100,7 +100,7 @@ export default function SupportChat() {
       );
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', text: response.data.reply },
+        { role: 'assistant', text: response.data.reply, engine: response.data.engine },
       ]);
       setSuggestions(response.data.suggestions || []);
     } catch (error) {
@@ -160,6 +160,12 @@ export default function SupportChat() {
             )}
             <div ref={messagesEndRef} />
           </div>
+
+          {messages.length > 0 && messages[messages.length - 1]?.engine && (
+            <p className="support-chat-engine-hint" style={{ fontSize: '0.75rem', opacity: 0.6, margin: '4px 12px' }}>
+              {messages[messages.length - 1].engine === 'gemini' ? '✦ AI (Gemini)' : messages[messages.length - 1].engine === 'builtin' ? '' : `✦ ${messages[messages.length - 1].engine}`}
+            </p>
+          )}
 
           {suggestions.length > 0 && !loading && (
             <div className="support-chat-suggestions">
